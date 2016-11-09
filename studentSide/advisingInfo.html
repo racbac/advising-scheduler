@@ -1,0 +1,73 @@
+<html>
+<head>
+<title></title>
+</head>
+<body>
+
+<form action='advisingInfo.php' method='post' name='studentAdvisingInfo'>
+  Goals: Having a goal in mind makes it easier for you to define success.<br/><br/>
+  What are your plans for the future once your UMBC degree is complete? 
+  <br/><br/>
+  <textarea rows='4' cols='50' type='text' name='futurePlans' required>
+  </textarea>
+  <br/><br/>
+
+  What resources have you used in order to learn more about your career/educatioinal goals? 
+  <br/><br/>
+  <textarea rows='4' cols='50' type='text' name='resources' required>
+  </textarea>
+  <br/><br/>
+
+  What research/internship/clinical experience do you have, if any? 
+  <br/><br/>
+  <textarea rows='4' cols='50' type='text' name='experience' required>
+  </textarea>
+  <br/><br/>
+
+
+  Evaluating and Planning Ahead: Planning for the future requires evaluating today.
+
+  need grid text boxes for above^
+
+
+
+  Degree Audit: Degree Audit is a helpful tool when choosing your classes and planning for graduation. Track your progress below. In order to access Degree Audit follow these steps: <br/><br/>
+  Login to myUMBC >> Topics >> Advising and Student Support >> Degree Audit >> Expand All Button<br/><br/>
+  Graduation Requirements:<br/><br/>
+  <input type='smallint' size='5' maxlength='5' name='credits_earned' required> Number of Credits Earned (120 required)<br/><br/>
+  <input type='float' name='gpa' required> Current GPA (minimum GPA of 2.00 required)
+  <input type='smallint' size='5' maxlength='5' name='upper_credits' required> Number of Upper Level Credits Earned (45 required)
+  <input type='boolean' size='5' maxlength='5' name='writing_intensive' required> 1 Writing Intensive Course
+  <input type='tinyint' size='3' maxlength='3' name='phys_ed' required> 2 Physical Education Courses
+
+new column
+
+
+
+General Education Requirements:
+  <input type='boolean'  name='english' required> English Composition
+  <input type='tinyint' size='3' maxlength='3' name='arts_hum' required> 3 Arts and Humanities
+  <input type='tinyint' size='3' maxlength='3' name='soc_sci' required> 3 Social Sciences
+  <input type='boolean' name='math' required> 1 Math and 2 Sciences (included in major)
+  <input type='tinyint' size='3' maxlength='3' name='culture' required> Culture (BS-1, BA-2)
+  <input type='boolean' name='req_201_lang' required> 201 Language Proficiency
+
+
+Assess Your Academic Progress: Make good academic decisions by identifying your strengths and weaknesses. <br/><br/>
+
+Think about your academic performance this semester. What are you most proud of? What are you most disappointed in? How do you plan to continue/improve your academic habits next semester?<br/><br/>
+  <textarea rows='4' cols='50' type='text' name='assessment' required>
+  </textarea>
+  <br/><br/>
+  
+I have used the following academic resources/strategies this semester: (Select all that Apply)
+
+
+
+
+
+  <input type='submit' value='Save'>
+</form>
+
+</body>
+</html>
