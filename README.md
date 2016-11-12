@@ -1,14 +1,13 @@
 # CMSC 331 Project 2
 
 ## Project Collaborators
-Felipe Bastos
-Rachel Brackert
-Travis Earley
-Nathaniel Fuller
-Colin Ganley
+Felipe Bastos, Rachel Brackert, Travis Earley, Nathaniel Fuller, Colin Ganley
 
 ## Tentitative Due Date
 2016-Dec-13
+
+### Tentative Presentation Schedule
+2016-Dec-21: 10:00, 11:00, or 13:00
 
 ## Project Workflow
 Github will be used as the repository manager. Five collaborators work on their own branches to ensure project integrity. When changes are sufficiently finalized, these branches will be merged with master. Each collaborator has his or her own working branch rather than a feature branch.
@@ -17,9 +16,11 @@ Please run git pull periodically to pull in changes to master and avoid merge co
 
 Github branching documentation [here](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging).
 
+Rebasing and squashing [here](https://help.github.com/articles/about-git-rebase/).
+
 ## Project Description
 
-The project files were given by another group within the class. These will be reviewed and modified per the group's discussion as indicated in the project description on Blackboard.
+The project files were created by another group within the class. These will be reviewed and modified per the developer's discussion and as indicated in the project description on Blackboard.
 
 ## Acceptance Criteria
 
