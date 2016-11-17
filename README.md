@@ -1,12 +1,16 @@
 # CMSC 331 Project 2
 
 ## Project Collaborators
-Felipe Bastos, Rachel Brackert, Travis Earley, Nathaniel Fuller, Colin Ganley
++ Felipe Bastos fbastos1@umbc.edu
++ Rachel Brackert bac2@umbc.edu
++ Travis Earley te4@umbc.edu
++ Nathaniel Fuller fullern1@umbc.edu
++ Colin Ganley cganley1@umbc.edu
 
 ## Tentitative Due Date
 2016-Dec-13
 
-### Tentative Presentation Schedule
+## Tentative Presentation Schedule
 2016-Dec-21: 10:00, 11:00, or 13:00
 
 ## Project Workflow
@@ -25,4 +29,26 @@ The project files were created by another group within the class. These will be 
 ## Acceptance Criteria
 
 ## Architecture
+
+There are five components to the project each housed in their own directory.
++ AdvisorManager - creation and update of advisor user information
++ AppointmentManager - creation and update of scheduled appointments
++ LoginPage - secure user login with authentication
++ ScheduleViewer - calendar view of the scheduled appointments
++ StudentManager - creation and update of student user information
+
+#### Frontent
+Static HTML pages with CSS formatting
+
+#### Business Layer
+Logic layer writter in php
+
+#### Backend
+UMBC provided MariaDB which uses MySQL. To access the project tables run:
+    ' mysql -h studentdb-maria.gl -u 'cganley1' -p '
+The password for the project is peasandcarrots. These credentials are stored in the CommonMethods.php file.
+
+#### Database Schema
+More on this later
+
 
