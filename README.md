@@ -1,26 +1,54 @@
 # CMSC 331 Project 2
 
 ## Project Collaborators
-Felipe Bastos
-Rachel Brackert
-Travis Earley
-Nathaniel Fuller
-Colin Ganley
++ Felipe Bastos fbastos1@umbc.edu
++ Rachel Brackert bac2@umbc.edu
++ Travis Earley te4@umbc.edu
++ Nathaniel Fuller fullern1@umbc.edu
++ Colin Ganley cganley1@umbc.edu
 
 ## Tentitative Due Date
 2016-Dec-13
 
-## Project Workflow
-We will be using github for our project workflow. Because we have five collaborators we will be working on our own branches to ensure project integrity. When our changes are sufficiently finalized, these branches will be merged [with master. Each collaborator will have his or her own working branch rather than a feature branch.
+## Tentative Presentation Schedule
+2016-Dec-21: 10:00, 11:00, or 13:00
 
-Github Branching [here](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging)
+## Project Workflow
+Github will be used as the repository manager. Five collaborators work on their own branches to ensure project integrity. When changes are sufficiently finalized, these branches will be merged with master. Each collaborator has his or her own working branch rather than a feature branch.
+
+Please run git pull periodically to pull in changes to master and avoid merge conflicts. When a personal branch is sufficiently modified to include the project changes a pull request will be open. This means that all code submitted is open to peer review. Once appropriate changes are made and with approval, the branch will be merged into master.
+
+Github branching documentation [here](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging).
+
+Rebasing and squashing [here](https://help.github.com/articles/about-git-rebase/).
 
 ## Project Description
+
+The project files were created by another group within the class. These will be reviewed and modified per the developer's discussion and as indicated in the project description on Blackboard.
 
 ## Acceptance Criteria
 
 ## Architecture
 
---I should really learn how to squash commits--
+There are five components to the project each housed in their own directory.
++ AdvisorManager - creation and update of advisor user information
++ AppointmentManager - creation and update of scheduled appointments
++ LoginPage - secure user login with authentication
++ ScheduleViewer - calendar view of the scheduled appointments
++ StudentManager - creation and update of student user information
+
+#### Frontent
+Static HTML pages with CSS formatting
+
+#### Business Layer
+Logic layer writter in php
+
+#### Backend
+UMBC provided MariaDB which uses MySQL. To access the project tables run:
+    ' mysql -h studentdb-maria.gl -u 'cganley1' -p '
+The password for the project is peasandcarrots. These credentials are stored in the CommonMethods.php file.
+
+#### Database Schema
+More on this later
 
 
