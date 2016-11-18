@@ -6,9 +6,9 @@
 
 for i in */*.php
     do
-        if ! grep -q "/*phpHeader" $i
+        if ! grep -q "<!--htmlHeader" $i
         then
-            cat phpHeader.txt $i >$i.new && mv $i.new $i
+            cat htmlHeader.txt $i >$i.new && mv $i.new $i
         fi
 done 
 

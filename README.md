@@ -7,11 +7,16 @@
 + Nathaniel Fuller fullern1@umbc.edu
 + Colin Ganley cganley1@umbc.edu
 
-## Tentitative Due Date
-2016-Dec-13
 
-## Tentative Presentation Schedule
-2016-Dec-21: 10:00, 11:00, or 13:00
+## Project Deadlines
+|------------|--------------------------------------|
+|2016-Nov-25 | Business use cases [https://en.wikipedia.org/wiki/Use_case#Business_Use_Case] |
+|2016-Dec-07 | Show client nearly completed project |
+|2016-Dec-20 | Code and documentation |
+|2016-Dec-21: 10:00, 11:00, or 13:00 (Felipe may need this changed) | Tentative pres. schedule |
+
+## Submitting
+`cp proj2.zip /afs/umbc.edu/users/s/l/slupoli/pub/cs331/USERNAME/proj2`
 
 ## Project Workflow
 Github will be used as the repository manager. Five collaborators work on their own branches to ensure project integrity. When changes are sufficiently finalized, these branches will be merged with master. Each collaborator has his or her own working branch rather than a feature branch.
@@ -27,6 +32,8 @@ Rebasing and squashing [here](https://help.github.com/articles/about-git-rebase/
 The project files were created by another group within the class. These will be reviewed and modified per the developer's discussion and as indicated in the project description on Blackboard.
 
 ## Acceptance Criteria
+
+See this[http://userpages.umbc.edu/~slupoli/notes/ProgLanguages/projects/CollegeWideAdvising/part2/supplements/].
 
 ## Architecture
 
@@ -50,5 +57,3 @@ The password for the project is peasandcarrots. These credentials are stored in 
 
 #### Database Schema
 More on this later
-
-
