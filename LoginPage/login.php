@@ -11,17 +11,11 @@ session_start();
 
 <html>
 <head>
-  <title>Login</title>
+  <title> Register </title>
 </head>
 <body>
 
-  <?php
-   if($_SESSION['userToken'] == false) { echo "Invalid username/password combination."; }
-   $_SESSION['advisorExists'] = false;
-   $_SESSION['confirmedPass'] = false;
-   ?>
-
-<form action='loginAuth.php' method='post' name='AdvisorLogin'>
+<form action='processLogin.php' method='post' name='UserLogin'>
   <div class='field'>
     <label for='username'>Username:</label>
     <input id='username' type='text' name='username' required>
@@ -29,7 +23,7 @@ session_start();
 
   <div class='field'>
     <label for='password'>Password</label>
-    <input id='password' type='password' name='pass' required>
+    <input id='password' type='password' name='password' required>
   </div>
 
   <div class='loginButton'>
