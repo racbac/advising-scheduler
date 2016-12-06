@@ -48,6 +48,170 @@ header {
 	color: #aaa;
 }
 
+#Main-Form {
+	text-align: center;
+	margin-right: 0;
+	margin-left: 0;
+	margin-bottom: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	position: relative;
+	display: block;
+}
+
+.inputField {
+	padding: 8px;
+	width: 70%;
+	margin: 10px;
+	border-radius: 2px;
+	border: solid;
+	border-width: 1px;
+	border-color: rgb(171, 171, 171);
+	outline: none;
+	color: rgba(100, 100, 100, 1);
+	
+	-webkit-transition: all 600ms cubic-bezier(0.19,1,0.22,1);
+	transition: all 600ms cubic-bezier(0.19,1,0.22,1);
+}
+
+.inputField:focus {
+	border-color: #707070;
+	width: 72%;
+}
+
+.inputField:hover {
+	border-color: #909090;
+}
+
+.inputField:focus::placeholder {
+	/*color: #e0e0e0;*/
+}
+
+.inputField:focus::-webkit-input-placeholder {
+	/*color: #e0e0e0;*/
+}
+
+.inputField::placeholder {
+	color: rgba(160, 160, 160, 1);	
+}
+
+.inputField::-webkit-input-placeholder {
+	color: rgba(200, 200, 200, 1);
+}
+
+#Login {
+	margin: 10px 0 10px 0;
+}
+
+#CreateAcc {
+	margin-right: 57%;
+}
+
+.submit {
+	background-color: rgba(100, 180, 100, 1);
+	border: none;
+	margin: 15px;
+	padding: 7px 15px 7px 15px;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 22px;
+	width: 120px;
+	color: rgba(70,70,70,1.00);
+	display: inline-block;
+	border-radius: 1px;
+	
+	transition: all 600ms cubic-bezier(0.19,1,0.22,1);
+	-webkit-transition: background-color 600ms cubic-bezier(0.19,1,0.22,1);
+}
+
+.submit span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 600ms;	
+}
+
+.submit span:after {
+	content: ' »';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -15px;
+	transition: 600ms;
+}
+
+.submit:hover span {
+	padding-right: 25px;
+}
+
+.submit:hover span:after {
+	opacity: 1;
+	right: 5px;
+}
+
+.submit:hover {
+	background-color: rgba(110, 190, 110, 1);
+	color: rgba(40,40,40,1.00);
+}
+
+
+.button {
+	background-color: rgba(170, 170, 170, 1);
+	border: none;
+	margin-top: 15px;
+	padding: 5px 5px 5px 5px;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 14px;
+	width: 25%;
+	color: rgba(70,70,70,1.00);
+	display: inline-block;
+	border-radius: 1px;
+	
+	transition: all 600ms cubic-bezier(0.19,1,0.22,1);
+	-webkit-transition: background-color 600ms cubic-bezier(0.19,1,0.22,1);
+}
+
+.button span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 600ms;	
+}
+
+.button span:after {
+	content: ' »';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -15px;
+	transition: 600ms;
+}
+
+.button:hover span {
+	padding-right: 25px;
+}
+
+.button:hover span:after {
+	opacity: 1;
+	right: 5px;
+}
+
+.button:hover {
+	background-color: rgba(200, 200, 200, 1);
+	color: rgba(40,40,40,1.00);
+}
+
+.left {
+	margin-right: 40%;
+}
+
+#Buttons {
+	width: 72%;
+	text-align: right;
+	margin: auto;	
+}
+
 .umbc-logo {
 	width: 35%;
 	margin: 3px 10px 3px 0;
