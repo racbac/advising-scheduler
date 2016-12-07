@@ -16,7 +16,6 @@
     <body>
         <header>
             <div class="navigation_bar">
-                <a href="advisingInfo.php">Additional Information</a>
                 <a href="../ScheduleViewer/searchAppointments.php">Search Appointments</a>
                 <a href="../LoginManager/processLogout.php">Logout</a>
             </div>
