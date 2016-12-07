@@ -22,13 +22,6 @@
   $username = $_SESSION['username'];
   $password = $_SESSION['password'];
 
-  //adds to login attempts metadata
-  $sql = "INSERT INTO login_attempts" .
-  "(username)".
-  "VALUES ".
-  "('$username')";
-  $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-
   //gets user from user db
   $sql = "SELECT * FROM `users` WHERE `username` = '$username' AND `password` = '$password'";
   $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
