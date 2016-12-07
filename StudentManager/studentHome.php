@@ -36,12 +36,12 @@
 
                 // get basic info
                 $curr_user = $_SESSION['username'];
-                $sql = "SELECT `firstName`,`lastName`,`appointment_ID` FROM `users` WHERE `username` = '".$curr_user."'";
+                $sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = '".$curr_user."'";
                 $rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
                 $user_data = mysql_fetch_assoc($rs);
 
                 // get academic info
-                $sql = "SELECT `major` FROM students_academic_info WHERE `username` = '".$curr_user."'";
+                $sql = "SELECT `major`,`appointmentID` FROM students_academic_info WHERE `username` = '".$curr_user."'";
                 $rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
                 $academic_data = mysql_fetch_assoc($rs);
                 
@@ -52,7 +52,7 @@
         <h2>Appointment Info</h2>
             <?php
                 // get appt info
-                $sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = '".$user_data['appointment_ID']."'";
+                $sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = '".$academic_data['appointmentID']."'";
                 $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
                 $appt_data = mysql_fetch_assoc($rs);
                 // display appointment or lack thereof
