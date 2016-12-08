@@ -36,12 +36,16 @@ RawBlameHistory
   //gets user from user db
   $sql = "SELECT * FROM `users` WHERE `username` = '$username' AND `password` = '$password'";
   $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-  $row = mysql_fetch_row($rs);
+  $row = mysql_fetch_assoc($rs);
 //if user is in db
 if($row) {
-    $_SESSION['username'] = $row['1']; //assign user if needed
+    $_SESSION['username'] = $row['username']; //assign user if needed
     $_SESSION['userToken'] = true; //a validated user
-    header('Location: ../homescreen.php');
+    if ($row['userRole'] == "advisor") {
+        header('Location: ../AdvisorManager/advisorHome.php');
+    } else {
+        header('Location: ../StudentManager/studentHome.php');
+    }
 }
 //else returns to login page
 else {
