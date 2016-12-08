@@ -7,7 +7,7 @@
 
 <?php
 session_start();
-include ('CommonMethods.php');
+include ('../CommonMethods.php');
 $COMMON = new Common(false);
 
 $_SESSION['date'] = $_POST['date'];
