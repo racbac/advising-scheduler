@@ -31,7 +31,7 @@ session_start();
   </div>
 </form>
 
-<form action = "register.php" method="get">
+<form action = "createAccount.php" method="get">
    <div class='field'>
       <label for='submit'>Don't have an account set up?</label>
       <input type='submit' value='Register'>
