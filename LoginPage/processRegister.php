@@ -22,36 +22,25 @@
   $username = $_POST['username'];
   $password1 = sha1($_POST['password1']);
   $password2 = sha1($_POST['password2']);
-
-  $formRole = $_POST['studentRB'];
-
-  if(formRole) { 
-    $role = 'student';
-  } else {
-    $role = 'advisor';
-  }
+  $formRole = $_POST['formRole'];
 
   //if passwords do not match redirect to error
-  if (password1 != password2) {
-      header('Location: ../error.html');
+  if ($password1 != $password2) {
+     header('Location: ../error.html');
   }
 
-  //adds registration attempt to metadata
-  //a registered user is considered logged in
-  $sql = "INSERT INTO login_attempts" .
-  "(username)".
-  "VALUES ".
-  "('$username')";
-  $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-
   //adds user to db
-  $sql = "INSERT INTO secure_login" .
+  $sql = "INSERT INTO users" .
   "(firstName, lastName, username, userRole, email, password)" .
   "VALUES " .
-  "('$firstName', '$lastName', '$username', ROLEl, '$email', '$passsword')";
+  "('$firstName', '$lastName', '$username', '$formRole', '$email', '$password1')";
   $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 
-  //redirects for login
+  echo '<pre>';
+    var_dump($_SESSION);
+  echo '</pre>';
+
+  //redirects for login 
   header('Location: ./login.php');
 
 ?>
