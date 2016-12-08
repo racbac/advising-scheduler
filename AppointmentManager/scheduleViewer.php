@@ -5,7 +5,7 @@
 
 session_start();
 // Common methods
-include('CommonMethods.php');
+include('../CommonMethods.php');
 $COMMON = new Common(false);
 
 // Get current user name and check if advisor
