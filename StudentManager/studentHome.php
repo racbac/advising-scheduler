@@ -16,7 +16,7 @@
     <body>
         <header>
             <div class="navigation_bar">
-                <a href="../ScheduleViewer/searchAppointments.php">Search Appointments</a>
+                <a href="../AppointmentManager/viewAppts.php">Search Appointments</a>
                 <a href="../LoginPage/processLogout.php">Logout</a>
             </div>
         </header>
