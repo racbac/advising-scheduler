@@ -21,7 +21,7 @@
 
 <?php
 session_start();
-include ('CommonMethods.php');
+include ('../CommonMethods.php');
 $COMMON = new Common(false);
 
 // All variables
