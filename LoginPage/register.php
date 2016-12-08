@@ -23,12 +23,12 @@ session_start();
 
   <div class='field'>
     <label for='lastName'>Last Name</label>
-    <input id='lastName' type='text' name='lastname' required>
+    <input id='lastName' type='text' name='lastName' required>
   </div>
 
   <div class='field'>
     <label for='email'>Email</label>
-    <input id='email' type='text' name='lastname' required>
+    <input id='email' type='text' name='email' required>
   </div>
 
   <div class='field'>
@@ -38,18 +38,19 @@ session_start();
 
   <div class='field'>
     <label for='password1'>Password</label>
-    <input id='password1' type='password' name='pass1' required>
+    <input id='password1' type='password' name='password1' required>
   </div>
 
   <div class='field'>
     <label for='password2'>Repeat Password</label>
-    <input id='password2' type='password' name='pass2' required>
+    <input id='password2' type='password' name='password2' required>
   </div>
 
-  <div class='roleButton'>
-    <input id='studentRB' type='radio' name='chooseone' value="Student" checked="checked"><label for="Student">Student</label>
-    <input id='advisorRB' type='radio' name='chooseone' value="Advisor"><label for="Advisor">Advisor</label>
-  </div>
+  <label>Role</label>
+  <select name="formRole">
+    <option value = "student" name='student'>Student</option>
+    <option value = "advisor" name='advisor'>Advisor</option>
+  </select>
 
   <div class='registerButton'>
     <input type='submit' value='Register'>

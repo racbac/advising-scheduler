@@ -14,20 +14,12 @@
 
   //sets session vars
   $_SESSION['username'] = $_POST['username'];
-  $_SESSION['password'] = sha1($_POST['password']);
 
   //a password should never be part of an HTTP POST
 
   //get session vars to php for db connection
   $username = $_SESSION['username'];
-  $password = $_SESSION['password'];
-
-  //adds to login attempts metadata
-  $sql = "INSERT INTO login_attempts" .
-  "(username)".
-  "VALUES ".
-  "('$username')";
-  $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+  $password = sha1($_POST['password']);
 
   //gets user from user db
   $sql = "SELECT * FROM `users` WHERE `username` = '$username' AND `password` = '$password'";
@@ -38,14 +30,6 @@
 if($row) {
     $_SESSION['username'] = $row['1']; //assign user if needed
     $_SESSION['userToken'] = true; //a validated user
-    //no saving password hash
-    unset($_SESSION['password']);
-
-    $username = $_SESSION['username'];
-
-    echo('<pre>');
-    var_dump($_SESSION);
-    echo('<pre>');
 
     header('Location: ../homescreen.php');
 }
@@ -53,10 +37,6 @@ if($row) {
 //else returns to login page
 else {
     session_unset();
-    header('Location: ../error.html');
+    header('Location: login.php');
 }
-    echo('<pre>');
-    var_dump($_SESSION);
-    echo('</pre>');
-
 ?>
