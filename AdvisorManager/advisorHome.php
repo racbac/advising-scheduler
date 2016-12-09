@@ -34,7 +34,7 @@ input[type=submit] {
 </head>
 <body>
 <h2>Welcome, <?php echo "$user";?></h2>
-<a href="../AppointmentManager/createAppt.php">Create an Appointment</a>
+<a href="../AppointmentManager/createAppt.html">Create an Appointment</a>
 <a href="../LoginPage/processLogout.php">Logout</a>
 </form>
 

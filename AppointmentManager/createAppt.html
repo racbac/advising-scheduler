@@ -9,13 +9,15 @@
 
 </head>
 
-<form action="confirmAppt.php" method="post" id="Main-form">
+<form action="createAppt.php" method="post" id="Main-form">
   Meeting Date: 
   <input type="date" name="date">
   <!-- LINE BREAK -->
   <br>
   <!-- LINE BREAK -->
   Start Time:
+  <input type="time" name="startTime" value="08:30" />
+  <!--
   <select name="startHour">
     <option value="1">1</option>
     <option value="2">2</option>
@@ -38,11 +40,14 @@
     <option value="AM">AM</option>
     <option value="PM">PM</option>
   </select>
+  -->
   <!-- LINE BREAK -->
   <br>
   <!-- LINE BREAK -->
   End Time:
-  <select name="endHour">
+  <input type="time" name="endTime" value="09:00" />
+  
+  <!--<select name="endHour">
     <option value="8">8</option>
     <option value="9">9</option>
     <option value="10">10</option>
@@ -56,12 +61,12 @@
   <select name="endMin">
     <option value="00">00</option>
     <option value="30">30</option>
-  </select>
+  </select>-->
   <!-- LINE BREAK -->
   <br>
   <!-- LINE BREAK -->
   Appointment Size:
-  <input type="number" name="apptSize" min="1" max="40">
+  <input type="number" name="apptSize" placeholder="1-40" min="1" max="40">
   <!-- LINE BREAK -->
   <br>
   <!-- LINE BREAK -->

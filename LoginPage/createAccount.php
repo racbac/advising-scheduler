@@ -35,7 +35,7 @@ Users enter new account information using this sticky form.
         
         <div> First Name: <input type='varchar' size='10' maxlength='40' name='firstName' value="<?php if(isset($_POST['firstName'])) echo($_POST['firstName']); ?>" required></div>
         <div> Last Name: <input type='varchar' size='10' maxlength='40' name='lastName' value="<?php if(isset($_POST['lastName'])) echo($_POST['lastName']); ?>" required></div>
-        <div> Email: <input type='email'name='email' size='15' placeholder="Ex: jDoe1@umbc.edu" value="<?php if(isset($_POST['email'])) echo($_POST['email']); ?>" required></div>
+        <div> Email: <input type='email'name='email' size='15' pattern=".*@umbc.edu" title="UMBC email address jDoe@umbc.edu" placeholder="Ex: jDoe1@umbc.edu" value="<?php if(isset($_POST['email'])) echo($_POST['email']); ?>" required></div>
         <div> Password: <input type='password' name='password' size='10' maxlength='40' required></div>
         <div> Re-enter Password: <input type='password' name='confirmPass' size='10' maxlength='40' required></div>  
 
@@ -52,7 +52,7 @@ Users enter new account information using this sticky form.
                 <option value="Other">Other</option>
             </select>
         </div>
-        <div id="campusID" > Campus ID: <input type='varchar' size='7' maxlength='7' name='campusID' placeholder="Ex: AB12345" value="<?php if(isset($_POST['campusID'])) echo($_POST['campusID']); ?>" required></div>
+        <div id="campusID" > Campus ID: <input type='varchar' size='7' maxlength='7' name='campusID' placeholder="Ex: AB12345" title="UMBC campus id AB12345" pattern="[a-zA-Z][a-zA-Z][0-99999]" value="<?php if(isset($_POST['campusID'])) echo($_POST['campusID']); ?>" required></div>
         <div id="preferred_name" > Preferred Name: <input type='varchar' size='10' maxlength='40' name='preferredName' value="<?php if(isset($_POST['preferredName'])) echo($_POST['preferredName']); ?>" ></div>
         <input type='submit' name='submit' value='Register'>
     </form>
