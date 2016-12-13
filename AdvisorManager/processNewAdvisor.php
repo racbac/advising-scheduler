@@ -7,10 +7,17 @@
 
 <?php
 session_start();
-include('../../../CommonMethods.php');
+//if(!$_SESSION['userToken']) { header('Location: ../error.html'); }
+include('../CommonMethods.php');
 
 $debug = true;
 $COMMON = new Common($debug);
+
+if ($_POST['pass'] != $_POST['confirmPass'])
+  {
+    //add error notification
+    header('Location advisorInfo.php');
+  }
 
 $_SESSION['newFirst'] = $_POST['fname'];
 $_SESSION['newLast'] = $_POST['lname'];
@@ -22,24 +29,17 @@ $_SESSION['office'] = $_POST['office'];
 $_SESSION['email'] = $_POST['email'];
 $_SESSION['majors'] = $_POST['majors'];
 
-$sql = "SELECT * FROM `advisor_info` WHERE `username` = '$_POST[username]' AND `lname` = '$_POST[lname]' AND `fname` = '$_POST[fname]'";
+$sql = "SELECT * FROM `users` WHERE `username` = '$_POST[username]'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 $row = mysql_fetch_row($rs);
+if ($row)
+  {
+    //add notification
+    $_SESSION['username'] = $_POST['username'];
+    header('Location advisorHome.php');
+  }
 
-if($_POST['pass'] == $_POST['confirmPass'])
-  {
-    header('Location: createAdvisor.php');
-  }
-elseif($_POST['pass'] != $_POST['confirmPass'])
-  {
-    $_SESSION['confirmedPass'] = true;
-    header('Location: advisorInfo.php');
-  }
-elseif($row)
-  {
-    $_SESSION['advisorExists'] = true;
-    header('Location: advisorInfo.php');
-  }
+header('Location: createAdvisor.php');
 
 
 ?>
