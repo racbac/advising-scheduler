@@ -8,12 +8,11 @@
 <link rel="stylesheet" href="advisor.css" type="text/css">
 <?php
 session_start();
+//if(!$_SESSION['userToken']) { header('Location: ../error.html'); }
 $debug = false;
 include('../CommonMethods.php');
 
 $COMMON = new Common($debug);
-$_SESSION['confirmedPass'] = false;
-$_SESSION['apptExists'] = false;
 $user = $_SESSION['username'];
 ?>
 

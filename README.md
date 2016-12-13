@@ -1,37 +1,39 @@
-# CMSC 331 Project 2
-
-## Formal Documentation
+# CMSC 331 Project 2 Fall 2016
 
 ### Project Collaborators
 + Felipe Bastos fbastos1@umbc.edu - GUI, User Experience
 + Rachel Brackert bac2@umbc.edu - Student Manager
 + Travis Earley te4@umbc.edu - Advisor Manager
 + Nathaniel Fuller fullern1@umbc.edu - Schedule, Appointment Manager
-+ Colin Ganley cganley1@umbc.edu - User Authentication, Database management
++ Colin Ganley cganley1@umbc.edu - User Authentication, Database management, Documentation
 
 ### Location of Project
-[On the UMBC student web environment](https://swe.umbc.edu/~cganley1/cs331-proj2/)
-[Source Code](https://github.com/cganley1/cs331-proj2) This is a private repository, please email Colin for access.
+A working application can be found [on the UMBC student web environment](https://swe.umbc.edu/~cganley1/cs331-proj2/).
+
+The [Source Code](https://github.com/cganley1/cs331-proj2) can be found on github; this is a private repository. Please email Colin for access.
 
 ### Project Description
-The College of Natural and Mathematical Sciences (CNMS) Advising Sign-up Web Application. This is an attempt at creating a web application to aid in the advising registration process for the CNMS. The application follows the feature list and layout as indicated by the provided documentation. Some documentation is found [here](http://userpages.umbc.edu/~slupoli/notes/ProgLanguages/projects/CollegeWideAdvising/part2/supplements/). The remaining is on Blackboard.
+The College of Natural and Mathematical Sciences (CNMS) Advising Sign-up Web Application. This is a web application to aid in the advising registration process for the CNMS. The application follows the feature list and layout as indicated by the provided documentation. Some documentation is found [here](http://userpages.umbc.edu/~slupoli/notes/ProgLanguages/projects/CollegeWideAdvising/part2/supplements/). The remaining documentation is found on Blackboard. The original project files were created by another group within the class. They were heavily edited based on the project documentation. Included here is the feature list of the application, its architecture, and changelog from the original design.
 
-The original project files were created by another group within the class. These will be reviewed and modified per the developer's discussion.
-
-More on this later.
+#### Features
+ + User registration and login. Currently two there are two user groups, students and advisors
+ + Ability to edit user information
+ + ...
 
 #### Architecture
-There are five modules to the project each housed in their own directory.
+There are four modules to the project each housed in their own directory.
 + AdvisorManager - creation and update of advisor user information
-+ AppointmentManager - creation and update of scheduled appointments
-+ LoginPage - secure user login with authentication
-+ ScheduleViewer - calendar view of the scheduled appointments
++ AppointmentManager - creation and update of scheduled appointments, provides a calendar view of schedule.
++ LoginPage - user login with authentication
 + StudentManager - creation and update of student user information
+
+An additional directory houses some utilites files for project management
 
 ### Original Code Improvements
 Changelog:
  + Reorganized directory tree based on app's functionality; each 'module' is now located within its own directory for better file management.
  + Added utility scripts for development workflow improvements, specifically for adding license and file headers.
+ + Streamlined the login and registration process. After authentication a user is redirected to his or her approproiate role directory home page with an index of given features.
 
 ### Database Organization
 The application runs on the UMBC provided MariaDB which uses MySQL. To access the project tables run on your GL account:
@@ -40,19 +42,37 @@ The application runs on the UMBC provided MariaDB which uses MySQL. To access th
 
 The password for the project is peasandcarrots. These credentials are stored in the CommonMethods.php file.
 
-The following mySql commands will create the required databases
+The following mySql commands will create the required tables
 
-` CREATE TABLE 'secure_login' (
-  'id' int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  'username' varchar(30) NOT NULL,
-  'password' varchar(50) NOT NULL,
-  'username' varchar(128) NOT NULL
+` CREATE TABLE `users` (
+  firstName varchar(30) NOT NULL,
+  lastName varchar(30) NOT NULL,
+  username varchar(20) NOT NULL,
+  email varchar(50) NOT NULL,
+  password varchar(128) NOT NULL,
+  userRole varChar(30) NOT NULL
   ); `
 
-` CREATE TABLE 'login_attempts' (
-  id int(11) AUTO_INCREMENT,
-  username varchar(30),
-  time varchar(30)
+` CREATE TABLE `students_academic_info` (
+  username varchar(10) NOT NULL,
+  preferredName varchar(20),
+  campusID varchar(8) NOT NULL,
+  major enum('Biological Sciences B.A.','Biological Sciences B.S.','Biochemistry & Molecular Biology B.S.','Bioinformatics & Computational Biology B.S.','Biology Education B.A.','Chemistry B.A.','Chemistry B.S.','Chemistry Education B.A.','Other') NOT NULL,
+  futurePlans text,
+  advisingQuestions text,
+  appointmentID int(11)
+  ); `
+
+` CREATE TABLE `appointments` (
+  appointment_ID int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  advisor_ID varchar(20) NOT NULL,
+  date date NOT NULL,
+  start_time time NOT NULL,
+  end_time time NOT NULL,
+  location varchar(20) NOT NULL,
+  max_students tinyint(3) NOT NULL,
+  curr_students tinyint(3) NOT NULL,
+  status tinyint(1) NOT NULL
   ); `
 
 ### Languages used
@@ -75,10 +95,10 @@ Provide link here
 ## Informal Documentation with Other Bits
 
 ### Project Deadlines
-2016-Nov-25: Business use cases [https://en.wikipedia.org/wiki/Use_case#Business_Use_Case]
-2016-Dec-07: Show client nearly completed project
-2016-Dec-20: Code and documentation
-2016-Dec-21: 10:00, 11:00, or 13:00 (Felipe may need this changed)  Tentative presentation schedule
+ + 2016-Nov-25: Business use cases [https://en.wikipedia.org/wiki/Use_case#Business_Use_Case]
+ + 2016-Dec-07: Show client nearly completed project
+ + 2016-Dec-19: 23:59.59 Code and documentation
+ + 2016-Dec-21: 13:00 Presentation ENGR LAB
 
 ### Submitting
 `cp proj2.zip /afs/umbc.edu/users/s/l/slupoli/pub/cs331/USERNAME/proj2`
