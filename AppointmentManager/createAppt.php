@@ -1,13 +1,12 @@
 <html>
 <head>
-<!--Logout button-->
-<div align='right'>
-<form action="../LoginPage/processLogout.php" method="post">
-<input type="submit" name="logout" value="Log Out">
-</div>
-</form>
-
+  <title>Create an Appointment - UMBC CMNS Advising</title>
+  <link rel="icon" type="image/png" href="http://sites.umbc.edu/wp-content/themes/umbc/assets/images/icon.png">
 </head>
+
+<form action="../LoginPage/processLogout.php" method="post">
+  <input type="submit" name="logout" value="Log Out">
+</form>
 <h1>Create an Appointment</h1>
 <form action="createAppt.php" method="post" id="Main-form">
   Meeting Date: 
