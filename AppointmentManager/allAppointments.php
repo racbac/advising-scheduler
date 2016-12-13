@@ -115,7 +115,7 @@ advisors can edit appointment information
         <?php
             if (isset($_POST['submit'])) {
                 include('../CommonMethods.php');
-                $COMMON = new Common(true);
+                $COMMON = new Common(false);
                 
 
                 // get set filters in array
