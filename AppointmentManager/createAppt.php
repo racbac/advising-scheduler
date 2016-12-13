@@ -89,7 +89,7 @@ Start Time:
   <br>
 
   Session Leader:
-  <select name="sessionLeader" <?php if(isset($_POST['sessionLeader'])) echo(" value=".$_POST['sessionLeader']); ?>>
+  <select name="sessionLeader" <?php if(isset($_POST['sessionLeader'])) echo(" value=".$_POST['sessionLeader']); ?> required>
     <option value="mbulger">Ms. Michelle Bulger</option>
     <option value="JulieCrosby">Mrs. Julie Crosby</option>
     <option value="ChristinePowers">Ms. Christine Powers</option>

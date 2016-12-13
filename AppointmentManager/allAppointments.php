@@ -48,16 +48,56 @@ advisors can edit appointment information
             
             <ul>
                 <li> Start Date: 
-                    <input type="date" name="startDate" min=<?php echo(date('Y-m-d')); sticky("startDate", date('Y-m-d')); ?> />
+                    <select name="startMonth">
+                        <option value="1" <?php stickySelect("startMonth", 1, date("m")) ?> >January</option>
+                        <option value="2" <?php stickySelect("startMonth", 2, date("m")) ?> >February</option>
+                        <option value="3" <?php stickySelect("startMonth", 3, date("m")) ?> >March</option>
+                        <option value="4" <?php stickySelect("startMonth", 4, date("m")) ?> >April</option>
+                        <option value="5" <?php stickySelect("startMonth", 5, date("m")) ?> >May</option>
+                        <option value="6" <?php stickySelect("startMonth", 6, date("m")) ?> >June</option>
+                        <option value="7" <?php stickySelect("startMonth", 7, date("m")) ?> >July</option>
+                        <option value="8" <?php stickySelect("startMonth", 8, date("m")) ?> >August</option>
+                        <option value="9" <?php stickySelect("startMonth", 9, date("m")) ?> >September</option>
+                        <option value="10" <?php stickySelect("startMonth", 10, date("m")) ?> >October</option>
+                        <option value="11" <?php stickySelect("startMonth", 11, date("m")) ?> >November</option>
+                        <option value="12" <?php stickySelect("startMonth", 12, date("m")) ?> >December</option>
+                    </select>
+                    <input name="startDay" type="number" min="1" max="31" <?php sticky("startDay", 1) ?> >
+                    <input name="startYear" type="number" <?php sticky("startYear", date("Y")) ?> >
                 </li>
                 <li> End Date: 
-                    <input type="date" name="endDate" <?php sticky("endDate", date('Y-m-d', strtotime("+1 months"))); ?> />
+                    <select name="endMonth" >
+                        <option value="1" <?php stickySelect("endMonth", 1, date("m")) ?> >January</option>
+                        <option value="2" <?php stickySelect("endMonth", 2, date("m")) ?> >February</option>
+                        <option value="3" <?php stickySelect("endMonth", 3, date("m")) ?> >March</option>
+                        <option value="4" <?php stickySelect("endMonth", 4, date("m")) ?> >April</option>
+                        <option value="5" <?php stickySelect("endMonth", 5, date("m")) ?> >May</option>
+                        <option value="6" <?php stickySelect("endMonth", 6, date("m")) ?> >June</option>
+                        <option value="7" <?php stickySelect("endMonth", 7, date("m")) ?> >July</option>
+                        <option value="8" <?php stickySelect("endMonth", 8, date("m")) ?> >August</option>
+                        <option value="9" <?php stickySelect("endMonth", 9, date("m")) ?> >September</option>
+                        <option value="10" <?php stickySelect("endMonth", 10, date("m")) ?> >October</option>
+                        <option value="11" <?php stickySelect("endMonth", 11, date("m")) ?> >November</option>
+                        <option value="12" <?php stickySelect("endMonth", 12, date("m")) ?> >December</option>
+                    </select>
+                    <input name="endDay" type="number" min="1" max="31" <?php sticky("endDay", 31) ?> >
+                    <input name="endYear" type="number" <?php sticky("startYear", date("Y")) ?> >
                 </li>
                 <li> Start Time:
-                    <input type="time" name="startTime" <?php sticky("startTime", "09:00") ?> />
+                    <input type="number" name="startHour" min="1" max="12" <?php sticky("startHour", "8") ?> > :
+                    <input type="number" name="startMin" min="0" max="59" <?php sticky("startMin", "00") ?> >
+                    <select name="startAmPm" >
+                        <option value="AM" <?php stickySelect("startAmPm", "AM", "AM") ?> >AM</option>
+                        <option value="PM" <?php stickySelect("startAmPm", "PM", "AM") ?> >PM</option>
+                    </select>
                 </li>
                 <li> End Time:
-                    <input type="time" name="endTime" <?php sticky("endTime", "21:00"); ?> />
+                    <input type="number" name="endHour" min="1" max="12" <?php sticky("endHour", "9") ?> > :
+                    <input type="number" name="endMin" min="0" max="59" <?php sticky("endMin", "00") ?> >
+                    <select name="endAmPm" >
+                        <option value="AM" <?php stickySelect("endAmPm", "AM", "PM") ?> >AM</option>
+                        <option value="PM" <?php stickySelect("endAmPm", "PM", "PM") ?> >PM</option>
+                    </select>
                 </li>
                 <li> 
                     Advisors:
@@ -75,7 +115,7 @@ advisors can edit appointment information
         <?php
             if (isset($_POST['submit'])) {
                 include('../CommonMethods.php');
-                $COMMON = new Common(false);
+                $COMMON = new Common(true);
                 
 
                 // get set filters in array
@@ -85,7 +125,11 @@ advisors can edit appointment information
                         $filters[$key] = $field;
                     }
                 }
+                $filters["startDate"] = date("Y-m-d", strtotime($_POST['startYear']."-".$_POST['startMonth']."-".$_POST['startDay']));
+                $filters["endDate"] = date("Y-m-d", strtotime($_POST['endYear']."-".$_POST['endMonth']."-".$_POST['endDay']));
                 $advisors = $filters['sessionLeader'];
+                $filters['startTime'] = date("H:i", strtotime($_POST['startHour'].":".$_POST['startMin']." ".$_POST['startAmPm']));
+                $filters['endTime'] = date("H:i", strtotime($_POST['endHour'].":".$_POST['endMin']." ".$_POST['endAmPm']));
 
                 // validate
                 $errors = 0;
@@ -174,6 +218,17 @@ advisors can edit appointment information
                 else 
                     echo(" value=".$default);
             }
+            function stickySelect($name, $value, $default) {
+                if(isset($_POST[$name])) {
+                    if ($_POST[$name] == $value) { 
+                        echo(" selected"); 
+                    }
+                }
+                else if ($value == $default) {
+                    echo(" selected");
+                }
+            }
+
         ?>
 
     </body>
