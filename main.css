@@ -54,7 +54,33 @@ header {
 	align: right;
 }
 
-#footer {
+#Inner-Footer {
+	display: table;
+	width: 100%;
+}
+
+.main-inner-footer-field {
+	color: #ffffff;
+	background-color: #000000;
+	display: table-cell;
+	text-align: center;
+	padding: 4px 8px;
+}
+
+.inner-footer-field {
+	display: table-cell;
+	text-align: center;
+	background-color: #E5E3CF;
+	padding: 4px 8px;
+	border-left: 1px solid rgba(0,0,0,.2);
+}
+
+.inner-footer-link:link {
+	color: #000;
+}
+
+
+#Footer {
 	max-width: 960px;
 	margin: 20px auto;
 	text-align: right;
