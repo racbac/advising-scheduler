@@ -1,6 +1,6 @@
 <!--
 Project: CMSC331 Project 02, Fall 2016
-Authors: Felipe Bastos, Rachel Brackert, Travis Earley, Nathaniel Fuller, Colin Ganley
+Authors: Felipe Bastos, Rachel Backert, Travis Earley, Nathaniel Fuller, Colin Ganley
 Date: 2016-12-16
 Email: fbastos1@umbc.edu, bac2@umbc.edu, te4@umbc.edu, fullern1@umbc.edu, cganley1@umbc.edu
 
@@ -18,7 +18,7 @@ Users enter new account information using this sticky form.
             max-height: 50px;
             overflow: hidden;
         }
-        #advisor_rb:checked~#preferred_name, #advisor_rb:checked~#major  {
+        #advisor_rb:checked~#preferred_name, #advisor_rb:checked~#major, #advisor_rb:checked~#campusID   {
             max-height: 0px;
             opacity: 0;
             pointer-events: none;      
