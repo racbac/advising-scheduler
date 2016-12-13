@@ -25,17 +25,12 @@
       <option value="11">November</option>
       <option value="12">December</option>
   </select>
-  <input type="number" min="1" max="31" required>
+  <input name="day" type="number" min="1" max="31" required>
+  <input name="year" type="number" required>
 
-
-  <input type="date" name="date" min=<?php echo(date('Y-m-d')); if(isset($_POST['date'])) echo(" value=".$_POST['date']); ?> />
-  <!-- LINE BREAK -->
   <br>
-  <!-- LINE BREAK -->
-  Start Time:
-  <!-- <input type="time" name="startTime" <?php if(isset($_POST['startTime'])) echo(" value=".$_POST['startTime']); ?> /> -->
-
-  <select name="startHour">
+Start Time:
+  <select name="startHour" required>
     <option value="1">1</option>
     <option value="2">2</option>
     <option value="3">3</option>
@@ -49,20 +44,20 @@
     <option value="11">11</option>
     <option value="12">12</option>
   </select>
-  <select name="startMin">
+  <select name="startMin" required>
     <option value="00">00</option>
     <option value="15">15</option>
     <option value="30">30</option>
     <option value="45">45</option>
   </select>
-  <select name="startAmPm">
+  <select name="startAmPm" required>
     <option value="AM">AM</option>
     <option value="PM">PM</option>
   </select>
 
   End Time:
   <!--<input type="time" name="endTime" <?php if(isset($_POST['endTime'])) echo(" value=".$_POST['endTime']); ?> />-->
-  <select name="endHour">
+  <select name="endHour" required>
     <option value="1">1</option>
     <option value="2">2</option>
     <option value="3">3</option>
@@ -76,20 +71,20 @@
     <option value="11">11</option>
     <option value="12">12</option>
   </select>
-  <select name="endMin">
+  <select name="endMin" required>
     <option value="00">00</option>
     <option value="15">15</option>
     <option value="30">30</option>
     <option value="45">45</option>
   </select>
-  <select name="endAmPm">
+  <select name="endAmPm" required>
     <option value="AM">AM</option>
     <option value="PM">PM</option>
   </select>
   <br>
 
   Appointment Size:
-  <input type="number" name="apptSize" <?php if(isset($_POST['apptSize'])) echo(" value=".$_POST['apptSize']); ?> placeholder="1-40" min="1" max="40">
+  <input type="number" name="apptSize" <?php if(isset($_POST['apptSize'])) echo(" value=".$_POST['apptSize']); ?> placeholder="1-40" min="1" max="40" required>
 
   <br>
 
@@ -123,7 +118,7 @@ if (isset($_POST['submit'])) {
   include('../CommonMethods.php');
   $COMMON = new Common(false);
 
-  $posted = array("sessionLeader" => $_POST['sessionLeader'], "date" => $_POST['date'], "startTime" => date("H:i", strtotime($_POST['startHour'].":".$_POST['startMin']." ".$_POST['startAmPm'])) , "endTime" => date("H:i", strtotime($_POST['endHour'].":".$_POST['endMin']." ".$_POST['endAmPm'])), "location" => $_POST['location'], "apptSize" => $_POST['apptSize']);
+  $posted = array("sessionLeader" => $_POST['sessionLeader'], "date" => date("Y-m-d", strtotime($_POST['year']."-".$_POST['month']."-".$_POST['day'])), "startTime" => date("H:i", strtotime($_POST['startHour'].":".$_POST['startMin']." ".$_POST['startAmPm'])) , "endTime" => date("H:i", strtotime($_POST['endHour'].":".$_POST['endMin']." ".$_POST['endAmPm'])), "location" => $_POST['location'], "apptSize" => $_POST['apptSize']);
 
   // validate input; note that input elements validate the date, appointment size, advisor, and location
   $errors = 0;
@@ -132,6 +127,13 @@ if (isset($_POST['submit'])) {
     $errors++;
     echo("Meeting must end later than it starts. ");
   }
+
+  // date must be past today
+  if ($posted['date'] < date("Y-m-d")) {
+    $errors++;
+    echo("Meeting must be today or later. ");
+  }
+
   // appointment mustn't already exist
   $sql = "SELECT `advisor_ID`, `date`, `start_time`, `end_time` FROM `appointments` WHERE `advisor_ID` = '$posted[sessionLeader]' and `date` = '$posted[date]' and `start_time` = '$posted[startTime]'";
   $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
@@ -152,5 +154,12 @@ if (isset($_POST['submit'])) {
   }
 
 }
+
+function sticky($name, $default) {
+    if(isset($_POST[$name])) 
+        echo(" value=".$_POST[$name]); 
+    else 
+        echo(" value=".$default);
+    }
 
 ?>
