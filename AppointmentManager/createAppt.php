@@ -10,18 +10,82 @@
 <h1>Create an Appointment</h1>
 <form action="createAppt.php" method="post" id="Main-form">
   Meeting Date: 
+
+  <select name="month" required>
+      <option value="1">January</option>
+      <option value="2">February</option>
+      <option value="3">March</option>
+      <option value="4">April</option>
+      <option value="5">May</option>
+      <option value="6">June</option>
+      <option value="7">July</option>
+      <option value="8">August</option>
+      <option value="9">September</option>
+      <option value="10">October</option>
+      <option value="11">November</option>
+      <option value="12">December</option>
+  </select>
+  <input type="number" min="1" max="31" required>
+
+
   <input type="date" name="date" min=<?php echo(date('Y-m-d')); if(isset($_POST['date'])) echo(" value=".$_POST['date']); ?> />
   <!-- LINE BREAK -->
   <br>
   <!-- LINE BREAK -->
   Start Time:
-  <input type="time" name="startTime" <?php if(isset($_POST['startTime'])) echo(" value=".$_POST['startTime']); ?> />
+  <!-- <input type="time" name="startTime" <?php if(isset($_POST['startTime'])) echo(" value=".$_POST['startTime']); ?> /> -->
 
-  <br>
+  <select name="startHour">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+  </select>
+  <select name="startMin">
+    <option value="00">00</option>
+    <option value="15">15</option>
+    <option value="30">30</option>
+    <option value="45">45</option>
+  </select>
+  <select name="startAmPm">
+    <option value="AM">AM</option>
+    <option value="PM">PM</option>
+  </select>
 
   End Time:
-  <input type="time" name="endTime" <?php if(isset($_POST['endTime'])) echo(" value=".$_POST['endTime']); ?> />
-
+  <!--<input type="time" name="endTime" <?php if(isset($_POST['endTime'])) echo(" value=".$_POST['endTime']); ?> />-->
+  <select name="endHour">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+  </select>
+  <select name="endMin">
+    <option value="00">00</option>
+    <option value="15">15</option>
+    <option value="30">30</option>
+    <option value="45">45</option>
+  </select>
+  <select name="endAmPm">
+    <option value="AM">AM</option>
+    <option value="PM">PM</option>
+  </select>
   <br>
 
   Appointment Size:
@@ -43,29 +107,6 @@
   <input type="text" name="location" <?php if(isset($_POST['location'])) echo(" value=".$_POST['location']); ?> required>
 
   <br>
-
-  <!-- Possibly not needed????
-  Majors Allowed: <br>
-  <input type="checkbox" name="majors[]" value="Biological Sciences B.A.">
-  Biological Sciences B.A.<br>
-  <input type="checkbox" name="majors[]" value="Biological Sciences B.S.">
-  Biological Sciences B.S.<br>
-  <input type="checkbox" name="majors[]" value="Biochemistry & Molecular
-						Biology B.S.">
-  Biochemistry & Molecular Biology B.S.<br>
-  <input type="checkbox" name="majors[]" value="Bioinformatics & Computational
-						Biology B.S.">
-  Bioinformatics & Computational Biology B.S.<br>
-  <input type="checkbox" name="majors[]" value="Biology Education B.A.">
-  Biology Education B.A.<br>
-  <input type="checkbox" name="majors[]" value="Chemistry B.A.">
-  Chemistry B.A.<br>
-  <input type="checkbox" name="majors[]" value="Chemistry B.S.">
-  Chemistry B.S.<br>
-  <input type="checkbox" name="majors[]" value="Chemistry Education B.A.">
-  Chemistry Education B.A.<br>
-  -->
-
   <br>
 
   <button type="submit" class="Submit" name="submit" ><span>Create Appointment</span></button>
@@ -82,7 +123,7 @@ if (isset($_POST['submit'])) {
   include('../CommonMethods.php');
   $COMMON = new Common(false);
 
-  $posted = array("sessionLeader" => $_POST['sessionLeader'], "date" => $_POST['date'], "startTime" => $_POST['startTime'], "endTime" => $_POST['endTime'], "location" => $_POST['location'], "apptSize" => $_POST['apptSize']);
+  $posted = array("sessionLeader" => $_POST['sessionLeader'], "date" => $_POST['date'], "startTime" => date("H:i", strtotime($_POST['startHour'].":".$_POST['startMin']." ".$_POST['startAmPm'])) , "endTime" => date("H:i", strtotime($_POST['endHour'].":".$_POST['endMin']." ".$_POST['endAmPm'])), "location" => $_POST['location'], "apptSize" => $_POST['apptSize']);
 
   // validate input; note that input elements validate the date, appointment size, advisor, and location
   $errors = 0;
