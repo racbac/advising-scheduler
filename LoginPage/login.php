@@ -11,7 +11,7 @@ session_start();
 
 <html>
 <head>
-  <title> Register </title>
+  <title> Login </title>
 </head>
 <body>
 
@@ -31,15 +31,12 @@ session_start();
   </div>
 </form>
 
-
-
-
-
-<form action='advisorInfo.php' method='post' name='CreateAccount'>
-  <div class='field'>
-    <label for='submit'>Don't have an account set up yet?</label><br/>
-    <input type='submit' value='Create New Account'>
+<form action = "createAccount.php" method="get">
+   <div class='field'>
+      <label for='submit'>Don't have an account set up?</label>
+      <input type='submit' value='Register'>
   </div>
 </form>
+
 </body>
 </html>

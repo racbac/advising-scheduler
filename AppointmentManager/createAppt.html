@@ -1,0 +1,110 @@
+<html>
+<head>
+<!--Logout button-->
+<div align='right'>
+<form action="../LoginPage/processLogout.php" method="post">
+<input type="submit" name="logout" value="Log Out">
+</div>
+</form>
+
+</head>
+
+<form action="confirmAppt.php" method="post" id="Main-form">
+  Meeting Date: 
+  <input type="date" name="date">
+  <!-- LINE BREAK -->
+  <br>
+  <!-- LINE BREAK -->
+  Start Time:
+  <select name="startHour">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+  </select>
+  <select name="startMin">
+    <option value="00">00</option>
+    <option value="30">30</option>
+  </select>
+  <select name="amPm">
+    <option value="AM">AM</option>
+    <option value="PM">PM</option>
+  </select>
+  <!-- LINE BREAK -->
+  <br>
+  <!-- LINE BREAK -->
+  End Time:
+  <select name="endHour">
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+    <option value="13">13</option>
+    <option value="14">14</option>
+    <option value="15">15</option>
+    <option value="16">16</option>
+  </select>
+  <select name="endMin">
+    <option value="00">00</option>
+    <option value="30">30</option>
+  </select>
+  <!-- LINE BREAK -->
+  <br>
+  <!-- LINE BREAK -->
+  Appointment Size:
+  <input type="number" name="apptSize" min="1" max="40">
+  <!-- LINE BREAK -->
+  <br>
+  <!-- LINE BREAK -->
+  Session Leader:
+  <select name="sessionLeader">
+    <option value="mbulger">Ms. Michelle Bulger</option>
+    <option value="JulieCrosby">Mrs. Julie Crosby</option>
+    <option value="ChristinePowers">Ms. Christine Powers</option>
+    <option value="CNMS Advisors">CNMS Advisors</option>
+  </select>
+  <!-- LINE BREAK -->
+  <br>
+  <!-- LINE BREAK -->
+  Location:
+  <input type="text" name="location">
+  <!-- LINE BREAK -->
+  <br>
+  <!-- LINE BREAK -->
+  <!-- Possibly not needed????
+  Majors Allowed: <br>
+  <input type="checkbox" name="majors[]" value="Biological Sciences B.A.">
+  Biological Sciences B.A.<br>
+  <input type="checkbox" name="majors[]" value="Biological Sciences B.S.">
+  Biological Sciences B.S.<br>
+  <input type="checkbox" name="majors[]" value="Biochemistry & Molecular
+						Biology B.S.">
+  Biochemistry & Molecular Biology B.S.<br>
+  <input type="checkbox" name="majors[]" value="Bioinformatics & Computational
+						Biology B.S.">
+  Bioinformatics & Computational Biology B.S.<br>
+  <input type="checkbox" name="majors[]" value="Biology Education B.A.">
+  Biology Education B.A.<br>
+  <input type="checkbox" name="majors[]" value="Chemistry B.A.">
+  Chemistry B.A.<br>
+  <input type="checkbox" name="majors[]" value="Chemistry B.S.">
+  Chemistry B.S.<br>
+  <input type="checkbox" name="majors[]" value="Chemistry Education B.A.">
+  Chemistry Education B.A.<br>
+  -->
+  <!-- LINE BREAK -->
+  <br>
+  <!-- LINE BREAK -->
+  <button type="submit" class="Submit"><span>Create Appointment</span></button>
+</form>
+
+</html>

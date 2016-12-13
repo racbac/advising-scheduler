@@ -9,7 +9,7 @@
 <?php
 session_start();
 $debug = false;
-include('../../../CommonMethods.php');
+include('../CommonMethods.php');
 
 $COMMON = new Common($debug);
 $_SESSION['confirmedPass'] = false;
@@ -34,12 +34,8 @@ input[type=submit] {
 </head>
 <body>
 <h2>Welcome, <?php echo "$user";?></h2>
-<form action='processAdvisorHome.php' method='post' name='advisorHome'>
-  <input type='submit' name='next' value='Edit Appointments'><br/>
-  <input type='submit' name='next' value='View Appointments'><br/>
-  <input type='submit' name='next' value='Search Appointments'><br/>
-  <input type='submit' name='next' value='Edit Your Account Info'><br/>
-  <input type='submit' name='next' value='Logout'><br/>
+<a href="../AppointmentManager/createAppt.php">Create an Appointment</a>
+<a href="../LoginPage/processLogout.php">Logout</a>
 </form>
 
 </body>
