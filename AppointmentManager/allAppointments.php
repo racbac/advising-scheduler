@@ -121,8 +121,7 @@ advisors can edit appointment information
                 }
                 $sql .= " ORDER BY `date`, `start_time` ASC";
 
-                // get matching appointments
-      //          $sql = "SELECT * FROM `appointments` WHERE `start_time` >= '$filters[startTime]' AND `end_time` <= '$filters[endTime]' AND `date` BETWEEN '$filters[startDate]' and '$filters[endDate]' ORDER BY `date`, `start_time`, `curr_students` ASC";
+
                 $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
 
                 // print appointments
