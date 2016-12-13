@@ -17,7 +17,7 @@ session_start();
 
 <form action='processLogin.php' method='post' name='UserLogin'>
   <div class='field'>
-    <label for='username'>Username:</label>
+    <label for='username'>Camput ID:</label>
     <input id='username' type='text' name='username' required>
   </div>
 

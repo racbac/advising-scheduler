@@ -1,11 +1,11 @@
-<!---
+<!--
 Project: CMSC331 Project 02, Fall 2016
 Authors: Felipe Bastos, Rachel Brackert, Travis Earley, Nathaniel Fuller, Colin Ganley
 Date: 2016-12-16
 Email: fbastos1@umbc.edu, bac2@umbc.edu, te4@umbc.edu, fullern1@umbc.edu, cganley1@umbc.edu
 
 Users enter new account information using this sticky form. 
----->
+-->
 
 <html>
   <head>
@@ -18,7 +18,7 @@ Users enter new account information using this sticky form.
             max-height: 50px;
             overflow: hidden;
         }
-        #advisor_rb:checked~#preferred_name, #advisor_rb:checked~#campusID, #advisor_rb:checked~#major  {
+        #advisor_rb:checked~#preferred_name, #advisor_rb:checked~#major  {
             max-height: 0px;
             opacity: 0;
             pointer-events: none;      
@@ -34,9 +34,15 @@ Users enter new account information using this sticky form.
         <input type="radio" name="userRole" id="advisor_rb" value="advisor"><label for="advisor_rb">Advisor</label>
         
         <div> First Name: <input type='varchar' size='10' maxlength='40' name='firstName' value="<?php if(isset($_POST['firstName'])) echo($_POST['firstName']); ?>" required></div>
+
         <div> Last Name: <input type='varchar' size='10' maxlength='40' name='lastName' value="<?php if(isset($_POST['lastName'])) echo($_POST['lastName']); ?>" required></div>
+
         <div> Email: <input type='email'name='email' size='15' placeholder="Ex: jDoe1@umbc.edu" value="<?php if(isset($_POST['email'])) echo($_POST['email']); ?>" required></div>
+
+	<div id="campusID" > Campus ID: <input type='varchar' size='7' maxlength='7' name='campusID' placeholder="Ex: AB12345" value="<?php if(isset($_POST['campusID'])) echo($_POST['campusID']); ?>" required></div>
+
         <div> Password: <input type='password' name='password' size='10' maxlength='40' required></div>
+
         <div> Re-enter Password: <input type='password' name='confirmPass' size='10' maxlength='40' required></div>  
 
         <div id="major">Major next semester: 
@@ -52,11 +58,11 @@ Users enter new account information using this sticky form.
                 <option value="Other">Other</option>
             </select>
         </div>
-        <div id="campusID" > Campus ID: <input type='varchar' size='7' maxlength='7' name='campusID' placeholder="Ex: AB12345" value="<?php if(isset($_POST['campusID'])) echo($_POST['campusID']); ?>" required></div>
+
         <div id="preferred_name" > Preferred Name: <input type='varchar' size='10' maxlength='40' name='preferredName' value="<?php if(isset($_POST['preferredName'])) echo($_POST['preferredName']); ?>" ></div>
+
         <input type='submit' name='submit' value='Register'>
     </form>
-
   </body>
 </html>
 
