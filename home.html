@@ -28,10 +28,14 @@
 					<a href="http://cnms.umbc.edu"><img src="cnms.png" class="banner"></a>
 				</div>
 			</header>
-			
-			
-			page stuff goes here!
-			
+		<form id="Main-Form" action="loginCheck.php" method="post">
+			<input type="text" name="tfUsername" placeholder="Username" class="inputField">
+			<input type="password" name="tfPassword" placeholder="Password" class="inputField">
+			<div id="Buttons">
+					<form action="createUser.html"><button id="CreateAcc" class="button left"><span>create new account</span></button></form>
+					<button id="Login" class="submit"><span>login</span></button>  
+			</div>
+		</form>			
 			<div id="Inner-Footer">
 				<div class="main-inner-footer-field">College of Natural and Mathematical Sciences</div>
 				<div class="inner-footer-field">University Center Room 116</div>
