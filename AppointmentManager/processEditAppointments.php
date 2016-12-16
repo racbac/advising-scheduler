@@ -44,3 +44,5 @@ if (isSet($_POST['students'])){
   }
 
 }
+
+header('Location: ../AppointmentManager/scheduleViewer.php');

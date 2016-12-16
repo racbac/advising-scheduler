@@ -28,8 +28,9 @@
 if($row) {
     $_SESSION['username'] = $row['username']; //assign user if needed
     $_SESSION['userToken'] = true; //a validated user
-    $_SESSION['userRole'] = $row['userRole'];
+    $_SESSION['userRole'] = $row['userRole']; // advisor or student
 
+  
     if ($row['userRole'] == "advisor") {
         header('Location: ../AdvisorManager/advisorHome.php');
     } else {
