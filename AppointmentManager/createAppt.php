@@ -11,75 +11,40 @@
 <form action="createAppt.php" method="post" id="Main-form">
   Meeting Date: 
 
-  <select name="month" required>
-      <option value="1">January</option>
-      <option value="2">February</option>
-      <option value="3">March</option>
-      <option value="4">April</option>
-      <option value="5">May</option>
-      <option value="6">June</option>
-      <option value="7">July</option>
-      <option value="8">August</option>
-      <option value="9">September</option>
-      <option value="10">October</option>
-      <option value="11">November</option>
-      <option value="12">December</option>
+  <select name="month">
+    <option value="1" <?php stickySelect("month", 1, date("m")) ?> >January</option>
+    <option value="2" <?php stickySelect("month", 2, date("m")) ?> >February</option>
+    <option value="3" <?php stickySelect("month", 3, date("m")) ?> >March</option>
+    <option value="4" <?php stickySelect("month", 4, date("m")) ?> >April</option>
+    <option value="5" <?php stickySelect("month", 5, date("m")) ?> >May</option>
+    <option value="6" <?php stickySelect("month", 6, date("m")) ?> >June</option>
+    <option value="7" <?php stickySelect("month", 7, date("m")) ?> >July</option>
+    <option value="8" <?php stickySelect("month", 8, date("m")) ?> >August</option>
+    <option value="9" <?php stickySelect("month", 9, date("m")) ?> >September</option>
+    <option value="10" <?php stickySelect("month", 10, date("m")) ?> >October</option>
+    <option value="11" <?php stickySelect("month", 11, date("m")) ?> >November</option>
+    <option value="12" <?php stickySelect("month", 12, date("m")) ?> >December</option>
   </select>
-  <input name="day" type="number" min="1" max="31" required>
-  <input name="year" type="number" required>
+  <input name="day" type="number" min="1" max="31" <?php sticky("day", 1) ?> >
+  <input name="year" type="number" <?php sticky("year", date("Y")) ?> >
+
 
   <br>
 Start Time:
-  <select name="startHour" required>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="10">10</option>
-    <option value="11">11</option>
-    <option value="12">12</option>
-  </select>
-  <select name="startMin" required>
-    <option value="00">00</option>
-    <option value="15">15</option>
-    <option value="30">30</option>
-    <option value="45">45</option>
-  </select>
-  <select name="startAmPm" required>
-    <option value="AM">AM</option>
-    <option value="PM">PM</option>
+  <input name="startHour" pattern="(1[012]|0?[1-9])" <?php sticky("startHour", "08") ?> > :
+  <input name="startMin"  pattern="[0-5][0-9]" <?php sticky("startMin", "00") ?> >
+  <select name="startAmPm" >
+      <option value="AM" <?php stickySelect("startAmPm", "AM", "AM") ?> >AM</option>
+      <option value="PM" <?php stickySelect("startAmPm", "PM", "AM") ?> >PM</option>
   </select>
 
   End Time:
   <!--<input type="time" name="endTime" <?php if(isset($_POST['endTime'])) echo(" value=".$_POST['endTime']); ?> />-->
-  <select name="endHour" required>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="10">10</option>
-    <option value="11">11</option>
-    <option value="12">12</option>
-  </select>
-  <select name="endMin" required>
-    <option value="00">00</option>
-    <option value="15">15</option>
-    <option value="30">30</option>
-    <option value="45">45</option>
-  </select>
-  <select name="endAmPm" required>
-    <option value="AM">AM</option>
-    <option value="PM">PM</option>
+  <input name="endHour" pattern="(1[012]|0?[1-9])" <?php sticky("endHour", "09") ?> > :
+  <input name="endMin" pattern="[0-5][0-9]" <?php sticky("endMin", "00") ?> >
+  <select name="endAmPm" >
+      <option value="AM" <?php stickySelect("endAmPm", "AM", "PM") ?> >AM</option>
+      <option value="PM" <?php stickySelect("endAmPm", "PM", "PM") ?> >PM</option>
   </select>
   <br>
 
@@ -161,5 +126,16 @@ function sticky($name, $default) {
     else 
         echo(" value=".$default);
     }
+
+  function stickySelect($name, $value, $default) {
+      if(isset($_POST[$name])) {
+          if ($_POST[$name] == $value) { 
+              echo(" selected"); 
+          }
+      }
+      else if ($value == $default) {
+          echo(" selected");
+      }
+  }
 
 ?>
