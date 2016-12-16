@@ -31,6 +31,55 @@ Users enter new account information using this sticky form.
 				<form action="login.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
 			</div>
 			<form class="Main-Form" action='createAccount.php' method='post'>
+<?php
+    if(isset($_POST['submit'])) {
+        // verify that passwords match
+        if($_POST['confirmPass'] != $_POST['password']) {
+            echo("Passwords do not match.<br/>");
+            $_POST['errors'] = 1; 
+        }
+        // verify account doesn't exist
+        include("../CommonMethods.php");
+        $COMMON = new Common(false);
+        $username = substr($_POST['email'], 0, strpos($_POST['email'], "@"));
+        $sql = "SELECT * FROM `users` WHERE `username` = '$username'";
+        $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+        $row = mysql_fetch_row($rs);
+        if($row) {
+            echo("Account for this UMBC ID already exists.<br/>"); 
+            $_POST['errors'] = 1;
+        }
+        // make students are CMNS majors
+        if ($_POST['userRole'] == "student" && $_POST['major'] == "Other") {
+            echo("You have indicated that you plan to pursue a major other than one of the following, beginning next semester: Biological Sciences B.A., Biological Sciences B.S., Biochemistry & Molecular Biology B.S., Bioinformatics & Computational Biology B.S., Biology Education B.A., Chemistry B.A., Chemistry B.S., or Chemistry Education B.A.. In order to obtain the BEST advice about course selection, degree progress, and academic policy, please meet with a representative of the department that administers your NEW major.</br>
+            You can find advising contact information for your new major on the Office for Academic and Pre-Professional Advising Office’s Departmental Advising page. That contact person/office will be able to give you instructions on how to schedule an advising appointment with someone in that area. </br>
+            Good luck with your new major!");
+            exit();
+        }
+    
+        // if no errors, create new account
+        if (!isset($_POST['errors'])) {
+            
+            $sql = "INSERT INTO `users` (`lastName`, `firstName`, `username`, `userRole`, `email`, `password`) VALUES ('".$_POST['lastName']."', '".$_POST['firstName']."', '".$username."', '".$_POST['userRole']."', '".$_POST['email']."', '".sha1($_POST['password'])."')";
+            $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+            
+            // set user in session and redirect to appropriate user homepage
+            session_start();
+            $_SESSION['username'] = $username;
+            if ($_POST['userRole'] == "student") {
+                // extra student information
+                $sql = "INSERT INTO `students_academic_info` (`username`, `major`,`campusID`,`preferredName`) VALUES ('".$username."', '".$_POST['major']."', '".$_POST['campusID']."', '".$_POST['preferredName']."')";
+                $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+                
+                header('Location: ../StudentManager/studentHome.php');
+            } else {
+                header('Location: ../AdvisorManager/advisorHome.php');
+            }
+        }
+  }
+  
+?>
+			
 				<div class="Group-Appointment">
 					<a class="Descriptor">are you a student or advisor?</a>
 					<div id="RadialPanel">
@@ -106,52 +155,3 @@ Users enter new account information using this sticky form.
 		</div>	
 	</body>
 </html>
-
-<?php
-    if(isset($_POST['submit'])) {
-        // verify that passwords match
-        if($_POST['confirmPass'] != $_POST['password']) {
-            echo("Passwords do not match.<br/>");
-            $_POST['errors'] = 1; 
-        }
-        // verify account doesn't exist
-        include("../CommonMethods.php");
-        $COMMON = new Common(false);
-        $username = substr($_POST['email'], 0, strpos($_POST['email'], "@"));
-        $sql = "SELECT * FROM `users` WHERE `username` = '$username'";
-        $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-        $row = mysql_fetch_row($rs);
-        if($row) {
-            echo("Account for this UMBC ID already exists.<br/>"); 
-            $_POST['errors'] = 1;
-        }
-        // make students are CMNS majors
-        if ($_POST['userRole'] == "student" && $_POST['major'] == "Other") {
-            echo("You have indicated that you plan to pursue a major other than one of the following, beginning next semester: Biological Sciences B.A., Biological Sciences B.S., Biochemistry & Molecular Biology B.S., Bioinformatics & Computational Biology B.S., Biology Education B.A., Chemistry B.A., Chemistry B.S., or Chemistry Education B.A.. In order to obtain the BEST advice about course selection, degree progress, and academic policy, please meet with a representative of the department that administers your NEW major.</br>
-            You can find advising contact information for your new major on the Office for Academic and Pre-Professional Advising Office’s Departmental Advising page. That contact person/office will be able to give you instructions on how to schedule an advising appointment with someone in that area. </br>
-            Good luck with your new major!");
-            exit();
-        }
-    
-        // if no errors, create new account
-        if (!isset($_POST['errors'])) {
-            
-            $sql = "INSERT INTO `users` (`lastName`, `firstName`, `username`, `userRole`, `email`, `password`) VALUES ('".$_POST['lastName']."', '".$_POST['firstName']."', '".$username."', '".$_POST['userRole']."', '".$_POST['email']."', '".sha1($_POST['password'])."')";
-            $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-            
-            // set user in session and redirect to appropriate user homepage
-            session_start();
-            $_SESSION['username'] = $username;
-            if ($_POST['userRole'] == "student") {
-                // extra student information
-                $sql = "INSERT INTO `students_academic_info` (`username`, `major`,`campusID`,`preferredName`) VALUES ('".$username."', '".$_POST['major']."', '".$_POST['campusID']."', '".$_POST['preferredName']."')";
-                $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-                
-                header('Location: ../StudentManager/studentHome.php');
-            } else {
-                header('Location: ../AdvisorManager/advisorHome.php');
-            }
-        }
-  }
-  
-?>

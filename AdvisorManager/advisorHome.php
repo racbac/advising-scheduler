@@ -12,6 +12,10 @@ include('../CommonMethods.php');
 
 $COMMON = new Common($debug);
 $user = $_SESSION['username'];
+
+$sql = "SELECT * FROM `users` WHERE `username` = '$user'";
+$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+$row = mysql_fetch_row($rs);
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +45,7 @@ $user = $_SESSION['username'];
 			</form>
 			
 			<div class="Main-Form">
-				<a class="Subtitle">Welcome, </a><a class="Title"><?php echo("$user");?></a>
+				<a class="Subtitle">Welcome, </a><a class="Title"><?php echo($row[0]);?></a>
 			
 				<div>
 					<form action="../AppointmentManager/createAppt.php"><button name="submit" id="CreateAppt" class="submit"><span>create appointment</span></button></form>

@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <html>
     <head>
-       <title>Update Advisor</title>
+       <title>Your Profile</title>
 		<link rel="icon" type="image/png" href="http://sites.umbc.edu/wp-content/themes/umbc/assets/images/icon.png">
 		<link href="https://fonts.googleapis.com/css?family=Catamaran:300" rel="stylesheet">
 		<link href="../main.css" rel="stylesheet" type="text/css">
@@ -21,7 +21,7 @@
 			<header>
 				<div id="Top-Header">
 					<div id="Page-Title">
-						<a class="Title">update advisor</a>
+						<a class="Title">your profile</a>
 					</div>
 					<a href="http://umbc.edu"><img src="../umbc50.png" title="UMBC: An Honors University in Maryland" class="umbc-logo"></a>
 				</div>
@@ -32,9 +32,6 @@
 			<form action="../LoginPage/processLogout.php" method="post" style="text-align: center;">
 				<button type="submit" class="Logout"><span>logout</span></button>
 			</form>
-			<div class="BackDiv">
-				<form action="../AdvisorManager/advisorHome.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
-			</div>
 
 			<div class="Main-Form">
 				<?php
@@ -59,25 +56,28 @@
 					$academic_data = mysql_fetch_assoc($rs);
                 
 					// display
-					echo($user_data['firstName']." ".$user_data['lastName']."\n");
-					echo("Major next semester: ".$academic_data['major']."\n");
-				?>
-			<h2>Appointment Info</h2>
-				<?php
+					echo("<div class='Restraint'><div class='LHeavy'><a class='Subtitle'>welcome, </a><a class='Title'>".$user_data['firstName']." ".$user_data['lastName']."</a></div>");
+					
+
+
+					echo("<div class='Subtitle Header'>".$academic_data['major']."</div></div>");
+
+
 					// get appt info
 					$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = '".$academic_data['appointmentID']."'";
 					$rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
 					$appt_data = mysql_fetch_assoc($rs);
 					// display appointment or lack thereof
 					if (!$appt_data) {
-						echo("You are not scheduled for a meeting.");
+						echo("<a class='CenteredDescriptor'>you are not scheduled for a meeting.</a>");
 					}
 					else {
 						// get advisor name
 						$sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = ".$appt_data['advisor_ID']."'";
 						$rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
 						$appt_data = array_merge($appt_data, mysql_fetch_assoc($rs));
-                   
+                   	
+						echo("<a class='Descriptor'>your appointment</a>");
 						echo("Date: ".$appt_data['date']."\n");
 						echo("Time: ".$appt_data['time']."\n");
 						echo("Location: ".$appt_data['location']."\n");
@@ -94,6 +94,10 @@
                     
 					}
 				?>
+				<div>
+					<form action="../AppointmentManager/allAppointments.php"><button name="submit" id="CreateAppt" class="submit"><span>view appointments</span></button></form>
+				</div>
+
 			</div>
 			<div id="Inner-Footer">
 				<div class="main-inner-footer-field">College of Natural and Mathematical Sciences</div>

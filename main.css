@@ -242,11 +242,26 @@ header {
 	align: right;
 }
 
+.Header {
+	margin-bottom: 50px;
+}
+
+.LHeavy {
+	position: relative;
+	right: 38px;
+}
+
 .Descriptor {
 	position: relative;
 	font-size: 18px;
 	color: rgb(171, 171, 171);
 	margin-right: 200px;
+	top: 5px;
+}
+
+.CenteredDescriptor {
+	font-size: 18px;
+	color: rgb(171, 171, 171);
 	top: 5px;
 }
 
@@ -400,6 +415,37 @@ header {
 	left: 494px;
 	top: 20px;
 }
+
+
+.ErrorDiv {
+	width: 100%;
+	text-align: center;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.InnerErrorDiv {
+	width: 60%;
+	background-color: rgba(255, 240, 240, 0.6);
+	border-top: solid;
+	border-color: rgb(255, 200, 200x);
+	border-width: 3px;
+	margin: auto;
+	overflow: hidden;
+	height: 85px;
+	position: relative;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.ErrorBackground {
+	position: absolute;
+	font-size: 32px;
+	color: rgba(255, 180, 180, 0.6);
+	top: -16px;
+	left: -5px;
+}
+
 
 #ending  {
 	margin-top: 0;

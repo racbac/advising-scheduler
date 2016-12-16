@@ -33,8 +33,74 @@ Users enter new account information using this sticky form.
 				<form action="../AdvisorManager/advisorHome.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
 			</div>
 			
-			
 			<form action="createAppt.php" method="post" class="Main-Form">
+			
+<?php
+
+if (isset($_POST['submit'])) {
+  $updated = true;
+  session_start();
+  include('../CommonMethods.php');
+  $COMMON = new Common(false);
+
+  $posted = array("sessionLeader" => $_POST['sessionLeader'], "date" => date("Y-m-d", strtotime($_POST['year']."-".$_POST['month']."-".$_POST['day'])), "startTime" => date("H:i", strtotime($_POST['startHour'].":".$_POST['startMin']." ".$_POST['startAmPm'])) , "endTime" => date("H:i", strtotime($_POST['endHour'].":".$_POST['endMin']." ".$_POST['endAmPm'])), "location" => $_POST['location'], "apptSize" => $_POST['apptSize']);
+
+  // validate input; note that input elements validate the date, appointment size, advisor, and location
+  $errors = 0;
+  // end time must succeed start time
+  if ($posted["startTime"] > $posted["endTime"]) {
+    $errors++;
+    echo("<div class='ErrorDiv'>
+        <div class='InnerErrorDiv'>
+          <a class='ErrorBackground'>error</a>
+          <a class='Error'>Meeting must end later than it starts.</a>
+        </div>
+      </div>");
+  }
+
+  // date must be past today
+  if ($posted['date'] < date("Y-m-d")) {
+    $errors++;
+    echo("<div class='ErrorDiv'>
+        <div class='InnerErrorDiv'>
+          <a class='ErrorBackground'>error</a>
+          <a class='Error'>Meeting must start after current time.</a>
+        </div>
+      </div>");
+  }
+
+  // appointment mustn't already exist
+  $sql = "SELECT `advisor_ID`, `date`, `start_time`, `end_time` FROM `appointments` WHERE `advisor_ID` = '$posted[sessionLeader]' and `date` = '$posted[date]' and `start_time` = '$posted[startTime]'";
+  $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
+
+
+  if (mysql_num_rows($rs) != 0) {
+    $errors++;
+    echo("<div class='ErrorDiv'>
+        <div class='InnerErrorDiv'>
+          <a class='ErrorBackground'>error</a>
+          <a class='Error'>An appointment with this advisor, date, time and location already exists.</a>
+        </div>
+      </div>");
+  }
+  
+  if ($errors == 0) {
+    $sql = "INSERT INTO `appointments` (`advisor_ID`, `date`, `start_time`, `end_time`, `location`, `max_students`, `curr_students`) VALUES ('$posted[sessionLeader]', '$posted[date]', '$posted[startTime]', '$posted[endTime]', '$posted[location]', '$posted[apptSize]', 0)";
+    $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
+  }
+
+}
+
+function sticky($name, $default) {
+    if(isset($_POST[$name])) 
+        echo(" value=".$_POST[$name]); 
+    else 
+        echo(" value=".$default);
+    }
+
+?>
+
+
 				<a class="Descriptor">when is your appointment?</a>
 				<div id="dateDescriptor">
 					<a class="DateDescriptor Month">month:</a>
@@ -135,7 +201,7 @@ Users enter new account information using this sticky form.
 				
 				<br>
 				<a class="Descriptor">and where is it?</a>
-				<input class="inputField" type="text" name="location" value="<?php if(isset($_POST['location'])) echo($_POST['location']) else echo(''); ?>">
+				<input class="inputField" type="text" name="location" value="<?php if(isset($_POST['location'])) echo($_POST['location']); ?>">
 				
 				<div>
 					<button name="submit" id="Create" class="submit"><span>create</span></button>
@@ -177,57 +243,3 @@ Users enter new account information using this sticky form.
 		</div>	
 	</body>
 </html>
-
-<?php
-
-if (isset($_POST['submit'])) {
-  $updated = true;
-  session_start();
-  include('../CommonMethods.php');
-  $COMMON = new Common(false);
-
-  $posted = array("sessionLeader" => $_POST['sessionLeader'], "date" => date("Y-m-d", strtotime($_POST['year']."-".$_POST['month']."-".$_POST['day'])), "startTime" => date("H:i", strtotime($_POST['startHour'].":".$_POST['startMin']." ".$_POST['startAmPm'])) , "endTime" => date("H:i", strtotime($_POST['endHour'].":".$_POST['endMin']." ".$_POST['endAmPm'])), "location" => $_POST['location'], "apptSize" => $_POST['apptSize']);
-
-  // validate input; note that input elements validate the date, appointment size, advisor, and location
-  $errors = 0;
-  // end time must succeed start time
-  if ($posted["startTime"] > $posted["endTime"]) {
-    $errors++;
-    echo("Meeting must end later than it starts. ");
-  }
-
-  // date must be past today
-  if ($posted['date'] < date("Y-m-d")) {
-    $errors++;
-    echo("Meeting must be today or later. ");
-  }
-
-  // appointment mustn't already exist
-  $sql = "SELECT `advisor_ID`, `date`, `start_time`, `end_time` FROM `appointments` WHERE `advisor_ID` = '$posted[sessionLeader]' and `date` = '$posted[date]' and `start_time` = '$posted[startTime]'";
-  $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
-
-
-  if (mysql_num_rows($rs) != 0) {
-    $errors++;
-    echo("Appointment with this advisor, date, and time already exists. ");
-  }
-  
-  if ($errors == 0) {
-    $sql = "INSERT INTO `appointments` (`advisor_ID`, `date`, `start_time`, `end_time`, `location`, `max_students`, `curr_students`) VALUES ('$posted[sessionLeader]', '$posted[date]', '$posted[startTime]', '$posted[endTime]', '$posted[location]', '$posted[apptSize]', 0)";
-    $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
-
-    if ($rs) {
-      echo("Success!");
-    }
-  }
-
-}
-
-function sticky($name, $default) {
-    if(isset($_POST[$name])) 
-        echo(" value=".$_POST[$name]); 
-    else 
-        echo(" value=".$default);
-    }
-
-?>
