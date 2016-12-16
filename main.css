@@ -310,6 +310,112 @@ header {
 	color: rgba(40,40,40,1.00);
 }
 
+.Logout {
+	background-color: rgba(200, 170, 170, 1);
+	border: none;
+	margin-top: 15px;
+	padding: 5px 10px 5px 10px;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 14px;
+	width: 20%;
+	color: rgba(70,70,70,1.00);
+	display: inline-block;
+	border-radius: 1px;
+	
+	transition: all 600ms cubic-bezier(0.19,1,0.22,1);
+	-webkit-transition: background-color 600ms cubic-bezier(0.19,1,0.22,1);
+}
+
+.Logout span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 600ms;	
+}
+
+.Logout span:after {
+	content: '« ';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	left: -15px;
+	transition: 600ms;
+}
+
+.Logout:hover span {
+	padding-left: 25px;
+}
+
+.Logout:hover span:after {
+	opacity: 1;
+	left: 5px;
+}
+
+.Logout:hover {
+	background-color: rgba(220, 180, 180, 1);
+	color: rgba(40,40,40,1.00);
+}
+
+#dateDescriptor {
+	color: rgb(180, 180, 180);
+	font-size: 12px;
+	position: relative;
+	text-align: left;
+}
+
+.DateDescriptor {
+	position: absolute;
+}
+
+.DateTime {
+	width: 100px;
+	height: 19px;
+	margin-top: 15px;
+}
+
+#picker {
+	height: 25px;
+}
+
+.Month {
+	left: 386px;
+}
+
+.Day {
+	left: 510px;
+}
+
+.Year {
+	left: 617px;
+}
+
+.Hour {
+	left: 402px;
+	top: 20px;
+}
+
+.Minute {
+	left: 494px;
+	top: 20px;
+}
+
+#ending  {
+	margin-top: 0;
+}
+
+#Create {
+	width: 150px;
+}
+
+#endingDescriptor {
+	top: 30px;
+}
+
+.timeSelector  {
+	margin-top: 20px;
+}
+
 #Inner-Footer {
 	display: table;
 	width: 100%;

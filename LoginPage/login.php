@@ -14,6 +14,7 @@ session_start();
 <html>
     <head>
        <title>Welcome</title>
+   		<link rel="icon" type="image/png" href="http://sites.umbc.edu/wp-content/themes/umbc/assets/images/icon.png">
 		<link href="https://fonts.googleapis.com/css?family=Catamaran:300" rel="stylesheet">
 		<link href="../main.css" rel="stylesheet" type="text/css">
     </head>
