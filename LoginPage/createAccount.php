@@ -28,7 +28,7 @@ Users enter new account information using this sticky form.
 				</div>
 			</header>
 			<div class="BackDiv">
-				<form action="login.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
+				<form action="../AdvisorManager/advisorHome.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
 			</div>
 			<form class="Main-Form" action='createAccount.php' method='post'>
 				<div class="Group-Appointment">

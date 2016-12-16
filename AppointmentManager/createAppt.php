@@ -30,7 +30,7 @@ Users enter new account information using this sticky form.
 				<button type="submit" class="Logout"><span>logout</span></button>
 			</form>
 			<div class="BackDiv">
-				<form action="login.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
+				<form action="../AdvisorManager/advisorHome.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
 			</div>
 			
 			

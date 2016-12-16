@@ -1,11 +1,9 @@
 <!--htmlHeader
    Project: CMSC331 Project 02, Fall 2016
-   Authors: Felipe Bastos, Rachel Brackert, Travis Early, Nathaniel Fuller, Colin Ganley
+   Authors: Felipe Bastos, Rachel Backert, Travis Earley, Nathaniel Fuller, Colin Ganley
    Date: 2016-12-13
    Email: fbastos1@umbc.edu, bac2@umbc.edu, te4@umbc.edu, fullern1@umbc.edu, cganley1@umbc.edu
 -->
-
-<link rel="stylesheet" href="advisor.css" type="text/css">
 <?php
 session_start();
 //if(!$_SESSION['userToken']) { header('Location: ../error.html'); }
@@ -16,26 +14,75 @@ $COMMON = new Common($debug);
 $user = $_SESSION['username'];
 ?>
 
-
+<!DOCTYPE html>
+<meta charset="UTF-8">
 <html>
-<head>
-<title></title>
-<style>
-input[type=submit] {
-  background-color: #ffcc00;
-  border: none;
-  color: #000000;
-  text-decoration: none;
-  margin: 4px 2px;
-  text-transform: uppercase;
- }
-</style>
-</head>
-<body>
-<h2>Welcome, <?php echo "$user";?></h2>
-<a href="../AppointmentManager/createAppt.html">Create an Appointment</a>
-<a href="../LoginPage/processLogout.php">Logout</a>
-</form>
-
-</body>
+    <head>
+       <title>Your Profile</title>
+		<link rel="icon" type="image/png" href="http://sites.umbc.edu/wp-content/themes/umbc/assets/images/icon.png">
+		<link href="https://fonts.googleapis.com/css?family=Catamaran:300" rel="stylesheet">
+		<link href="../main.css" rel="stylesheet" type="text/css">
+    </head>
+	<body>
+		<div id="wrapper">
+			<header>
+				<div id="Top-Header">
+					<div id="Page-Title">
+						<a class="Title">your profile</a>
+					</div>
+					<a href="http://umbc.edu"><img src="../umbc50.png" title="UMBC: An Honors University in Maryland" class="umbc-logo"></a>
+				</div>
+				<div id="Cnms-Banner">
+					<a href="http://cnms.umbc.edu"><img src="../cnms.png" class="banner"></a>
+				</div>
+			</header>
+			<form action="../LoginPage/processLogout.php" method="post" style="text-align: center;">
+				<button type="submit" class="Logout"><span>logout</span></button>
+			</form>
+			<div class="BackDiv">
+				<form action="../AdvisorManager/advisorHome.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
+			</div>
+			
+			<div class="Main-Form">
+				<a class="Subtitle">Welcome, </a><a class="Title"><?php echo("$user");?></a>
+			
+				<div>
+					<form action="../AppointmentManager/createAppt.php"><button name="submit" id="CreateAppt" class="submit"><span>create appointment</span></button></form>
+				</div>
+				
+			</div>
+			<div id="Inner-Footer">
+				<div class="main-inner-footer-field">College of Natural and Mathematical Sciences</div>
+				<div class="inner-footer-field">University Center Room 116</div>
+				<div class="inner-footer-field">(410) 455-5827</div>
+				<div class="inner-footer-field"><a class="inner-footer-link" href="mailto:cnms@umbc.edu">cnms@umbc.edu</a></div>
+			</div>
+		</div>
+		<div id="Footer">
+			<div>
+				<a href="http://umbc.edu"><img src="../footer.png" title="UMBC: An Honors University in Maryland" class="umbc-footer"></a>
+			</div>
+			<div>
+				<a href="http://about.umbc.edu">About UMBC</a> 
+				| 
+				<a href="http://about.umbc.edu/visitors-guide/contact-us">Contact Us</a> 
+				| 
+				<a href="http://umbc.edu/go/equal-opportunity">Equal Opportunity</a> 
+				| 
+				Follow UMBC:
+				<a href="https://facebook.com/umbcpage" title="Follow on Facebook">
+					<img class="facebook-footer" src="../fbft.png">
+				</a> 
+				<a href="https://twitter.com/umbc" title="Follow on Twitter">
+					<img class="twitter-footer" src="../twft.png">
+				</a> 
+				<a href="http://umbc.edu/news" title="UMBC News">
+					<img class="rss-footer" src="../rssft.png">
+				</a>
+			</div>
+			<div>
+				© University of Maryland, Baltimore County  •  1000 Hilltop Circle  •  Baltimore, MD 21250
+			</div>
+		</div>	
+	</body>
 </html>

@@ -408,8 +408,22 @@ header {
 	width: 150px;
 }
 
+#CreateAppt {
+	width: 250px;
+}
+
 #endingDescriptor {
 	top: 30px;
+}
+
+.Subtitle {
+	color: rgb(200, 200, 200);
+	font-size: 14pt;
+}
+
+.Title {
+	color: rgb(150, 150, 150);
+	font-size: 24pt;
 }
 
 .timeSelector  {
