@@ -22,7 +22,7 @@ session_start();
 			<header>
 				<div id="Top-Header">
 					<div id="Page-Title">
-						<a class="Title">home page</a>
+						<a class="Title">login</a>
 					</div>
 					<a href="http://umbc.edu"><img src="../umbc50.png" title="UMBC: An Honors University in Maryland" class="umbc-logo"></a>
 				</div>

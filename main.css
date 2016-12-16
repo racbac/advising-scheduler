@@ -258,6 +258,58 @@ header {
 	color: rgb(100, 100, 100);
 }
 
+.BackDiv {
+	text-align: left;
+	margin: 0 0 0 70px;
+}
+
+.BackButton {
+	background-color: rgba(200, 200, 200, 1);
+	border: none;
+	margin-top: 15px;
+	padding: 5px 10px 5px 10px;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 14px;
+	width: 75px;
+	color: rgba(70,70,70,1.00);
+	display: inline-block;
+	border-radius: 1px;
+	
+	transition: all 600ms cubic-bezier(0.19,1,0.22,1);
+	-webkit-transition: background-color 600ms cubic-bezier(0.19,1,0.22,1);
+}
+
+.BackButton span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 600ms;	
+}
+
+.BackButton span:after {
+	content: '« ';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	left: -15px;
+	transition: 600ms;
+}
+
+.BackButton:hover span {
+	padding-left: 25px;
+}
+
+.BackButton:hover span:after {
+	opacity: 1;
+	left: 5px;
+}
+
+.BackButton:hover {
+	background-color: rgba(220, 220, 200, 1);
+	color: rgba(40,40,40,1.00);
+}
+
 #Inner-Footer {
 	display: table;
 	width: 100%;
