@@ -24,6 +24,7 @@ $sql = "SELECT `username` FROM `students_academic_info` WHERE `appointmentID` = 
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 $students = mysql_fetch_row($rs);
 
+//TODO: fix for loop, look into whether the array is populating correctly
 ?>
 
 <html>
@@ -39,7 +40,7 @@ Edit Appointment Info <br/>
   <?php 
   //creates a checkbox for every students in the appointment
   if (!empty($students)){
-    echo "Remove Specific Students:";
+    echo "Remove Specific Students:<br/>";
     foreach($students as $studentid){
       echo "<input type='checkbox' name='students[]' value='".$studentid."'>".$studentid."<br/>";
     }
