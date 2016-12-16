@@ -39,9 +39,6 @@ $user = $_SESSION['username'];
 			<form action="../LoginPage/processLogout.php" method="post" style="text-align: center;">
 				<button type="submit" class="Logout"><span>logout</span></button>
 			</form>
-			<div class="BackDiv">
-				<form action="../AdvisorManager/advisorHome.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
-			</div>
 			
 			<div class="Main-Form">
 				<a class="Subtitle">Welcome, </a><a class="Title"><?php echo("$user");?></a>
