@@ -48,7 +48,7 @@ header {
 	color: #aaa;
 }
 
-#Main-Form {
+.Main-Form {
 	text-align: center;
 	margin-right: 0;
 	margin-left: 0;
@@ -58,6 +58,30 @@ header {
 	position: relative;
 	display: block;
 }
+
+.LargeSelect {
+	padding: 8px;
+	width: 72%;
+	margin: 10px;
+	border-radius: 2px;
+	border: solid;
+	border-width: 1px;
+	border-color: rgb(171, 171, 171);
+	outline: none;
+	color: rgba(100, 100, 100, 1);
+
+	-webkit-transition: all 600ms cubic-bezier(0.19,1,0.22,1);
+	transition: all 600ms cubic-bezier(0.19,1,0.22,1);
+}
+
+.LargeSelect:hover {
+	border-color: #909090;
+}
+
+.Restraint {
+	position: relative;
+}
+
 
 .inputField {
 	padding: 8px;
@@ -101,6 +125,7 @@ header {
 
 #Login {
 	margin: 10px 0 10px 0;
+	width: 120px;
 }
 
 #CreateAcc {
@@ -115,7 +140,6 @@ header {
 	text-decoration: none;
 	cursor: pointer;
 	font-size: 22px;
-	width: 120px;
 	color: rgba(70,70,70,1.00);
 	display: inline-block;
 	border-radius: 1px;
@@ -216,6 +240,22 @@ header {
 	width: 35%;
 	margin: 3px 10px 3px 0;
 	align: right;
+}
+
+.Descriptor {
+	position: relative;
+	font-size: 18px;
+	color: rgb(171, 171, 171);
+	margin-right: 200px;
+	top: 5px;
+}
+
+#Register {
+	width: 140px;
+}
+
+.RadialDescriptor {
+	color: rgb(100, 100, 100);
 }
 
 #Inner-Footer {
