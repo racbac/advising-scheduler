@@ -57,7 +57,7 @@ Users enter new account information using this sticky form.
 						<option value="12">December</option>
 					</select>
 					<input name="day" type="number" min="1" max="31" class="DateTime" required>
-					<input name="year" type="number" class="DateTime" required>
+					<input name="year" type="number" class="DateTime" value="2017" required>
 				</div>
 				<div id="dateDescriptor">
 					<a class="DateDescriptor Hour">hour:</a>
