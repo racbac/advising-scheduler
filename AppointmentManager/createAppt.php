@@ -14,6 +14,7 @@ Users enter new account information using this sticky form.
 		<link href="https://fonts.googleapis.com/css?family=Catamaran:300" rel="stylesheet">
 		<link href="../main.css" rel="stylesheet" type="text/css">
     </head>
+    <body>
 		<div id="wrapper">
 			<header>
 				<div id="Top-Header">

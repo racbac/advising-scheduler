@@ -6,49 +6,44 @@ students can sign up for available appointments, which signs them out of their c
 advisors can edit appointment information
 -->
 
+<!DOCTYPE html>
+<meta charset="UTF-8">
 <html>
     <head>
-        <title>Appointments - UMBC CMNS Advising</title>
+       <title>Appointment Search</title>
         <link rel="icon" type="image/png" href="http://sites.umbc.edu/wp-content/themes/umbc/assets/images/icon.png">
-
-        <style>
-            ul {
-                list-style: none;
-                list-style-type: none;
-
-                position: relative;
-                margin: 0;
-                padding: 0;
-            }
-            
-            li {
-                position: relative;
-                display: inline-block;
-            }
-            #toggle {
-                display: none;
-            }
-            #toggle ~ select {
-                position: absolute;
-                display: none !important;
-                z-index: 10;
-            }
-            #toggle:checked ~ select {
-                display: block !important;
-            }
-        </style>
-
-  </head>
-
+        <link href="https://fonts.googleapis.com/css?family=Catamaran:300" rel="stylesheet">
+        <link href="../main.css" rel="stylesheet" type="text/css">
+    </head>
     <body>
-        <h1>Appointments</h1>
-
-        <h2>Filter by: </h2>
-        <form action="allAppointments.php" method="POST">
+        <div id="wrapper">
+            <header>
+                <div id="Top-Header">
+                    <div id="Page-Title">
+                        <a class="Title">find an appointment</a>
+                    </div>
+                    <a href="http://umbc.edu"><img src="../umbc50.png" title="UMBC: An Honors University in Maryland" class="umbc-logo"></a>
+                </div>
+                <div id="Cnms-Banner">
+                    <a href="http://cnms.umbc.edu"><img src="../cnms.png" class="banner"></a>
+                </div>
+            </header>
+            <form action="../LoginPage/processLogout.php" method="post" style="text-align: center;">
+                <button type="submit" class="Logout"><span>logout</span></button>
+            </form>
+            <div class="BackDiv">
+                <form action="../AdvisorManager/advisorHome.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
+            </div>
             
-            <ul>
-                <li> Start Date: 
-                    <select name="startMonth">
+            <form action="allAppointments.php" method="post" class="Main-Form">
+                <a class="Descriptor">I want to find an appointment starting between...</a>
+                <div id="dateDescriptor">
+                    <a class="DateDescriptor Month">month:</a>
+                    <a class="DateDescriptor Day">day:</a>
+                    <a class="DateDescriptor Year">year:</a>
+                </div>
+                <div class="dateSelector">
+                    <select name="startMonth" class="DateTime">
                         <option value="1" <?php stickySelect("startMonth", 1, date("m")) ?> >January</option>
                         <option value="2" <?php stickySelect("startMonth", 2, date("m")) ?> >February</option>
                         <option value="3" <?php stickySelect("startMonth", 3, date("m")) ?> >March</option>
@@ -62,11 +57,18 @@ advisors can edit appointment information
                         <option value="11" <?php stickySelect("startMonth", 11, date("m")) ?> >November</option>
                         <option value="12" <?php stickySelect("startMonth", 12, date("m")) ?> >December</option>
                     </select>
-                    <input name="startDay" type="number" min="1" max="31" <?php sticky("startDay", 1) ?> >
-                    <input name="startYear" type="number" <?php sticky("startYear", date("Y")) ?> >
-                </li>
-                <li> End Date: 
-                    <select name="endMonth" >
+                <input name="startDay" class="DateTime" type="number" min="1" max="31" <?php sticky("startDay", 1) ?> >
+                <input name="startYear" class="DateTime" type="number" <?php sticky("startYear", date("Y")) ?> >
+                </div>
+
+                <a class="Descriptor">...and</a>
+                <div id="dateDescriptor">
+                    <a class="DateDescriptor Month">month:</a>
+                    <a class="DateDescriptor Day">day:</a>
+                    <a class="DateDescriptor Year">year:</a>
+                </div>
+                <div class="dateSelector">
+                    <select name="endMonth" class="DateTime">
                         <option value="1" <?php stickySelect("endMonth", 1, date("m")) ?> >January</option>
                         <option value="2" <?php stickySelect("endMonth", 2, date("m")) ?> >February</option>
                         <option value="3" <?php stickySelect("endMonth", 3, date("m")) ?> >March</option>
@@ -80,37 +82,81 @@ advisors can edit appointment information
                         <option value="11" <?php stickySelect("endMonth", 11, date("m")) ?> >November</option>
                         <option value="12" <?php stickySelect("endMonth", 12, date("m")) ?> >December</option>
                     </select>
-                    <input name="endDay" type="number" min="1" max="31" <?php sticky("endDay", 31) ?> >
-                    <input name="endYear" type="number" <?php sticky("startYear", date("Y")) ?> >
-                </li>
-                <li> Start Time:
-                    <input type="number" name="startHour" min="1" max="12" <?php sticky("startHour", "8") ?> > :
-                    <input type="number" name="startMin" min="0" max="59" <?php sticky("startMin", "00") ?> >
-                    <select name="startAmPm" >
+                    <input name="endDay" class="DateTime" type="number" min="1" max="31" <?php sticky("endDay", 31) ?> >
+                    <input name="endYear" class="DateTime" type="number" <?php sticky("startYear", date("Y")) ?> >
+                </div>
+
+                <div id="dateDescriptor">
+                    <a class="DateDescriptor Hour" id="endingDescriptor">hour:</a>
+                    <a class="DateDescriptor Minute" id="endingDescriptor">minute:</a>
+                </div>
+                    <a class="Descriptor">when does the meeting start?</a>
+                    <div class="timeSelector" id="ending">
+                    <input type="number" class="DateTime" name="startHour" min="1" max="12" <?php sticky("startHour", "8") ?> > :
+                    <input type="number" class="DateTime" name="startMin" min="0" max="59" <?php sticky("startMin", "00") ?> >
+                    <select name="startAmPm" class="DateTime">
                         <option value="AM" <?php stickySelect("startAmPm", "AM", "AM") ?> >AM</option>
                         <option value="PM" <?php stickySelect("startAmPm", "PM", "AM") ?> >PM</option>
                     </select>
-                </li>
-                <li> End Time:
-                    <input type="number" name="endHour" min="1" max="12" <?php sticky("endHour", "9") ?> > :
-                    <input type="number" name="endMin" min="0" max="59" <?php sticky("endMin", "00") ?> >
-                    <select name="endAmPm" >
+                </div>
+
+                <div id="dateDescriptor">
+                    <a class="DateDescriptor Hour" id="endingDescriptor">hour:</a>
+                    <a class="DateDescriptor Minute" id="endingDescriptor">minute:</a>
+                </div>
+                <a class="Descriptor">and when does it end?</a>
+                <div class="timeSelector" id="ending">
+                    <input type="number" class="DateTime" name="endHour" min="1" max="12" <?php sticky("endHour", "9") ?> > :
+                    <input type="number" class="DateTime" name="endMin" min="0" max="59" <?php sticky("endMin", "00") ?> >
+                    <select name="endAmPm" class="DateTime">
                         <option value="AM" <?php stickySelect("endAmPm", "AM", "PM") ?> >AM</option>
                         <option value="PM" <?php stickySelect("endAmPm", "PM", "PM") ?> >PM</option>
                     </select>
-                </li>
-                <li> 
-                    Advisors:
-                    <label><input type="checkbox" name="sessionLeader[]" value="CNMS Advisors" checked>CNMS advisors</label>
-                    <label><input type="checkbox" name="sessionLeader[]" value="mbulger" checked>Ms. Michelle Bulger</label>
-                    <label><input type="checkbox" name="sessionLeader[]" value="JulieCrosby" checked>Mrs. Julie Crosby</label>
-                    <label><input type="checkbox" name="sessionLeader[]" value="ChristinePowers" checked>Ms. Christine Powers</label>
-                </li>
-                <li> 
-                        <button type="submit" class="Submit" name="submit" ><span>Search appointments</span></button>
-                </li>
-            </ul>
-        </form>
+                </div>
+
+                <a class="Descriptor">who do you want to meet with?</a>
+                <label><input type="checkbox" name="sessionLeader[]" value="mbulger" checked>Ms. Michelle Bulger</label>
+                <label><input type="checkbox" name="sessionLeader[]" value="JulieCrosby" checked>Mrs. Julie Crosby</label>
+                <label><input type="checkbox" name="sessionLeader[]" value="ChristinePowers" checked>Ms. Christine Powers</label>
+                <label><input type="checkbox" name="sessionLeader[]" value="CNMS Advisors" checked>CNMS advisors</label>
+                <button type="submit" class="Submit" name="submit"><span>Search appointments</span></button>
+            </form>
+            <div id="Inner-Footer">
+                <div class="main-inner-footer-field">College of Natural and Mathematical Sciences</div>
+                <div class="inner-footer-field">University Center Room 116</div>
+                <div class="inner-footer-field">(410) 455-5827</div>
+                <div class="inner-footer-field"><a class="inner-footer-link" href="mailto:cnms@umbc.edu">cnms@umbc.edu</a></div>
+            </div>
+        </div>
+        <div id="Footer">
+            <div>
+                <a href="http://umbc.edu"><img src="../footer.png" title="UMBC: An Honors University in Maryland" class="umbc-footer"></a>
+            </div>
+            <div>
+                <a href="http://about.umbc.edu">About UMBC</a> 
+                | 
+                <a href="http://about.umbc.edu/visitors-guide/contact-us">Contact Us</a> 
+                | 
+                <a href="http://umbc.edu/go/equal-opportunity">Equal Opportunity</a> 
+                | 
+                Follow UMBC:
+                <a href="https://facebook.com/umbcpage" title="Follow on Facebook">
+                    <img class="facebook-footer" src="../fbft.png">
+                </a> 
+                <a href="https://twitter.com/umbc" title="Follow on Twitter">
+                    <img class="twitter-footer" src="../twft.png">
+                </a> 
+                <a href="http://umbc.edu/news" title="UMBC News">
+                    <img class="rss-footer" src="../rssft.png">
+                </a>
+            </div>
+            <div>
+                © University of Maryland, Baltimore County  •  1000 Hilltop Circle  •  Baltimore, MD 21250
+            </div>
+        </div>  
+    </body>
+</html>
+
 
         <?php
             if (isset($_POST['submit'])) {
@@ -230,6 +276,3 @@ advisors can edit appointment information
             }
 
         ?>
-
-    </body>
-</html>
