@@ -32,9 +32,7 @@ Users enter new account information using this sticky form.
 			<div class="BackDiv">
 				<form action="../AdvisorManager/advisorHome.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
 			</div>
-			
-			<form action="createAppt.php" method="post" class="Main-Form">		
-			
+						
 				<?php
 					if (isset($_POST['submit'])) {
 					$updated = true;
@@ -60,19 +58,19 @@ Users enter new account information using this sticky form.
 						echo("<div class='ErrorDiv'>
 							<div class='InnerErrorDiv'>
 							  <a class='ErrorBackground'>error</a>
-							  <a class='Error'>Meeting must start after current time.</a>
+							  <a class='Error'>Meeting must start after current date.</a>
 							</div>
 						  </div>");
 					  }
 					  // appointment mustn't already exist
-					  $sql = "SELECT `advisor_ID`, `date`, `start_time`, `end_time` FROM `appointments` WHERE `advisor_ID` = '$posted[sessionLeader]' and `date` = '$posted[date]' and `start_time` = '$posted[startTime]'";
+					  $sql = "SELECT * FROM `appointments` WHERE `advisor_ID` = '$posted[sessionLeader]' and `date` = '$posted[date]' and ((`start_time` BETWEEN '$posted[startTime]' and '$posted[endTime]') or (`end_time` BETWEEN '$posted[startTime]' and '$posted[endTime]'))";
 					  $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
 					  if (mysql_num_rows($rs) != 0) {
 						$errors++;
 							echo("<div class='ErrorDiv'>
 									<div class='InnerErrorDiv'>
 									  <a class='ErrorBackground'>error</a>
-									  <a class='Error'>An appointment with this advisor, date, time and location already exists.</a>
+									  <a class='Error'>An appointment with this advisor, date, and time already exists.</a>
 									</div>
 								</div>");}
 					  
@@ -101,7 +99,8 @@ Users enter new account information using this sticky form.
 					  }
 				?>
 				
-				<a class="Descriptor">when is your appointment?</a>
+				<form action="createAppt.php" method="post" class="Main-Form">		
+					<a class="Descriptor">when is your appointment?</a>
 					<div id="dateDescriptor">
 						<a class="DateDescriptor Month">month:</a>
 						<a class="DateDescriptor Day">day:</a>
@@ -122,9 +121,11 @@ Users enter new account information using this sticky form.
 							<option value="11" <?php stickySelect("month", 11, date("m")) ?> >November</option>
 							<option value="12" <?php stickySelect("month", 12, date("m")) ?> >December</option>
 						</select>
-						<input name="day" type="number" min="1" max="31" class="DateTime" <?php sticky("day", 1) ?> required>
+						<input name="day" type="number" min="1" max="31" class="DateTime" <?php sticky("day", date("d")); ?> required>
 						<input name="year" type="number" class="DateTime" <?php sticky("year", date("Y")) ?> required>
 					</div>
+					
+					<a class="Descriptor">when does it start?</a>
 					<div id="dateDescriptor">
 						<a class="DateDescriptor Hour">hour:</a>
 						<a class="DateDescriptor Minute">minute:</a>
@@ -155,7 +156,7 @@ Users enter new account information using this sticky form.
 					<input class="inputField" type="number" name="apptSize" <?php sticky("apptSize","10"); ?> placeholder="1-40" min="1" max="40" required>
 		
 					<br>
-					<a class="Descriptor">who will be the leader for the session?</a>
+					<a class="Descriptor">who will lead the session?</a>
 					<select class="inputField" name="sessionLeader" required>
 						<option value="mbulger" <?php stickySelect("sessionLeader", "mbulger", "cmns") ?> >Ms. Michelle Bulger</option>
 						<option value="JulieCrosby" <?php stickySelect("sessionLeader", "JulieCrosby", "cmns") ?> >Mrs. Julie Crosby</option>
@@ -165,7 +166,7 @@ Users enter new account information using this sticky form.
 
 					<br>
 					<a class="Descriptor">and where is it?</a>
-					<input class="inputField" type="text" name="location" value="<?php sticky("location"); ?>">
+					<input class="inputField" type="text" name="location" <?php sticky("location"); ?> >
 				
 					<div>
 						<button name="submit" id="Create" class="submit"><span>create</span></button>
@@ -207,8 +208,5 @@ Users enter new account information using this sticky form.
 			</div>
 		</div>	
 	</body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> master
+
