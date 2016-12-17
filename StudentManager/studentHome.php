@@ -95,7 +95,7 @@
 					}
 				?>
 				<div>
-					<form action="../AppointmentManager/allAppointments.php"><button name="submit" id="CreateAppt" class="submit"><span>view appointments</span></button></form>
+					<form action="../AppointmentManager/allAppointments.php"><button name="submit" id="SearchAppt" class="submit"><span>view appointments</span></button></form>
 				</div>
 
 			</div>

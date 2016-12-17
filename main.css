@@ -132,6 +132,15 @@ header {
 	margin-right: 57%;
 }
 
+.AdvisorTable {
+	width: 50%;
+	margin: auto;
+}
+
+.CheckboxDescriptor {
+	color: rgb(100, 100, 100);
+}
+
 .submit {
 	background-color: rgba(100, 180, 100, 1);
 	border: none;
@@ -457,6 +466,11 @@ header {
 
 #CreateAppt {
 	width: 250px;
+}
+
+
+#SearchAppt {
+	width: 260px;
 }
 
 #endingDescriptor {

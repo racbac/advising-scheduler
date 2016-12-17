@@ -94,6 +94,9 @@ Users enter new account information using this sticky form.
 				
 				<input placeholder="First Name" class="inputField" type='varchar' size='10' maxlength='40' name='firstName' value="<?php if(isset($_POST['firstName'])) echo($_POST['firstName']); ?>" required>
 				<input placeholder="Last Name" class="inputField" type='varchar' size='10' maxlength='40' name='lastName' value="<?php if(isset($_POST['lastName'])) echo($_POST['lastName']); ?>" required>
+				
+				<input placeholder="Preferred Name" class="inputField" type='varchar' size='10' maxlength='40' name='preferredName' value="<?php if(isset($_POST['preferredName'])) echo($_POST['preferredName']); ?>" >
+
 				<input placeholder="E-mail Address" class="inputField" type='email' name='email' size='15' placeholder="Ex: jDoe1@umbc.edu" value="<?php if(isset($_POST['email'])) echo($_POST['email']); ?>" required>
 
 				<input placeholder="Campus ID" class="inputField" type='varchar' size='7' maxlength='7' name='campusID' placeholder="Ex: AB12345" value="<?php if(isset($_POST['campusID'])) echo($_POST['campusID']); ?>" required>
@@ -115,7 +118,6 @@ Users enter new account information using this sticky form.
 					</select>
 				</div>
 
-				<input placeholder="Preferred Name" class="inputField" type='varchar' size='10' maxlength='40' name='preferredName' value="<?php if(isset($_POST['preferredName'])) echo($_POST['preferredName']); ?>" >
 				<div>
 					<button class="submit" id="Register" type='submit' name='submit'><span>register</span></button>
 				</div>

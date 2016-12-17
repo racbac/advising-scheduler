@@ -16,6 +16,7 @@ advisors can edit appointment information
         <link href="../main.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+
         <div id="wrapper">
             <header>
                 <div id="Top-Header">
@@ -32,7 +33,7 @@ advisors can edit appointment information
                 <button type="submit" class="Logout"><span>logout</span></button>
             </form>
             <div class="BackDiv">
-                <form action="../AdvisorManager/advisorHome.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
+                <form action=<?php session_start(); if($_SESSION['userRole'] == "advisor" ) echo('../AdvisorManager/advisorHome.php'); else echo('../StudentManager/studentHome.php'); ?> method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
             </div>
             
             <form action="allAppointments.php" method="post" class="Main-Form">
@@ -115,54 +116,25 @@ advisors can edit appointment information
                 </div>
 
                 <a class="Descriptor">who do you want to meet with?</a>
-                <label><input type="checkbox" name="sessionLeader[]" value="mbulger" checked>Ms. Michelle Bulger</label>
-                <label><input type="checkbox" name="sessionLeader[]" value="JulieCrosby" checked>Mrs. Julie Crosby</label>
-                <label><input type="checkbox" name="sessionLeader[]" value="ChristinePowers" checked>Ms. Christine Powers</label>
-                <label><input type="checkbox" name="sessionLeader[]" value="CNMS Advisors" checked>CNMS advisors</label>
-                <button type="submit" class="Submit" name="submit"><span>Search appointments</span></button>
+                <table class="AdvisorTable">
+                    <tr>
+                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="mbulger" checked>Ms. Michelle Bulger</label></td>
+                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="JulieCrosby" checked>Mrs. Julie Crosby</label></td>
+                    </tr>
+                    <tr>    
+                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="ChristinePowers" checked>Ms. Christine Powers</label></td>
+                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="CNMS Advisors" checked>CNMS advisors</label></td>
+                    </tr>
+                </table>
+                <button type="submit" class="submit" name="submit"><span>Search appointments</span></button>
             </form>
-            <div id="Inner-Footer">
-                <div class="main-inner-footer-field">College of Natural and Mathematical Sciences</div>
-                <div class="inner-footer-field">University Center Room 116</div>
-                <div class="inner-footer-field">(410) 455-5827</div>
-                <div class="inner-footer-field"><a class="inner-footer-link" href="mailto:cnms@umbc.edu">cnms@umbc.edu</a></div>
-            </div>
-        </div>
-        <div id="Footer">
-            <div>
-                <a href="http://umbc.edu"><img src="../footer.png" title="UMBC: An Honors University in Maryland" class="umbc-footer"></a>
-            </div>
-            <div>
-                <a href="http://about.umbc.edu">About UMBC</a> 
-                | 
-                <a href="http://about.umbc.edu/visitors-guide/contact-us">Contact Us</a> 
-                | 
-                <a href="http://umbc.edu/go/equal-opportunity">Equal Opportunity</a> 
-                | 
-                Follow UMBC:
-                <a href="https://facebook.com/umbcpage" title="Follow on Facebook">
-                    <img class="facebook-footer" src="../fbft.png">
-                </a> 
-                <a href="https://twitter.com/umbc" title="Follow on Twitter">
-                    <img class="twitter-footer" src="../twft.png">
-                </a> 
-                <a href="http://umbc.edu/news" title="UMBC News">
-                    <img class="rss-footer" src="../rssft.png">
-                </a>
-            </div>
-            <div>
-                © University of Maryland, Baltimore County  •  1000 Hilltop Circle  •  Baltimore, MD 21250
-            </div>
-        </div>  
-    </body>
-</html>
 
 
-        <?php
+            <?php
             if (isset($_POST['submit'])) {
                 include('../CommonMethods.php');
                 $COMMON = new Common(false);
-                session_start();
+                //session_start();
                 
 
                 // get set filters in array
@@ -214,6 +186,7 @@ advisors can edit appointment information
 
 
                 $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
+
 
                 // print appointments
                 echo("<tr>");
@@ -292,5 +265,41 @@ advisors can edit appointment information
                     echo(" selected");
                 }
             }
-
         ?>
+
+            <div id="Inner-Footer">
+                <div class="main-inner-footer-field">College of Natural and Mathematical Sciences</div>
+                <div class="inner-footer-field">University Center Room 116</div>
+                <div class="inner-footer-field">(410) 455-5827</div>
+                <div class="inner-footer-field"><a class="inner-footer-link" href="mailto:cnms@umbc.edu">cnms@umbc.edu</a></div>
+            </div>
+        </div>
+        <div id="Footer">
+            <div>
+                <a href="http://umbc.edu"><img src="../footer.png" title="UMBC: An Honors University in Maryland" class="umbc-footer"></a>
+            </div>
+            <div>
+                <a href="http://about.umbc.edu">About UMBC</a> 
+                | 
+                <a href="http://about.umbc.edu/visitors-guide/contact-us">Contact Us</a> 
+                | 
+                <a href="http://umbc.edu/go/equal-opportunity">Equal Opportunity</a> 
+                | 
+                Follow UMBC:
+                <a href="https://facebook.com/umbcpage" title="Follow on Facebook">
+                    <img class="facebook-footer" src="../fbft.png">
+                </a> 
+                <a href="https://twitter.com/umbc" title="Follow on Twitter">
+                    <img class="twitter-footer" src="../twft.png">
+                </a> 
+                <a href="http://umbc.edu/news" title="UMBC News">
+                    <img class="rss-footer" src="../rssft.png">
+                </a>
+            </div>
+            <div>
+                © University of Maryland, Baltimore County  •  1000 Hilltop Circle  •  Baltimore, MD 21250
+            </div>
+        </div>  
+    </body>
+</html>
+

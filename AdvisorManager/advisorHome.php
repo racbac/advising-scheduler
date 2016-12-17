@@ -50,6 +50,9 @@ $row = mysql_fetch_row($rs);
 				<div>
 					<form action="../AppointmentManager/createAppt.php"><button name="submit" id="CreateAppt" class="submit"><span>create appointment</span></button></form>
 				</div>
+				<div>
+					<form action="../AppointmentManager/allAppointments.php"><button name="submit" id="SearchAppt" class="submit"><span>search appointments</span></button></form>
+				</div>
 				
 			</div>
 			<div id="Inner-Footer">
