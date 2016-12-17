@@ -34,7 +34,12 @@ Users enter new account information using this sticky form.
 				if(isset($_POST['submit'])) {
 					// verify that passwords match
 					if($_POST['confirmPass'] != $_POST['password']) {
-						echo("Passwords do not match.<br/>");
+						echo("<div class='ErrorDiv'>
+							<div class='InnerErrorDiv'>
+							  <a class='ErrorBackground'>error</a>
+							  <a class='Error'>Passwords do not match.</a>
+							</div>
+						  </div>");
 						$_POST['errors'] = 1; 
 					}
 					// verify account doesn't exist
@@ -45,7 +50,12 @@ Users enter new account information using this sticky form.
 					$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 					$row = mysql_fetch_row($rs);
 					if($row) {
-						echo("Account for this UMBC ID already exists.<br/>"); 
+						echo("<div class='ErrorDiv'>
+							<div class='InnerErrorDiv'>
+							  <a class='ErrorBackground'>error</a>
+							  <a class='Error'>Account for the UMBC username already exists.</a>
+							</div>
+						  </div>"); 
 						$_POST['errors'] = 1;
 					}
 					// make students are CMNS majors
@@ -125,6 +135,7 @@ Users enter new account information using this sticky form.
 			<input type="radio" name="userRole" class="formSelect" id="student_rb" value="student" <?php stickyCheck("userRole", "student", "student"); ?> >
 			<form class="Main-Form" id="studentForm" action='createAccount.php' method='post'>
 				<div>Student</div>
+				<input value="student" name="userRole" class="formSelect" >
 				<input placeholder="First Name" class="inputField" type='varchar' size='10' maxlength='40' name='firstName' <?php sticky("firstName"); ?> required>
 				<input placeholder="Last Name" class="inputField" type='varchar' size='10' maxlength='40' name='lastName' <?php sticky("lastName"); ?> required>
 				<input placeholder="E-mail Address" class="inputField" type='email' name='email' size='15' placeholder="Ex: jDoe1@umbc.edu" <?php sticky("email"); ?> required>
@@ -156,6 +167,7 @@ Users enter new account information using this sticky form.
 
 			<form class="Main-Form" id="advisorForm" action='createAccount.php' method='post'>
 				<div>Advisor</div>
+				<input value="advisor" name="userRole" class="formSelect" >
 				<input placeholder="First Name" class="inputField" type='varchar' size='10' maxlength='40' name='firstName' value="<?php if(isset($_POST['firstName'])) echo($_POST['firstName']); ?>" required>
 				<input placeholder="Last Name" class="inputField" type='varchar' size='10' maxlength='40' name='lastName' value="<?php if(isset($_POST['lastName'])) echo($_POST['lastName']); ?>" required>
 				<input placeholder="E-mail Address" class="inputField" type='email' name='email' size='15' placeholder="Ex: jDoe1@umbc.edu" value="<?php if(isset($_POST['email'])) echo($_POST['email']); ?>" required>
