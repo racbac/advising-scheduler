@@ -12,7 +12,8 @@ $debug = false;
 include('../CommonMethods.php');
 
 $COMMON = new Common($debug);
-$appt = $_POST['id'];
+//$appt = $_POST['id'];
+$appt = 19;
 $sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = '$appt'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 
@@ -22,8 +23,15 @@ $max_students = $fields['max_students'];
 
 $sql = "SELECT `username` FROM `students_academic_info` WHERE `appointmentID` = '$appt'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-$students = mysql_fetch_row($rs);
 
+$check = true;
+if(mysql_num_rows($rs) == 0){
+  $check = false;
+}
+
+$sql = "SELECT `status` FROM `appointments` WHERE `appointment_ID` = '$appt'";
+$rs2 = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+$status = mysql_fetch_row($rs2);
 ?>
 
 <!DOCTYPE html>
@@ -61,16 +69,23 @@ $students = mysql_fetch_row($rs);
 					<a class="Descriptor">how many students is it for?</a>
 					<input class="inputField" type="number" name="max_students" <?php if(isset($_POST['max_students'])) echo(" value=".$_POST['max_students']); ?> placeholder="1-40" min="1" max="40" required>
 					<div>
-						<input id="closeReg" type='checkbox' name='close' value='yes'> <label for="closeReg" class="radialDescriptor">close registration</label>
-					</div>
+                                        <?php
+                                        if($status == 0){
+					    echo "<input id='closeReg' type='checkbox' name='close' value='yes'> <label for='closeReg' class='radialDescriptor'>Close Registration</label>";
+					}
+                                        else{
+					  echo "<input id='closeReg' type='checkbox' name='close' value='yes'> <label for='closeReg' class='radialDescriptor'>Open Registration</label>";
+					}
+                                        ?>
+                                       </div>
 					<?php 
 					//creates a checkbox for every students in the appointment
-					if (!empty($students)){
-						echo "Remove Specific Students:";
-						foreach($students as $studentid){
-						echo "<input type='checkbox' id='id.".$studentid."' name='students[]' value='".$studentid."'><label for='id.".$studentid."' class='radialDescriptor'>".$studentid."</label>";
+                                                if ($check == true){
+						    echo "Remove Specific Students:";
+						    while($students = mysql_fetch_row($rs)){
+						        echo "<input type='checkbox' id=".$students[0]."' name='students[]' value='".$students[0]."'><label for='id.".$students[0]."' class='radialDescriptor'>".$students[0]."</label>";
 						}
-					}
+						}
 					?>
 					
 					<input type='hidden' name='id' value='<?php echo "$appt"; ?>'>
