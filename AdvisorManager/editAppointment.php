@@ -67,10 +67,10 @@ $status = mysql_fetch_row($rs2);
 					<a class="Descriptor">where is the meeting?</a>
 					<input class="inputField" placeholder="Location" type='text' size='25' maxlength='25' name='location'  value="<?php if(isset($_POST['max_students'])) echo($_POST['max_students']);?>"><br/>
 					<a class="Descriptor">how many students is it for?</a>
-					<input class="inputField" type="number" name="max_students" <?php if(isset($_POST['max_students'])) echo(" value=".$_POST['max_students']); ?> placeholder="1-40" min="1" max="40" required>
+					<input class="inputField" type="number" name="max_students" <?php if(isset($_POST['max_students'])) echo(" value=".$_POST['max_students']); ?> placeholder="1-40" min="1" max="40">
 					<div>
                                         <?php
-                                        if($status == 0){
+                                        if($status[0] == 0){
 					    echo "<input id='closeReg' type='checkbox' name='close' value='yes'> <label for='closeReg' class='radialDescriptor'>Close Registration</label>";
 					}
                                         else{
