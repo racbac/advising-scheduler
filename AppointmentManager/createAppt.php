@@ -33,8 +33,8 @@ Users enter new account information using this sticky form.
 				<form action="../AdvisorManager/advisorHome.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
 			</div>
 			
-			<form action="createAppt.php" method="post" class="Main-Form">
-				
+			<form action="createAppt.php" method="post" class="Main-Form">		
+			
 				<?php
 					if (isset($_POST['submit'])) {
 					$updated = true;
@@ -170,6 +170,7 @@ Users enter new account information using this sticky form.
 					<div>
 						<button name="submit" id="Create" class="submit"><span>create</span></button>
 					</div>
+
 					
 			</form>
 			<div id="Inner-Footer">
@@ -206,4 +207,8 @@ Users enter new account information using this sticky form.
 			</div>
 		</div>	
 	</body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> master
