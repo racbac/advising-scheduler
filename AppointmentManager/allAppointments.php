@@ -5,7 +5,7 @@ students can sign up for available appointments, which signs them out of their c
 
 advisors can edit appointment information
 -->
-<?php session_start(); include('../Utilities/phpFuns.php'); ?>
+<?php ob_start(); session_start(); include('../Utilities/phpFuns.php');  ?>
 
 <html>
     <head>
@@ -100,24 +100,34 @@ advisors can edit appointment information
                         <button type="submit" class="Submit" name="search" ><span>Search appointments</span></button>
                 </li>
             </ul>
-            <button type="submit" class="Submit" name="drop" ><span>Drop appointment</span></button>
+
         </form>
 
         <?php
+            include('../CommonMethods.php');
+            $COMMON = new Common(false);
+
+
+            if (isset($_POST['switchAppt'])) { // switch appointment
+                dropAppt($_SESSION['username'], $COMMON);
+                joinAppt($_SESSION['username'], $_POST['switchAppt']);
+                header("Refresh;0 url=./allAppointments.php");
+            }
             
+
             if (isset($_POST['join'])) { // join appointment
                 $success = joinAppt($_SESSION['username'], $_POST['join']);
-                if ($success) {
+                if ($success) { // successfully joined
                     echo("Joined the appointment!");
-                } else {
-                    echo("You are already signed up for a meeting.<br> Please drop your current meeting if you intend to sign up for this one.<br>");
+                } else { // already has appointment
+                    echo("Are you sure you want to switch appointments?");
+                    echo("<form action='allAppointments.php' method='POST'><button type='submit' name='switchAppt' value='".$_POST['join']."' >Yes, switch appointments</button></form>");        
                 }
             }
+            
+            
 
             else if (isset($_POST['search'])) { // search appointments
-                include('../CommonMethods.php');
-                $COMMON = new Common(false);            
-
                 // get filters in array
                 $filters = array();
                 foreach ($_POST as $key => $field) {
@@ -220,8 +230,6 @@ advisors can edit appointment information
                         $i=0;
                     }
                 }
-            } else if (isset($_POST['drop'])) { // drop appointment
-                dropAppt($_SESSION['username']);
             }
 
         ?>
