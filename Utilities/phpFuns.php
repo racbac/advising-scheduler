@@ -1,7 +1,7 @@
 <?php
 
     function dropAppt($student, $connect = false) {
-        if ($connect = false) {
+        if ($connect == false) {
             include('../CommonMethods.php');
             $connect = new Common(false);
         }
