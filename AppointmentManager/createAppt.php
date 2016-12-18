@@ -195,9 +195,9 @@ function sticky($name, $default) {
 				<a class="Descriptor">who will be the leader for the session?</a>
 				<select class="inputField" name="sessionLeader" <?php if(isset($_POST['sessionLeader'])) echo(" value=".$_POST['sessionLeader']); ?> required>
 					<option value="mbulger">Ms. Michelle Bulger</option>
-					<option value="JulieCrosby">Mrs. Julie Crosby</option>
-					<option value="ChristinePowers">Ms. Christine Powers</option>
-					<option value="CNMS Advisors">CNMS Advisors</option>
+					<option value="julie11">Mrs. Julie Crosby</option>
+					<option value="cpowers1">Ms. Christine Powers</option>
+					<option value="cnms">CNMS Advisors</option>
 				</select>
 				
 				<br>

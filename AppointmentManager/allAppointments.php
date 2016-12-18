@@ -119,7 +119,7 @@ advisors can edit appointment information
                 <table class="AdvisorTable">
                     <tr>
                         <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="mbulger" checked>Ms. Michelle Bulger</label></td>
-                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="cpowers1" checked>Mrs. Julie Crosby</label></td>
+                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="julie11" checked>Mrs. Julie Crosby</label></td>
                     </tr>
                     <tr>    
                         <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="cpowers1" checked>Ms. Christine Powers</label></td>
@@ -202,19 +202,19 @@ advisors can edit appointment information
                     $sql1 = "SELECT `firstName`, `lastName` FROM `users` WHERE `username` ='$row[advisor_ID]'";
                     $rs1 = $COMMON->executeQuery($sql1, $_SERVER["SCRIPT_NAME"]);
                     $row1 = mysql_fetch_assoc($rs1);
-                    echo("<div class=\"Name\">".$row1['firstName']." ".$row1['lastName']."</div>");
-                    echo("<a id=\"appointmentDate\">".$row['date']."</a> ");
-                    echo("<a id=\"appointmentTime\">".$row['start_time']."</a> ");
+                    echo("<a id=\"appointmentDate\">".$row['date']." </a>");
+                    echo("<a id=\"appointmentTime\">".$row['start_time']."</a>");
+                    echo("<div><a id=\"advisorName\">".$row1['firstName']." ".$row1['lastName']."</a>");
                     
                     // Print out meeting type
                     if($row['max_students']==1)
                     {
-                        echo("<div><a class=\"SolidDescriptor\">Individual</a></div>");
+                        echo("<a class='GroupDescriptor'> individual</a></div>");
                     } else {
-                        echo("<div><a class=\"SolidDescriptor\">Group</a></div>");
+                        echo("<a class='GroupDescriptor'> group</a></div>");
                     }
                             
-                    echo("<div class=\"SpacesAvailable\"><a id=\"signedUp\">".$spaces." <a class=\"SolidDescriptor\">space");
+                    echo("<div class='SpacesDescriptor'><a id='spacesCount'>".$spaces." space");
                     if ($spaces != 1) {
                         echo("s");
                     }
@@ -222,19 +222,19 @@ advisors can edit appointment information
                     if($_SESSION['userRole'] == "advisor" )
                         {
                         // Print out button to edit appointment
-                        echo("<form action='editAppointment.php' method='POST'>");
-                        echo("<button type='submit' name='submit' value='$id'>Edit Appointment</button></form>");
+                        echo("<form action='../AdvisorManager/editAppointment.php' method='POST'>");
+                        echo("<button type='submit' name='id' value='$id'>Edit Appointment</button></form>");
 
                         // Print out button to print appointment info
                         echo("<form action='downloadMeeting.php' method='POST'>");
                         echo("<input type='checkbox' name='extra'>Extra Info");
-                        echo("<button type='submit' name='submit' value='$id'>Download Appointment Info</button></form>");
+                        echo("<button type='submit' name='id' value='$id'>Download Appointment Info</button></form>");
                         }
                     else
                     {
                         // Print out button to sign up
                         echo("<form action='joinAppointment.php' method='POST'>");
-                        echo("<button type='submit' name='submit' value='$id'>Sign Up</button></form>");
+                        echo("<button class='signup' type='submit' name='id' value='$id'><span id='signUp'>sign up</span></button></form>");
                     }
                     echo("</td>");
                    

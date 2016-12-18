@@ -141,6 +141,53 @@ header {
 	color: rgb(100, 100, 100);
 }
 
+.signup {
+	background-color: rgba(100, 180, 100, 1);
+	border: none;
+	margin: auto;
+	padding: 4px 7px 4px 7px;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 12px;
+	color: rgba(70,70,70,1.00);
+	display: inline-block;
+	border-radius: 1px;
+
+	
+	transition: all 600ms cubic-bezier(0.19,1,0.22,1);
+	-webkit-transition: background-color 600ms cubic-bezier(0.19,1,0.22,1);
+}
+
+.signup span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 600ms;	
+}
+
+.signup span:after {
+	content: ' »';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -7px;
+	transition: 600ms;
+}
+
+.signup:hover span {
+	padding-right: 10px;
+}
+
+.signup:hover span:after {
+	opacity: 1;
+	right: 2px;
+}
+
+.signup:hover {
+	background-color: rgba(110, 190, 110, 1);
+	color: rgba(40,40,40,1.00);
+}
+
 .submit {
 	background-color: rgba(100, 180, 100, 1);
 	border: none;
@@ -481,6 +528,39 @@ header {
 	color: rgb(200, 200, 200);
 	font-size: 14pt;
 }
+
+#appointmentDate {
+	font-size: 15pt;
+	color: rgb(160, 160, 160);
+}
+
+#appointmentTime {
+	font-size: 20pt;
+	color: rgb(120, 120, 120);
+}
+
+#advisorName {
+	font-size: 12pt;
+	color: rgb(180, 180, 180);
+	margin: -10px 0 -10px 0;
+}
+
+.GroupDescriptor {
+	color: rgb(200, 200, 200);
+	font-size: 15pt;
+	margin: -10px 0 -10px 0;
+}
+
+.SpacesDescriptor {
+	color: rgb(200, 200, 200);
+}
+
+#spacesCount {
+	color: rgb(160, 160, 160);
+	font-size: 15pt;
+}
+
+
 
 .Title {
 	color: rgb(150, 150, 150);

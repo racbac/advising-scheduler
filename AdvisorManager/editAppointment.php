@@ -52,7 +52,7 @@ $students = mysql_fetch_row($rs);
 				<button type="submit" class="Logout"><span>logout</span></button>
 			</form>
 			<div class="BackDiv">
-				<form action="../AdvisorManager/advisorHome.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
+				<form action="../AppointmentManager/allAppointments.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
 			</div>
 			<div class="Main-Form">
 				<form action='processEditAppointments.php' method='post' name='EditMeeting'>
@@ -61,15 +61,27 @@ $students = mysql_fetch_row($rs);
 					<a class="Descriptor">how many students is it for?</a>
 					<input class="inputField" type="number" name="max_students" <?php if(isset($_POST['max_students'])) echo(" value=".$_POST['max_students']); ?> placeholder="1-40" min="1" max="40" required>
 					<div>
-						<input id="closeReg" type='checkbox' name='close' value='yes'> <label for="closeReg" class="radialDescriptor">close registration</label>
+						<input id="closeReg" type='checkbox' name='close' value='yes'> <label for="closeReg" class="CheckboxDescriptor">close registration</label>
 					</div>
 					<?php 
 					//creates a checkbox for every students in the appointment
 					if (!empty($students)){
-						echo "Remove Specific Students:";
+						echo "<a class='Descriptor'>do you want to remove specific students?</a><table class='AdvisorTable'>";
+						$i = 0;
 						foreach($students as $studentid){
-						echo "<input type='checkbox' id='id.".$studentid."' name='students[]' value='".$studentid."'><label for='id.".$studentid."' class='radialDescriptor'>".$studentid."</label>";
+							if (!($i % 2)) {
+								echo "<tr>";
+							}
+
+							echo "<td><input type='checkbox' id='id.".$studentid."' name='students[]' value='".$studentid."'><label for='id.".$studentid."' class='CheckboxDescriptor'>".$studentid."</label></td>";
+							
+							$i += 1;
+
+							if (!($i % 2)) {
+								echo "</tr>";
+							}
 						}
+						echo "</table>";
 					}
 					?>
 					
