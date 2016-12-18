@@ -165,6 +165,7 @@ advisors can edit appointment information
 							</div>
 						  </div>");
                 }
+                
                 if ($filters['endTime'] < $filters['startTime'] and $filters['endTime'] and $filters['startTime']) {
                     $errors++;
                     echo("<div class='ErrorDiv'>
