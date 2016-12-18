@@ -62,4 +62,15 @@
         }
     }
 
+    function stickyCheck($name, $value, $default) {
+        if(isset($_POST[$name])) {
+            if ($_POST[$name] == $value) { 
+                echo(" checked"); 
+            }
+        }
+        else if ($value == $default) {
+            echo(" checked");
+        }
+    }
+
 ?>

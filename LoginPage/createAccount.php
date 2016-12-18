@@ -31,6 +31,7 @@ Users enter new account information using this sticky form.
 				<form action="login.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
 			</div>
 			<?php
+				include_once("../Utilities/phpFuns.php");
 				if(isset($_POST['submit'])) {
 					// verify that passwords match
 					if($_POST['confirmPass'] != $_POST['password']) {
@@ -77,7 +78,7 @@ Users enter new account information using this sticky form.
 						$_SESSION['username'] = $username;
 						if ($_POST['userRole'] == "student") {
 							// extra student information
-							$sql = "INSERT INTO `students_academic_info` (`username`, `major`,`campusID`,`preferredName`) VALUES ('".$username."', '".$_POST['major']."', '".$_POST['campusID']."', '".$_POST['preferredName']."')";
+							$sql = "INSERT INTO `students_academic_info` (`username`, `major`,`campusID`,`preferredName`,`futurePlans`, `advisingQuestions`) VALUES ('".$username."', '".$_POST['major']."', '".$_POST['campusID']."', '".$_POST['preferredName']."', '".$_POST['futurePlans']."', '".$_POST['questions']."')";
 							$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 							
 							header('Location: ../StudentManager/studentHome.php');
@@ -87,33 +88,6 @@ Users enter new account information using this sticky form.
 					}
 				}
 
-				function sticky($name, $default = false) {
-					if(isset($_POST[$name])) 
-						echo(" value=".$_POST[$name]); 
-					else if ($default != false)
-						echo(" value=".$default);
-					}
-				function stickySelect($name, $value, $default) {
-					if(isset($_POST[$name])) {
-						if ($_POST[$name] == $value) { 
-							echo(" selected"); 
-						}
-					}
-					else if ($value == $default) {
-						echo(" selected");
-					}
-				}
-
-				function stickyCheck($name, $value, $default) {
-					if(isset($_POST[$name])) {
-						if ($_POST[$name] == $value) { 
-							echo(" checked"); 
-						}
-					}
-					else if ($value == $default) {
-						echo(" checked");
-					}
-				}
 			?>
 			
 			<!--<div class="Group-Appointment">
@@ -137,9 +111,10 @@ Users enter new account information using this sticky form.
 				<div>Student</div>
 				<input value="student" name="userRole" class="formSelect" >
 				<input placeholder="First Name" class="inputField" type='varchar' size='10' maxlength='40' name='firstName' <?php sticky("firstName"); ?> required>
+				<input placeholder="Preferred Name" class="inputField" type='varchar' size='10' maxlength='40' name='preferredName' <?php sticky("preferredName"); ?> >
 				<input placeholder="Last Name" class="inputField" type='varchar' size='10' maxlength='40' name='lastName' <?php sticky("lastName"); ?> required>
+				
 				<input placeholder="E-mail Address" class="inputField" type='email' name='email' size='15' placeholder="Ex: jDoe1@umbc.edu" <?php sticky("email"); ?> required>
-
 				<input placeholder="Campus ID" class="inputField" type='varchar' size='7' maxlength='7' name='campusID' placeholder="Ex: AB12345" <?php sticky("campusID"); ?> required>
 
 				<input placeholder="Password" class="inputField" type='password' name='password' size='10' maxlength='40' required>
@@ -159,7 +134,13 @@ Users enter new account information using this sticky form.
 					</select>
 				</div>
 
-				<input placeholder="Preferred Name" class="inputField" type='varchar' size='10' maxlength='40' name='preferredName' value="<?php if(isset($_POST['preferredName'])) echo($_POST['preferredName']); ?>" >
+				<div>
+					<textarea class="inputField" name="futurePlans" rows="3" required placeholder="What are your current post-UMBC plans? For example: medical School, teach middle school science, research career, master’s/PhD, etc." <?php sticky("futurePlans"); ?> ></textarea>
+				</div>
+				<div>
+					<textarea class="inputField" name="questions" rows="6" placeholder="Do you have any questions or concerns that you would like to discuss during your advising session? For example: Withdrawing from a course, adding a second major, etc. Note that certain questions and concerns may require more time for discussion than a student’s Registration Advising appointment will allow. If your question or concern is complex, or is sensitive in nature, you may be asked to schedule a follow-up appointment with an advisor to address it fully." ></textarea>
+				</div>
+
 				<div>
 					<button class="submit" id="Register" type='submit' name='submit'><span>register</span></button>
 				</div>
