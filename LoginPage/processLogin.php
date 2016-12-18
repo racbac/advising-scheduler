@@ -41,6 +41,6 @@ if($row) {
 //else returns to login page
 else {
     session_unset();
-    header('Location: login.php');
+    echo("<h2>An error has occurred</h2>");
 }
 ?>

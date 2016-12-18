@@ -104,6 +104,7 @@ advisors can edit appointment information
         </form>
 
         <?php
+
             include('../CommonMethods.php');
             $COMMON = new Common(false);
 
@@ -119,7 +120,7 @@ advisors can edit appointment information
                     </div>");
                     header("Refresh;3 url=./allAppointments.php");
             }
-            
+
 
             if (isset($_POST['join'])) { // join appointment
                 $success = joinAppt($_SESSION['username'], $_POST['join']);
@@ -236,12 +237,14 @@ advisors can edit appointment information
                         echo("<input type='checkbox' name='extra'>Extra Info");
                         echo("<button type='submit' name='submit' value='$id'>Download Appointment Info</button></form>");
                         }
+
                     else // student
                     {
                         // Print out button to sign up
                         /*echo("<form action='joinAppointment.php' method='POST'>");
                         echo("<button type='submit' name='submit' value='$id'>Sign Up</button></form>");*/
                         echo("<form action='allAppointments.php' method='POST'>\n<button type='submit' name='join' value='$id'>Sign Up</button></form>");
+
                     }
                     echo("</td>");
                    

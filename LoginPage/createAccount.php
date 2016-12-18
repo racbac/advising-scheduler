@@ -1,5 +1,5 @@
 <!--
-Project: CMSC331 Project 02, Fall 2016
+MSC331 Project 02, Fall 2016
 Authors: Felipe Bastos, Rachel Backert, Travis Earley, Nathaniel Fuller, Colin Ganley
 Date: 2016-12-16
 Email: fbastos1@umbc.edu, bac2@umbc.edu, te4@umbc.edu, fullern1@umbc.edu, cganley1@umbc.edu
@@ -100,10 +100,10 @@ Users enter new account information using this sticky form.
 						<label class="RadialDescriptor" for="advisor_rb">advisor</label>
 					</span>
 				</div>
+
 			</div>-->
 			<div class="Group-Appointment Main-Form">
 				<a class="Descriptor">are you a <label class="RadialDescriptor formSelect" for="student_rb" >student</label> or <label class="RadialDescriptor formSelect" for="advisor_rb" >advisor</label>?</a>
-
 			</div>
 			<input type="radio" name="userRole" class="formSelect" id="advisor_rb" value="advisor" <?php stickyCheck("userRole", "advisor", "student"); ?> >
 			<input type="radio" name="userRole" class="formSelect" id="student_rb" value="student" <?php stickyCheck("userRole", "student", "student"); ?> >
@@ -133,6 +133,7 @@ Users enter new account information using this sticky form.
 						<option value="Other">Other</option>
 					</select>
 				</div>
+
 
 				<div>
 					<textarea class="inputField" name="futurePlans" rows="3" required placeholder="What are your current post-UMBC plans? For example: medical School, teach middle school science, research career, master’s/PhD, etc." <?php sticky("futurePlans"); ?> ></textarea>
