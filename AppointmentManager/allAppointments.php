@@ -92,12 +92,30 @@ advisors can edit appointment information
                     <a class="DateDescriptor Minute" id="endingDescriptor">minute:</a>
                 </div>
                     <a class="Descriptor">I want the appointment to start on or after...</a>
-                    <div class="timeSelector" id="ending">
-                    <input type="number" class="DateTime" name="startHour" pattern="(1[012]|0?[1-9])" min="1" max="12" <?php sticky("startHour", "08") ?> > :
-                    <input type="number" class="DateTime" name="startMin" pattern="[0-5][0-9]" min="0" max="59" <?php sticky("startMin", "00") ?> >
-                    <select name="startAmPm" class="DateTime">
-                        <option value="AM" <?php stickySelect("startAmPm", "AM", "AM") ?> >AM</option>
-                        <option value="PM" <?php stickySelect("startAmPm", "PM", "AM") ?> >PM</option>
+                <div class="timeSelector" id="ending">
+                    <select name="startHour" class="DateTime" id="picker" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <select name="startMin" class="DateTime" id="picker" required>
+                        <option value="00">00</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                    </select>
+                    <select name="startAmPm" class="DateTime" id="picker" required>
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
                     </select>
                 </div>
 
@@ -107,14 +125,31 @@ advisors can edit appointment information
                 </div>
                 <a class="Descriptor">...and end before</a>
                 <div class="timeSelector" id="ending">
-                    <input type="number" class="DateTime" name="endHour" pattern="(1[012]|0?[1-9])" min="1" max="12" <?php sticky("endHour", "09") ?> > :
-                    <input type="number" class="DateTime" name="endMin" pattern="[0-5][0-9]" min="0" max="59" <?php sticky("endMin", "00") ?> >
-                    <select name="endAmPm" class="DateTime">
-                        <option value="AM" <?php stickySelect("endAmPm", "AM", "PM") ?> >AM</option>
-                        <option value="PM" <?php stickySelect("endAmPm", "PM", "PM") ?> >PM</option>
+                    <select name="endHour" class="DateTime" id="picker" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <select name="endMin" class="DateTime" id="picker" required>
+                        <option value="00">00</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                    </select>
+                    <select name="endAmPm" class="DateTime" id="picker" required>
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
                     </select>
                 </div>
-
                 <a class="Descriptor">who do you want to meet with?</a>
                 <table class="AdvisorTable">
                     <tr>
