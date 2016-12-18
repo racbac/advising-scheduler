@@ -111,14 +111,26 @@ advisors can edit appointment information
             if (isset($_POST['switchAppt'])) { // switch appointment
                 dropAppt($_SESSION['username'], $COMMON);
                 joinAppt($_SESSION['username'], $_POST['switchAppt']);
-                header("Refresh;0 url=./allAppointments.php");
+                echo("<div class='SuccessDiv'>
+                    <div class='InnerSuccessDiv'>
+                        <a class='SuccessBackground'>success</a>
+                        <a class='Success'>Appointment joined. Refreshing...</a>
+                    </div>
+                    </div>");
+                    header("Refresh;3 url=./allAppointments.php");
             }
             
 
             if (isset($_POST['join'])) { // join appointment
                 $success = joinAppt($_SESSION['username'], $_POST['join']);
                 if ($success) { // successfully joined
-                    echo("Joined the appointment!");
+                    echo("<div class='SuccessDiv'>
+                        <div class='InnerSuccessDiv'>
+                            <a class='SuccessBackground'>success</a>
+                            <a class='Success'>Appointment joined. Refreshing...</a>
+                        </div>
+                        </div>");
+                        header("Refresh;3 url=./allAppointments.php");
                 } else { // already has appointment
                     echo("Are you sure you want to switch appointments?");
                     echo("<form action='allAppointments.php' method='POST'><button type='submit' name='switchAppt' value='".$_POST['join']."' >Yes, switch appointments</button></form>");        
@@ -146,11 +158,21 @@ advisors can edit appointment information
                 $errors = 0;
                 if ($filters['endDate'] < $filters['startDate'] and $filters['endDate'] and $filters['startDate']) {
                     $errors++;
-                    echo("End date must precede start date. ");
+                    echo("<div class='ErrorDiv'>
+							<div class='InnerErrorDiv'>
+							  <a class='ErrorBackground'>error</a>
+							  <a class='Error'>Start date must precede end date.</a>
+							</div>
+						  </div>");
                 }
                 if ($filters['endTime'] < $filters['startTime'] and $filters['endTime'] and $filters['startTime']) {
                     $errors++;
-                    echo("End time must precede start time. ");
+                    echo("<div class='ErrorDiv'>
+							<div class='InnerErrorDiv'>
+							  <a class='ErrorBackground'>error</a>
+							  <a class='Error'>Start time must precede end time.</a>
+							</div>
+						  </div>");
                 }
 
                 // build query
