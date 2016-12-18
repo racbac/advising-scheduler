@@ -1,5 +1,30 @@
 <?php
 
+    function joinAppt($student, $apptID) {
+        include_once('../CommonMethods.php');
+        $COMMON = new Common(false); // common methods
+
+        // Get info from userInfo db
+        $sql = "SELECT * FROM `students_academic_info` WHERE `username` ='$student'";
+        $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+        $row = mysql_fetch_row($rs);
+
+        if ($row['6'] == NULL) {
+            // Update appointmentID in usersInfo for userName from NULL to $id
+            $sql = "UPDATE `students_academic_info` SET `appointmentID`='$apptID' WHERE `username`='$student'";
+            $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+
+            // Update numStudents in appointments for id from current value to $newNum
+            $sql = "UPDATE `appointments` SET `curr_students`= `curr_students` + 1 WHERE `appointment_ID`='$apptID'";
+            $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+            unset($COMMON);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     function dropAppt($student, $connect = false) {
         if ($connect == false) {
             include('../CommonMethods.php');

@@ -97,7 +97,7 @@ advisors can edit appointment information
                     <label><input type="checkbox" name="sessionLeader[]" value="cpowers1" checked>Ms. Christine Powers</label>
                 </li>
                 <li> 
-                        <button type="submit" class="Submit" name="submit" ><span>Search appointments</span></button>
+                        <button type="submit" class="Submit" name="search" ><span>Search appointments</span></button>
                 </li>
             </ul>
             <button type="submit" class="Submit" name="drop" ><span>Drop appointment</span></button>
@@ -105,11 +105,20 @@ advisors can edit appointment information
 
         <?php
             
-            if (isset($_POST['submit'])) {
+            if (isset($_POST['join'])) { // join appointment
+                $success = joinAppt($_SESSION['username'], $_POST['join']);
+                if ($success) {
+                    echo("Joined the appointment!");
+                } else {
+                    echo("You are already signed up for a meeting.<br> Please drop your current meeting if you intend to sign up for this one.<br>");
+                }
+            }
+
+            else if (isset($_POST['search'])) { // search appointments
                 include('../CommonMethods.php');
                 $COMMON = new Common(false);            
 
-                // get set filters in array
+                // get filters in array
                 $filters = array();
                 foreach ($_POST as $key => $field) {
                     if (isset($field)) {
@@ -163,7 +172,6 @@ advisors can edit appointment information
                     echo("<td>");
                     
                     // Get advisor firstName and lastName
-                    
                     $sql1 = "SELECT `firstName`, `lastName` FROM `users` WHERE `username` ='$row[advisor_ID]'";
                     $rs1 = $COMMON->executeQuery($sql1, $_SERVER["SCRIPT_NAME"]);
                     $row1 = mysql_fetch_assoc($rs1);
@@ -195,24 +203,24 @@ advisors can edit appointment information
                         echo("<input type='checkbox' name='extra'>Extra Info");
                         echo("<button type='submit' name='submit' value='$id'>Download Appointment Info</button></form>");
                         }
-                    else
+                    else // student
                     {
                         // Print out button to sign up
-                        echo("<form action='joinAppointment.php' method='POST'>");
-                        echo("<button type='submit' name='submit' value='$id'>Sign Up</button></form>");
+                        /*echo("<form action='joinAppointment.php' method='POST'>");
+                        echo("<button type='submit' name='submit' value='$id'>Sign Up</button></form>");*/
+                        echo("<form action='allAppointments.php' method='POST'>\n<button type='submit' name='join' value='$id'>Sign Up</button></form>");
                     }
                     echo("</td>");
                    
                     $i++;
-                    if($i == 2)
-                    {
+                    if($i == 2) {
                         //end box row and start new
                         echo("</tr>");
                         echo("<tr>");
                         $i=0;
                     }
                 }
-            } else if (isset($_POST['drop'])) {
+            } else if (isset($_POST['drop'])) { // drop appointment
                 dropAppt($_SESSION['username']);
             }
 
