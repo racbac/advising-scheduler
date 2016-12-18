@@ -77,7 +77,12 @@ Users enter new account information using this sticky form.
 					  if ($errors == 0) {
 						$sql = "INSERT INTO `appointments` (`advisor_ID`, `date`, `start_time`, `end_time`, `location`, `max_students`, `curr_students`) VALUES ('$posted[sessionLeader]', '$posted[date]', '$posted[startTime]', '$posted[endTime]', '$posted[location]', '$posted[apptSize]', 0)";
 						$rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
-						
+						echo("<div class='SuccessDiv'>
+							<div class='InnerSuccessDiv'>
+							  <a class='SuccessBackground'>success</a>
+							  <a class='Success'>Appointment created.</a>
+							</div>
+						  </div>");
 					  }
 					}
 					
