@@ -5,6 +5,7 @@ students can sign up for available appointments, which signs them out of their c
 
 advisors can edit appointment information
 -->
+<?php ob_start(); session_start(); include('../Utilities/phpFuns.php');  ?>
 
 <html>
     <head>
@@ -24,17 +25,6 @@ advisors can edit appointment information
             li {
                 position: relative;
                 display: inline-block;
-            }
-            #toggle {
-                display: none;
-            }
-            #toggle ~ select {
-                position: absolute;
-                display: none !important;
-                z-index: 10;
-            }
-            #toggle:checked ~ select {
-                display: block !important;
             }
         </style>
 
@@ -101,72 +91,109 @@ advisors can edit appointment information
                 </li>
                 <li> 
                     Advisors:
-                    <label><input type="checkbox" name="sessionLeader[]" value="CNMS Advisors" checked>CNMS advisors</label>
+                    <label><input type="checkbox" name="sessionLeader[]" value="cnms" checked>CNMS advisors</label>
                     <label><input type="checkbox" name="sessionLeader[]" value="mbulger" checked>Ms. Michelle Bulger</label>
-                    <label><input type="checkbox" name="sessionLeader[]" value="JulieCrosby" checked>Mrs. Julie Crosby</label>
-                    <label><input type="checkbox" name="sessionLeader[]" value="ChristinePowers" checked>Ms. Christine Powers</label>
+                    <label><input type="checkbox" name="sessionLeader[]" value="julie11" checked>Mrs. Julie Crosby</label>
+                    <label><input type="checkbox" name="sessionLeader[]" value="cpowers1" checked>Ms. Christine Powers</label>
                 </li>
                 <li> 
-                        <button type="submit" class="Submit" name="submit" ><span>Search appointments</span></button>
+                        <button type="submit" class="Submit" name="search" ><span>Search appointments</span></button>
                 </li>
             </ul>
+
         </form>
 
         <?php
-            if (isset($_POST['submit'])) {
-                include('../CommonMethods.php');
-                $COMMON = new Common(false);
-                session_start();
-                
 
-                // get set filters in array
+            include('../CommonMethods.php');
+            $COMMON = new Common(false);
+
+
+            if (isset($_POST['switchAppt'])) { // switch appointment
+                dropAppt($_SESSION['username'], $COMMON);
+                joinAppt($_SESSION['username'], $_POST['switchAppt']);
+                echo("<div class='SuccessDiv'>
+                    <div class='InnerSuccessDiv'>
+                        <a class='SuccessBackground'>success</a>
+                        <a class='Success'>Appointment joined. Refreshing...</a>
+                    </div>
+                    </div>");
+                    header("Refresh;3 url=./allAppointments.php");
+            }
+
+
+            if (isset($_POST['join'])) { // join appointment
+                $success = joinAppt($_SESSION['username'], $_POST['join']);
+                if ($success) { // successfully joined
+                    echo("<div class='SuccessDiv'>
+                        <div class='InnerSuccessDiv'>
+                            <a class='SuccessBackground'>success</a>
+                            <a class='Success'>Appointment joined. Refreshing...</a>
+                        </div>
+                        </div>");
+                        header("Refresh;3 url=./allAppointments.php");
+                } else { // already has appointment
+                    echo("Are you sure you want to switch appointments?");
+                    echo("<form action='allAppointments.php' method='POST'><button type='submit' name='switchAppt' value='".$_POST['join']."' >Yes, switch appointments</button></form>");        
+                }
+            }
+            
+            
+
+            else if (isset($_POST['search'])) { // search appointments
+                // get filters in array
                 $filters = array();
                 foreach ($_POST as $key => $field) {
                     if (isset($field)) {
                         $filters[$key] = $field;
                     }
                 }
+                // parse times
                 $filters["startDate"] = date("Y-m-d", strtotime($_POST['startYear']."-".$_POST['startMonth']."-".$_POST['startDay']));
                 $filters["endDate"] = date("Y-m-d", strtotime($_POST['endYear']."-".$_POST['endMonth']."-".$_POST['endDay']));
                 $advisors = $filters['sessionLeader'];
                 $filters['startTime'] = date("H:i", strtotime($_POST['startHour'].":".$_POST['startMin']." ".$_POST['startAmPm']));
                 $filters['endTime'] = date("H:i", strtotime($_POST['endHour'].":".$_POST['endMin']." ".$_POST['endAmPm']));
 
-                // validate
+                // validate filters
                 $errors = 0;
                 if ($filters['endDate'] < $filters['startDate'] and $filters['endDate'] and $filters['startDate']) {
                     $errors++;
-                    echo("End date must precede start date. ");
+                    echo("<div class='ErrorDiv'>
+							<div class='InnerErrorDiv'>
+							  <a class='ErrorBackground'>error</a>
+							  <a class='Error'>Start date must precede end date.</a>
+							</div>
+						  </div>");
                 }
+                
                 if ($filters['endTime'] < $filters['startTime'] and $filters['endTime'] and $filters['startTime']) {
                     $errors++;
-                    echo("End time must precede start time. ");
+                    echo("<div class='ErrorDiv'>
+							<div class='InnerErrorDiv'>
+							  <a class='ErrorBackground'>error</a>
+							  <a class='Error'>Start time must precede end time.</a>
+							</div>
+						  </div>");
                 }
 
                 // build query
                 $sql = "SELECT * FROM `appointments` WHERE 1";
                 if ($filters['startDate']) {
-                    if ($filters['endDate']) {
-                        $sql .= " AND `date` BETWEEN '$filters[startDate]' and '$filters[endDate]'";
-                    }
-                    $sql .= " AND `date` >= '$filters[startDate]'";
+                    if ($filters['endDate']) 
+                       { $sql .= " AND `date` BETWEEN '$filters[startDate]' and '$filters[endDate]'"; }
+                   { $sql .= " AND `date` >= '$filters[startDate]'"; }
                 }
-                if ($filters['endDate']) {
-                    $sql .= " AND `date` <= '$filters[endDate]'";
-                }
-                if ($filters['startTime']) {
-                    $sql .= " AND `start_time` >= '$filters[startTime]'";
-                }
-                if ($filters['endTime']) {
-                    $sql .= " AND `end_time` <= '$filters[endTime]'";
-                }
-                if ($advisors) {
-                    
-                    $sql .= " AND `advisor_ID` IN ('".implode("', '", $advisors)."')";
-                }
+                if ($filters['endDate']) 
+                    {$sql .= " AND `date` <= '$filters[endDate]'";}
+                if ($filters['startTime']) 
+                    {$sql .= " AND `start_time` >= '$filters[startTime]'";}
+                if ($filters['endTime']) 
+                    {$sql .= " AND `end_time` <= '$filters[endTime]'";}
+                if ($advisors)
+                    { $sql .= " AND `advisor_ID` IN ('".implode("', '", $advisors)."')"; }
+
                 $sql .= " ORDER BY `date`, `start_time` ASC";
-
-
                 $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
 
                 // print appointments
@@ -179,7 +206,6 @@ advisors can edit appointment information
                     echo("<td>");
                     
                     // Get advisor firstName and lastName
-                    
                     $sql1 = "SELECT `firstName`, `lastName` FROM `users` WHERE `username` ='$row[advisor_ID]'";
                     $rs1 = $COMMON->executeQuery($sql1, $_SERVER["SCRIPT_NAME"]);
                     $row1 = mysql_fetch_assoc($rs1);
@@ -211,39 +237,24 @@ advisors can edit appointment information
                         echo("<input type='checkbox' name='extra'>Extra Info");
                         echo("<button type='submit' name='submit' value='$id'>Download Appointment Info</button></form>");
                         }
-                    else
+
+                    else // student
                     {
                         // Print out button to sign up
-                        echo("<form action='joinAppointment.php' method='POST'>");
-                        echo("<button type='submit' name='submit' value='$id'>Sign Up</button></form>");
+                        /*echo("<form action='joinAppointment.php' method='POST'>");
+                        echo("<button type='submit' name='submit' value='$id'>Sign Up</button></form>");*/
+                        echo("<form action='allAppointments.php' method='POST'>\n<button type='submit' name='join' value='$id'>Sign Up</button></form>");
+
                     }
                     echo("</td>");
                    
                     $i++;
-                    if($i == 2)
-                    {
+                    if($i == 2) {
                         //end box row and start new
                         echo("</tr>");
                         echo("<tr>");
                         $i=0;
                     }
-                }
-            }
-
-            function sticky($name, $default) {
-                if(isset($_POST[$name])) 
-                    echo(" value=".$_POST[$name]); 
-                else 
-                    echo(" value=".$default);
-            }
-            function stickySelect($name, $value, $default) {
-                if(isset($_POST[$name])) {
-                    if ($_POST[$name] == $value) { 
-                        echo(" selected"); 
-                    }
-                }
-                else if ($value == $default) {
-                    echo(" selected");
                 }
             }
 

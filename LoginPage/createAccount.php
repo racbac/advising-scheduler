@@ -30,76 +30,92 @@ Users enter new account information using this sticky form.
 			<div class="BackDiv">
 				<form action="login.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
 			</div>
-			<form class="Main-Form" action='createAccount.php' method='post'>
-<?php
-    if(isset($_POST['submit'])) {
-        // verify that passwords match
-        if($_POST['confirmPass'] != $_POST['password']) {
-            echo("Passwords do not match.<br/>");
-            $_POST['errors'] = 1; 
-        }
-        // verify account doesn't exist
-        include("../CommonMethods.php");
-        $COMMON = new Common(false);
-        $username = substr($_POST['email'], 0, strpos($_POST['email'], "@"));
-        $sql = "SELECT * FROM `users` WHERE `username` = '$username'";
-        $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-        $row = mysql_fetch_row($rs);
-        if($row) {
-            echo("Account for this UMBC ID already exists.<br/>"); 
-            $_POST['errors'] = 1;
-        }
-        // make students are CMNS majors
-        if ($_POST['userRole'] == "student" && $_POST['major'] == "Other") {
-            echo("You have indicated that you plan to pursue a major other than one of the following, beginning next semester: Biological Sciences B.A., Biological Sciences B.S., Biochemistry & Molecular Biology B.S., Bioinformatics & Computational Biology B.S., Biology Education B.A., Chemistry B.A., Chemistry B.S., or Chemistry Education B.A.. In order to obtain the BEST advice about course selection, degree progress, and academic policy, please meet with a representative of the department that administers your NEW major.</br>
-            You can find advising contact information for your new major on the Office for Academic and Pre-Professional Advising Office’s Departmental Advising page. That contact person/office will be able to give you instructions on how to schedule an advising appointment with someone in that area. </br>
-            Good luck with your new major!");
-            exit();
-        }
-    
-        // if no errors, create new account
-        if (!isset($_POST['errors'])) {
-            
-            $sql = "INSERT INTO `users` (`lastName`, `firstName`, `username`, `userRole`, `email`, `password`) VALUES ('".$_POST['lastName']."', '".$_POST['firstName']."', '".$username."', '".$_POST['userRole']."', '".$_POST['email']."', '".sha1($_POST['password'])."')";
-            $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-            
-            // set user in session and redirect to appropriate user homepage
-            session_start();
-            $_SESSION['username'] = $username;
-            if ($_POST['userRole'] == "student") {
-                // extra student information
-                $sql = "INSERT INTO `students_academic_info` (`username`, `major`,`campusID`,`preferredName`) VALUES ('".$username."', '".$_POST['major']."', '".$_POST['campusID']."', '".$_POST['preferredName']."')";
-                $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-                
-                header('Location: ../StudentManager/studentHome.php');
-            } else {
-                header('Location: ../AdvisorManager/advisorHome.php');
-            }
-        }
-  }
-  
-?>
+			<?php
+				include_once("../Utilities/phpFuns.php");
+				if(isset($_POST['submit'])) {
+					// verify that passwords match
+					if($_POST['confirmPass'] != $_POST['password']) {
+						echo("<div class='ErrorDiv'>
+							<div class='InnerErrorDiv'>
+							  <a class='ErrorBackground'>error</a>
+							  <a class='Error'>Passwords do not match.</a>
+							</div>
+						  </div>");
+						$_POST['errors'] = 1; 
+					}
+					// verify account doesn't exist
+					include("../CommonMethods.php");
+					$COMMON = new Common(false);
+					$username = substr($_POST['email'], 0, strpos($_POST['email'], "@"));
+					$sql = "SELECT * FROM `users` WHERE `username` = '$username'";
+					$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+					$row = mysql_fetch_row($rs);
+					if($row) {
+						echo("<div class='ErrorDiv'>
+							<div class='InnerErrorDiv'>
+							  <a class='ErrorBackground'>error</a>
+							  <a class='Error'>Account for the UMBC username already exists.</a>
+							</div>
+						  </div>"); 
+						$_POST['errors'] = 1;
+					}
+					// make students are CMNS majors
+					if ($_POST['userRole'] == "student" && $_POST['major'] == "Other") {
+						echo("You have indicated that you plan to pursue a major other than one of the following, beginning next semester: Biological Sciences B.A., Biological Sciences B.S., Biochemistry & Molecular Biology B.S., Bioinformatics & Computational Biology B.S., Biology Education B.A., Chemistry B.A., Chemistry B.S., or Chemistry Education B.A.. In order to obtain the BEST advice about course selection, degree progress, and academic policy, please meet with a representative of the department that administers your NEW major.</br>
+						You can find advising contact information for your new major on the Office for Academic and Pre-Professional Advising Office’s Departmental Advising page. That contact person/office will be able to give you instructions on how to schedule an advising appointment with someone in that area. </br>
+						Good luck with your new major!");
+						exit();
+					}
+				
+					// if no errors, create new account
+					if (!isset($_POST['errors'])) {
+						
+						$sql = "INSERT INTO `users` (`lastName`, `firstName`, `username`, `userRole`, `email`, `password`) VALUES ('".$_POST['lastName']."', '".$_POST['firstName']."', '".$username."', '".$_POST['userRole']."', '".$_POST['email']."', '".sha1($_POST['password'])."')";
+						$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+						
+						// set user in session and redirect to appropriate user homepage
+						session_start();
+						$_SESSION['username'] = $username;
+						if ($_POST['userRole'] == "student") {
+							// extra student information
+							$sql = "INSERT INTO `students_academic_info` (`username`, `major`,`campusID`,`preferredName`,`futurePlans`, `advisingQuestions`) VALUES ('".$username."', '".$_POST['major']."', '".$_POST['campusID']."', '".$_POST['preferredName']."', '".$_POST['futurePlans']."', '".$_POST['questions']."')";
+							$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+							
+							header('Location: ../StudentManager/studentHome.php');
+						} else {
+							header('Location: ../AdvisorManager/advisorHome.php');
+						}
+					}
+				}
+
+			?>
 			
-				<div class="Group-Appointment">
-					<a class="Descriptor">are you a student or advisor?</a>
-					<div id="RadialPanel">
-						<span class="RadialSelector">
-							<label class="RadialDescriptor" for="student_rb">student</label> <input id="student_rb" type="radio" name="userRole" value="student" checked>
-						</span>
-						<span class="RadialSelector">
-							<input type="radio" name="userRole" id="advisor_rb" value="advisor"> <label class="RadialDescriptor" for="advisor_rb">advisor</label>
-						</span>
-					</div>
+			<!--<div class="Group-Appointment">
+				<a class="Descriptor">are you a student or advisor?</a>
+				<div id="RadialPanel">
+					<span class="RadialSelector">
+						<label class="RadialDescriptor" for="student_rb">student</label>
+					</span>
+					<span class="RadialSelector">
+						<label class="RadialDescriptor" for="advisor_rb">advisor</label>
+					</span>
 				</div>
-				
-				<input placeholder="First Name" class="inputField" type='varchar' size='10' maxlength='40' name='firstName' value="<?php if(isset($_POST['firstName'])) echo($_POST['firstName']); ?>" required>
-				<input placeholder="Last Name" class="inputField" type='varchar' size='10' maxlength='40' name='lastName' value="<?php if(isset($_POST['lastName'])) echo($_POST['lastName']); ?>" required>
-				
-				<input placeholder="Preferred Name" class="inputField" type='varchar' size='10' maxlength='40' name='preferredName' value="<?php if(isset($_POST['preferredName'])) echo($_POST['preferredName']); ?>" >
 
-				<input placeholder="E-mail Address" class="inputField" type='email' name='email' size='15' placeholder="Ex: jDoe1@umbc.edu" value="<?php if(isset($_POST['email'])) echo($_POST['email']); ?>" required>
-
-				<input placeholder="Campus ID" class="inputField" type='varchar' size='7' maxlength='7' name='campusID' placeholder="Ex: AB12345" value="<?php if(isset($_POST['campusID'])) echo($_POST['campusID']); ?>" required>
+			</div>-->
+			<div class="Group-Appointment Main-Form">
+				<a class="Descriptor">are you a <label class="RadialDescriptor formSelect" for="student_rb" >student</label> or <label class="RadialDescriptor formSelect" for="advisor_rb" >advisor</label>?</a>
+			</div>
+			<input type="radio" name="userRole" class="formSelect" id="advisor_rb" value="advisor" <?php stickyCheck("userRole", "advisor", "student"); ?> >
+			<input type="radio" name="userRole" class="formSelect" id="student_rb" value="student" <?php stickyCheck("userRole", "student", "student"); ?> >
+			<form class="Main-Form" id="studentForm" action='createAccount.php' method='post'>
+				<div>Student</div>
+				<input value="student" name="userRole" class="formSelect" >
+				<input placeholder="First Name" class="inputField" type='varchar' size='10' maxlength='40' name='firstName' <?php sticky("firstName"); ?> required>
+				<input placeholder="Preferred Name" class="inputField" type='varchar' size='10' maxlength='40' name='preferredName' <?php sticky("preferredName"); ?> >
+				<input placeholder="Last Name" class="inputField" type='varchar' size='10' maxlength='40' name='lastName' <?php sticky("lastName"); ?> required>
+				
+				<input placeholder="E-mail Address" class="inputField" type='email' name='email' size='15' placeholder="Ex: jDoe1@umbc.edu" <?php sticky("email"); ?> required>
+				<input placeholder="Campus ID" class="inputField" type='varchar' size='7' maxlength='7' name='campusID' placeholder="Ex: AB12345" <?php sticky("campusID"); ?> required>
 
 				<input placeholder="Password" class="inputField" type='password' name='password' size='10' maxlength='40' required>
 				<input placeholder="Confirm Password" class="inputField" type='password' name='confirmPass' size='10' maxlength='40' required>
@@ -118,10 +134,33 @@ Users enter new account information using this sticky form.
 					</select>
 				</div>
 
+
+				<div>
+					<textarea class="inputField" name="futurePlans" rows="3" required placeholder="What are your current post-UMBC plans? For example: medical School, teach middle school science, research career, master’s/PhD, etc." <?php sticky("futurePlans"); ?> ></textarea>
+				</div>
+				<div>
+					<textarea class="inputField" name="questions" rows="6" placeholder="Do you have any questions or concerns that you would like to discuss during your advising session? For example: Withdrawing from a course, adding a second major, etc. Note that certain questions and concerns may require more time for discussion than a student’s Registration Advising appointment will allow. If your question or concern is complex, or is sensitive in nature, you may be asked to schedule a follow-up appointment with an advisor to address it fully." ></textarea>
+				</div>
+
 				<div>
 					<button class="submit" id="Register" type='submit' name='submit'><span>register</span></button>
 				</div>
 			</form>
+
+			<form class="Main-Form" id="advisorForm" action='createAccount.php' method='post'>
+				<div>Advisor</div>
+				<input value="advisor" name="userRole" class="formSelect" >
+				<input placeholder="First Name" class="inputField" type='varchar' size='10' maxlength='40' name='firstName' value="<?php if(isset($_POST['firstName'])) echo($_POST['firstName']); ?>" required>
+				<input placeholder="Last Name" class="inputField" type='varchar' size='10' maxlength='40' name='lastName' value="<?php if(isset($_POST['lastName'])) echo($_POST['lastName']); ?>" required>
+				<input placeholder="E-mail Address" class="inputField" type='email' name='email' size='15' placeholder="Ex: jDoe1@umbc.edu" value="<?php if(isset($_POST['email'])) echo($_POST['email']); ?>" required>
+
+				<input placeholder="Password" class="inputField" type='password' name='password' size='10' maxlength='40' required>
+				<input placeholder="Confirm Password" class="inputField" type='password' name='confirmPass' size='10' maxlength='40' required>
+				<div>
+					<button class="submit" id="Register" type='submit' name='submit'><span>register</span></button>
+				</div>
+			</form>
+
 			<div id="Inner-Footer">
 				<div class="main-inner-footer-field">College of Natural and Mathematical Sciences</div>
 				<div class="inner-footer-field">University Center Room 116</div>

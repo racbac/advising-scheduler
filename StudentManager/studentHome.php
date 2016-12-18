@@ -73,25 +73,26 @@
 					}
 					else {
 						// get advisor name
-						$sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = ".$appt_data['advisor_ID']."'";
+						$sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = '".$appt_data['advisor_ID']."'";
 						$rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
 						$appt_data = array_merge($appt_data, mysql_fetch_assoc($rs));
                    	
-						echo("<a class='Descriptor'>your appointment</a>");
-						echo("Date: ".$appt_data['date']."\n");
-						echo("Time: ".$appt_data['time']."\n");
-						echo("Location: ".$appt_data['location']."\n");
-						echo("Advisor: ".$appt_data['firstName']." ".$appt_data['lastName']."\n");                    
+						echo("<a class='Descriptor'>your appointment</a>\n<div>\n<ul>");
+
+						echo("<li>Date: ".$appt_data['date']."</li>\n");
+						echo("<li>Time: ".$appt_data['start_time']."</li>\n");
+						echo("<li>Location: ".$appt_data['location']."</li>\n");
+						echo("<li>Advisor: ".$appt_data['firstName']." ".$appt_data['lastName']."</li>\n");                    
                     
 						// handle differences in displaying group vs individual meetings
 						if ($appt_data['max_students'] == 1) {
-							echo("Type: Individual\n");
+							echo("<li>Type: Individual</li>\n");
 						}
 						else {
-							echo("Type: Group\n");
-							echo("Students attending: ".$appt_data['curr_students']."\n");
+							echo("<li>Type: Group</li>\n");
+							echo("<li>Students attending: ".$appt_data['curr_students']."</li>\n");
 						}
-                    
+                    echo("</ul></div>\n");
 					}
 				?>
 				<div>

@@ -417,7 +417,7 @@ header {
 }
 
 
-.ErrorDiv {
+.ErrorDiv, .SuccessDiv {
 	width: 100%;
 	text-align: center;
 	vertical-align: middle;
@@ -442,6 +442,28 @@ header {
 	position: absolute;
 	font-size: 32px;
 	color: rgba(255, 180, 180, 0.6);
+	top: -16px;
+	left: -5px;
+}
+
+.InnerSuccessDiv {
+	width: 60%;
+	background-color: rgba(180, 255, 180, 0.6);
+	border-top: solid;
+	border-color: rgb(255, 200, 200x);
+	border-width: 3px;
+	margin: auto;
+	overflow: hidden;
+	height: 85px;
+	position: relative;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.SuccessBackground {
+	position: absolute;
+	font-size: 32px;
+	color: rgba(16, 179, 33, 0.6);
 	top: -16px;
 	left: -5px;
 }
@@ -556,6 +578,18 @@ label.formSelect {
 	cursor: pointer;
 }
 
+
+a.Descriptor~div>ul {
+	margin: auto;
+    display: inline-block;
+    text-align: left;
+	list-style: none;
+	padding-left: 0px;
+}
+
+a.Descriptor~div>ul li:before {
+	content: "- ";
+}
 
 
 
