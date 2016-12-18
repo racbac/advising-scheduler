@@ -5,6 +5,7 @@ students can sign up for available appointments, which signs them out of their c
 
 advisors can edit appointment information
 -->
+<?php session_start(); include('../Utilities/phpFuns.php'); ?>
 
 <html>
     <head>
@@ -24,17 +25,6 @@ advisors can edit appointment information
             li {
                 position: relative;
                 display: inline-block;
-            }
-            #toggle {
-                display: none;
-            }
-            #toggle ~ select {
-                position: absolute;
-                display: none !important;
-                z-index: 10;
-            }
-            #toggle:checked ~ select {
-                display: block !important;
             }
         </style>
 
@@ -101,23 +91,23 @@ advisors can edit appointment information
                 </li>
                 <li> 
                     Advisors:
-                    <label><input type="checkbox" name="sessionLeader[]" value="CNMS Advisors" checked>CNMS advisors</label>
+                    <label><input type="checkbox" name="sessionLeader[]" value="cnms" checked>CNMS advisors</label>
                     <label><input type="checkbox" name="sessionLeader[]" value="mbulger" checked>Ms. Michelle Bulger</label>
-                    <label><input type="checkbox" name="sessionLeader[]" value="JulieCrosby" checked>Mrs. Julie Crosby</label>
-                    <label><input type="checkbox" name="sessionLeader[]" value="ChristinePowers" checked>Ms. Christine Powers</label>
+                    <label><input type="checkbox" name="sessionLeader[]" value="julie11" checked>Mrs. Julie Crosby</label>
+                    <label><input type="checkbox" name="sessionLeader[]" value="cpowers1" checked>Ms. Christine Powers</label>
                 </li>
                 <li> 
                         <button type="submit" class="Submit" name="submit" ><span>Search appointments</span></button>
                 </li>
             </ul>
+            <button type="submit" class="Submit" name="drop" ><span>Drop appointment</span></button>
         </form>
 
         <?php
+            
             if (isset($_POST['submit'])) {
                 include('../CommonMethods.php');
-                $COMMON = new Common(false);
-                session_start();
-                
+                $COMMON = new Common(false);            
 
                 // get set filters in array
                 $filters = array();
@@ -126,13 +116,14 @@ advisors can edit appointment information
                         $filters[$key] = $field;
                     }
                 }
+                // parse times
                 $filters["startDate"] = date("Y-m-d", strtotime($_POST['startYear']."-".$_POST['startMonth']."-".$_POST['startDay']));
                 $filters["endDate"] = date("Y-m-d", strtotime($_POST['endYear']."-".$_POST['endMonth']."-".$_POST['endDay']));
                 $advisors = $filters['sessionLeader'];
                 $filters['startTime'] = date("H:i", strtotime($_POST['startHour'].":".$_POST['startMin']." ".$_POST['startAmPm']));
                 $filters['endTime'] = date("H:i", strtotime($_POST['endHour'].":".$_POST['endMin']." ".$_POST['endAmPm']));
 
-                // validate
+                // validate filters
                 $errors = 0;
                 if ($filters['endDate'] < $filters['startDate'] and $filters['endDate'] and $filters['startDate']) {
                     $errors++;
@@ -146,27 +137,20 @@ advisors can edit appointment information
                 // build query
                 $sql = "SELECT * FROM `appointments` WHERE 1";
                 if ($filters['startDate']) {
-                    if ($filters['endDate']) {
-                        $sql .= " AND `date` BETWEEN '$filters[startDate]' and '$filters[endDate]'";
-                    }
-                    $sql .= " AND `date` >= '$filters[startDate]'";
+                    if ($filters['endDate']) 
+                       { $sql .= " AND `date` BETWEEN '$filters[startDate]' and '$filters[endDate]'"; }
+                   { $sql .= " AND `date` >= '$filters[startDate]'"; }
                 }
-                if ($filters['endDate']) {
-                    $sql .= " AND `date` <= '$filters[endDate]'";
-                }
-                if ($filters['startTime']) {
-                    $sql .= " AND `start_time` >= '$filters[startTime]'";
-                }
-                if ($filters['endTime']) {
-                    $sql .= " AND `end_time` <= '$filters[endTime]'";
-                }
-                if ($advisors) {
-                    
-                    $sql .= " AND `advisor_ID` IN ('".implode("', '", $advisors)."')";
-                }
+                if ($filters['endDate']) 
+                    {$sql .= " AND `date` <= '$filters[endDate]'";}
+                if ($filters['startTime']) 
+                    {$sql .= " AND `start_time` >= '$filters[startTime]'";}
+                if ($filters['endTime']) 
+                    {$sql .= " AND `end_time` <= '$filters[endTime]'";}
+                if ($advisors)
+                    { $sql .= " AND `advisor_ID` IN ('".implode("', '", $advisors)."')"; }
+
                 $sql .= " ORDER BY `date`, `start_time` ASC";
-
-
                 $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
 
                 // print appointments
@@ -228,23 +212,8 @@ advisors can edit appointment information
                         $i=0;
                     }
                 }
-            }
-
-            function sticky($name, $default) {
-                if(isset($_POST[$name])) 
-                    echo(" value=".$_POST[$name]); 
-                else 
-                    echo(" value=".$default);
-            }
-            function stickySelect($name, $value, $default) {
-                if(isset($_POST[$name])) {
-                    if ($_POST[$name] == $value) { 
-                        echo(" selected"); 
-                    }
-                }
-                else if ($value == $default) {
-                    echo(" selected");
-                }
+            } else if (isset($_POST['drop'])) {
+                dropAppt($_SESSION['username']);
             }
 
         ?>
