@@ -91,7 +91,7 @@ advisors can edit appointment information
                     <a class="DateDescriptor Hour" id="endingDescriptor">hour:</a>
                     <a class="DateDescriptor Minute" id="endingDescriptor">minute:</a>
                 </div>
-                    <a class="Descriptor">when does the meeting start?</a>
+                    <a class="Descriptor">I want the appointment to start on or after...</a>
                     <div class="timeSelector" id="ending">
                     <input type="number" class="DateTime" name="startHour" pattern="(1[012]|0?[1-9])" min="1" max="12" <?php sticky("startHour", "08") ?> > :
                     <input type="number" class="DateTime" name="startMin" pattern="[0-5][0-9]" min="0" max="59" <?php sticky("startMin", "00") ?> >
@@ -105,7 +105,7 @@ advisors can edit appointment information
                     <a class="DateDescriptor Hour" id="endingDescriptor">hour:</a>
                     <a class="DateDescriptor Minute" id="endingDescriptor">minute:</a>
                 </div>
-                <a class="Descriptor">and when does it end?</a>
+                <a class="Descriptor">...and end before</a>
                 <div class="timeSelector" id="ending">
                     <input type="number" class="DateTime" name="endHour" pattern="(1[012]|0?[1-9])" min="1" max="12" <?php sticky("endHour", "09") ?> > :
                     <input type="number" class="DateTime" name="endMin" pattern="[0-5][0-9]" min="0" max="59" <?php sticky("endMin", "00") ?> >
@@ -119,14 +119,14 @@ advisors can edit appointment information
                 <table class="AdvisorTable">
                     <tr>
                         <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="mbulger" checked>Ms. Michelle Bulger</label></td>
-                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="JulieCrosby" checked>Mrs. Julie Crosby</label></td>
+                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="cpowers1" checked>Mrs. Julie Crosby</label></td>
                     </tr>
                     <tr>    
-                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="ChristinePowers" checked>Ms. Christine Powers</label></td>
-                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="CNMS Advisors" checked>CNMS advisors</label></td>
+                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="cpowers1" checked>Ms. Christine Powers</label></td>
+                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="cnms" checked>CNMS advisors</label></td>
                     </tr>
                 </table>
-                <button type="submit" class="submit" name="submit"><span>Search appointments</span></button>
+                <button type="submit" id="SearchAppt" class="submit" name="submit"><span>search appointments</span></button>
             </form>
 
 
@@ -189,7 +189,7 @@ advisors can edit appointment information
 
 
                 // print appointments
-                echo("<tr>");
+                echo("<table class='AdvisorTable'><tr>");
                 $i = 0;
                 while($row = mysql_fetch_assoc($rs))
                 {
@@ -247,6 +247,7 @@ advisors can edit appointment information
                         $i=0;
                     }
                 }
+                echo("</table>");
             }
 
             function sticky($name, $default) {
