@@ -12,8 +12,7 @@ $debug = false;
 include('../CommonMethods.php');
 
 $COMMON = new Common($debug);
-//$appt = $_POST['id'];
-$appt = 19;
+$appt = $_POST['id'];
 $sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = '$appt'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 
@@ -23,15 +22,9 @@ $max_students = $fields['max_students'];
 
 $sql = "SELECT `username` FROM `students_academic_info` WHERE `appointmentID` = '$appt'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+$students = mysql_fetch_row($rs);
 
-$check = true;
-if(mysql_num_rows($rs) == 0){
-  $check = false;
-}
-
-$sql = "SELECT `status` FROM `appointments` WHERE `appointment_ID` = '$appt'";
-$rs2 = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-$status = mysql_fetch_row($rs2);
+//TODO: fix for loop, look into whether the array is populating correctly
 ?>
 
 <!DOCTYPE html>
@@ -67,25 +60,18 @@ $status = mysql_fetch_row($rs2);
 					<a class="Descriptor">where is the meeting?</a>
 					<input class="inputField" placeholder="Location" type='text' size='25' maxlength='25' name='location'  value="<?php if(isset($_POST['max_students'])) echo($_POST['max_students']);?>"><br/>
 					<a class="Descriptor">how many students is it for?</a>
-					<input class="inputField" type="number" name="max_students" <?php if(isset($_POST['max_students'])) echo(" value=".$_POST['max_students']); ?> placeholder="1-40" min="1" max="40">
+					<input class="inputField" type="number" name="max_students" <?php if(isset($_POST['max_students'])) echo(" value=".$_POST['max_students']); ?> placeholder="1-40" min="1" max="40" required>
 					<div>
-                                        <?php
-                                        if($status[0] == 0){
-					    echo "<input id='closeReg' type='checkbox' name='close' value='yes'> <label for='closeReg' class='radialDescriptor'>Close Registration</label>";
-					}
-                                        else{
-					  echo "<input id='closeReg' type='checkbox' name='close' value='yes'> <label for='closeReg' class='radialDescriptor'>Open Registration</label>";
-					}
-                                        ?>
-                                       </div>
+						<input id="closeReg" type='checkbox' name='close' value='yes'> <label for="closeReg" class="radialDescriptor">close registration</label>
+					</div>
 					<?php 
 					//creates a checkbox for every students in the appointment
-                                                if ($check == true){
-						    echo "Remove Specific Students:";
-						    while($students = mysql_fetch_row($rs)){
-						        echo "<input type='checkbox' id=".$students[0]."' name='students[]' value='".$students[0]."'><label for='id.".$students[0]."' class='radialDescriptor'>".$students[0]."</label>";
+					if (!empty($students)){
+						echo "Remove Specific Students:";
+						foreach($students as $studentid){
+						echo "<input type='checkbox' id='id.".$studentid."' name='students[]' value='".$studentid."'><label for='id.".$studentid."' class='radialDescriptor'>".$studentid."</label>";
 						}
-						}
+					}
 					?>
 					
 					<input type='hidden' name='id' value='<?php echo "$appt"; ?>'>

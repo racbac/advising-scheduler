@@ -30,6 +30,7 @@ if($row) {
     $_SESSION['userToken'] = true; //a validated user
     $_SESSION['userRole'] = $row['userRole']; // advisor or student
 
+  
     if ($row['userRole'] == "advisor") {
         header('Location: ../AdvisorManager/advisorHome.php');
     } else {
@@ -40,6 +41,6 @@ if($row) {
 //else returns to login page
 else {
     session_unset();
-    header('Location: login.php');
+    echo("<h2>An error has occurred</h2>");
 }
 ?>

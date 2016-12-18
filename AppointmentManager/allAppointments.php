@@ -84,19 +84,19 @@ advisors can edit appointment information
                     <input name="endYear" type="number" <?php sticky("startYear", date("Y")) ?> >
                 </li>
                 <li> Start Time:
-                    <input type="number" name="startHour" min="1" max="12" <?php sticky("startHour", "8") ?> > :
-                    <input type="number" name="startMin" min="0" max="59" <?php sticky("startMin", "00") ?> >
+                    <input name="startHour" pattern="(1[012]|0?[1-9])" <?php sticky("startHour", "08") ?> > :
+                    <input name="startMin"  pattern="[0-5][0-9]" <?php sticky("startMin", "00") ?> >
                     <select name="startAmPm" >
                         <option value="AM" <?php stickySelect("startAmPm", "AM", "AM") ?> >AM</option>
                         <option value="PM" <?php stickySelect("startAmPm", "PM", "AM") ?> >PM</option>
                     </select>
                 </li>
                 <li> End Time:
-                    <input type="number" name="endHour" min="1" max="12" <?php sticky("endHour", "9") ?> > :
-                    <input type="number" name="endMin" min="0" max="59" <?php sticky("endMin", "00") ?> >
+                    <input name="endHour" pattern="(1[012]|0?[1-9])" <?php sticky("endHour", "09") ?> > :
+                    <input name="endMin" pattern="[0-5][0-9]" <?php sticky("endMin", "00") ?> >
                     <select name="endAmPm" >
-                        <option value="AM" <?php stickySelect("endAmPm", "AM", "PM") ?> >AM</option>
-                        <option value="PM" <?php stickySelect("endAmPm", "PM", "PM") ?> >PM</option>
+                        <option value="AM" <?php stickySelect("endAmPm", "AM", "PM"); ?> >AM</option>
+                        <option value="PM" <?php stickySelect("endAmPm", "PM", "PM"); ?> >PM</option>
                     </select>
                 </li>
                 <li> 
@@ -116,6 +116,7 @@ advisors can edit appointment information
             if (isset($_POST['submit'])) {
                 include('../CommonMethods.php');
                 $COMMON = new Common(false);
+                session_start();
                 
 
                 // get set filters in array
@@ -199,6 +200,23 @@ advisors can edit appointment information
                         echo("s");
                     }
                     echo(" available</a></div>");
+                    if($_SESSION['userRole'] == "advisor" )
+                        {
+                        // Print out button to edit appointment
+                        echo("<form action='editAppointment.php' method='POST'>");
+                        echo("<button type='submit' name='submit' value='$id'>Edit Appointment</button></form>");
+
+                        // Print out button to print appointment info
+                        echo("<form action='downloadMeeting.php' method='POST'>");
+                        echo("<input type='checkbox' name='extra'>Extra Info");
+                        echo("<button type='submit' name='submit' value='$id'>Download Appointment Info</button></form>");
+                        }
+                    else
+                    {
+                        // Print out button to sign up
+                        echo("<form action='joinAppointment.php' method='POST'>");
+                        echo("<button type='submit' name='submit' value='$id'>Sign Up</button></form>");
+                    }
                     echo("</td>");
                    
                     $i++;

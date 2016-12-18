@@ -27,17 +27,8 @@ for($x = 0; $x < 2; $x++){
 
 //sets the meeting to closed if the advisor clicks the appropriate checkbox
 if (isSet($_POST['close'])){
-  $sql = "SELECT `status` FROM `appointments` WHERE `appointment_ID` = '$appt'";
-  $rs = $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-  $status = mysql_fetch_row($rs)[0];
-  if ($status[0] == 0){
-    $sql = "UPDATE `appointments` SET `status` = 1 WHERE `appointment_ID` = '$appt'";
-    $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-  }
-  else{
-    $sql = "UPDATE `appointments` SET `status` = 0 WHERE `appointment_ID` = '$appt'";
-    $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-  }
+  $sql = "UPDATE `appointments` SET `status` = 1 WHERE `appointment_ID` = '$appt'";
+  $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 }
 
 //if the advisor checked of a specific students(s) to remove from the appointment, the students
@@ -54,4 +45,4 @@ if (isSet($_POST['students'])){
 
 }
 
-header("Location: ../AppointmentManager/allAppointments.php");
+header('Location: ../AppointmentManager/scheduleViewer.php');
