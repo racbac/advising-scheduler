@@ -174,9 +174,10 @@ advisors can edit appointment information
                 // parse times
                 $filters["startDate"] = date("Y-m-d", strtotime($_POST['startYear']."-".$_POST['startMonth']."-".$_POST['startDay']));
                 $filters["endDate"] = date("Y-m-d", strtotime($_POST['endYear']."-".$_POST['endMonth']."-".$_POST['endDay']));
-                $advisors = $filters['sessionLeader'];
                 $filters['startTime'] = date("H:i", strtotime($_POST['startHour'].":".$_POST['startMin']." ".$_POST['startAmPm']));
                 $filters['endTime'] = date("H:i", strtotime($_POST['endHour'].":".$_POST['endMin']." ".$_POST['endAmPm']));
+                
+               
 
                 // validate filters
                 $errors = 0;
@@ -202,22 +203,22 @@ advisors can edit appointment information
 
                 // build query
                 $sql = "SELECT * FROM `appointments` WHERE 1";
-		if($_SESSION['userRole'] == "student"){
-		  $sql .= " AND `status` = 0";
-		} 
-                if ($filters['startDate']) {
-                    if ($filters['endDate']) 
+                if($_SESSION['userRole'] == "student"){
+                    $sql .= " AND `status` = 0";
+                } 
+                if (isset($filters['startDate'])) {
+                    if (isset($filters['endDate']) )
                        { $sql .= " AND `date` BETWEEN '$filters[startDate]' and '$filters[endDate]'"; }
                    { $sql .= " AND `date` >= '$filters[startDate]'"; }
                 }
-                if ($filters['endDate']) 
+                if (isset($filters['endDate']) )
                     {$sql .= " AND `date` <= '$filters[endDate]'";}
-                if ($filters['startTime']) 
+                if (isset($filters['startTime']) )
                     {$sql .= " AND `start_time` >= '$filters[startTime]'";}
-                if ($filters['endTime']) 
+                if (isset($filters['endTime']) )
                     {$sql .= " AND `end_time` <= '$filters[endTime]'";}
-                if ($advisors)
-                    { $sql .= " AND `advisor_ID` IN ('".implode("', '", $advisors)."')"; }
+                if (isset($filters['sessionLeader']))
+                    { $sql .= " AND `advisor_ID` IN ('".implode("', '", $filters['sessionLeader'])."')"; }
 
                 $sql .= " ORDER BY `date`, `start_time` ASC";
                 $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);

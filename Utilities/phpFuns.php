@@ -74,13 +74,13 @@
     }
 
     function stickyCheck($name, $value, $defaults) {
-        if(isset($_POST[$name])) {
+        if(isset($_POST[$name])) { // already sent
             if (in_array($value, $_POST[$name])) { 
                 echo(" checked"); 
             }
         }
         else if (in_array($value, $defaults)) {
-            echo(" checked");
+             echo(" checked");
         }
     }
 
