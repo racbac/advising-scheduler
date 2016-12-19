@@ -13,6 +13,7 @@
 
 <?php
 $debug = false; session_start();
+if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); }
 include('../CommonMethods.php');
 $COMMON = new Common($debug); // common methods
 

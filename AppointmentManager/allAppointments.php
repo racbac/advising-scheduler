@@ -5,7 +5,7 @@ students can sign up for available appointments, which signs them out of their c
 
 advisors can edit appointment information
 -->
-<?php ob_start(); session_start(); include('../Utilities/phpFuns.php'); include('../CommonMethods.php'); $COMMON = new Common(false); ?>
+   <?php ob_start(); session_start(); if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); } include('../Utilities/phpFuns.php'); include('../CommonMethods.php'); $COMMON = new Common(false); ?>
 
 <!DOCTYPE html>
 <meta charset="UTF-8">

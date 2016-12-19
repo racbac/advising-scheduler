@@ -35,9 +35,10 @@ Users enter new account information using this sticky form.
 			</div>
 						
 				<?php
+                                        session_start();
+                                        if(!$_SESSION['userToken']) {header('Location: ../LoginPage/login.php');}
 					if (isset($_POST['submit'])) {
 					$updated = true;
-					session_start();
 					include('../CommonMethods.php');
 					$COMMON = new Common(false);
 					$posted = array("sessionLeader" => $_POST['sessionLeader'], "date" => date("Y-m-d", strtotime($_POST['year']."-".$_POST['month']."-".$_POST['day'])), "startTime" => date("H:i", strtotime($_POST['startHour'].":".$_POST['startMin']." ".$_POST['startAmPm'])) , "endTime" => date("H:i", strtotime($_POST['endHour'].":".$_POST['endMin']." ".$_POST['endAmPm'])), "location" => $_POST['location'], "apptSize" => $_POST['apptSize']);
