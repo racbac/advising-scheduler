@@ -1,20 +1,37 @@
 <!--htmlHeader
-   Project: CMSC331 Project 02, Fall 2016
-   Authors: Felipe Bastos, Rachel Brackert, Travis Early, Nathaniel Fuller, Colin Ganley
+Project: CMSC331 Project 02, Fall 2016
+   Authors: Felipe Bastos, Rachel Backert, Travis Earley, Nathaniel Fuller, Colin Ganley
    Date: 2016-12-13
    Email: fbastos1@umbc.edu, bac2@umbc.edu, te4@umbc.edu, fullern1@umbc.edu, cganley1@umbc.edu
 -->
 
 <?php
-session_start();
+   session_start();
 //if(!$_SESSION['userToken']) { header('Location: ../error.html'); }
+$debug = false;
+include('../CommonMethods.php');
 
+$COMMON = new Common($debug);
+$appt = $_POST['id'];
+$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = '$appt'";
+$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+
+$fields = mysql_fetch_assoc($rs);
+$location = $fields['location'];
+$max_students = $fields['max_students'];
+
+$sql = "SELECT `username` FROM `students_academic_info` WHERE `appointmentID` = '$appt'";
+$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+$students = mysql_fetch_row($rs);
+
+//TODO: fix for loop, look into whether the array is populating correctly
 ?>
+
 <!DOCTYPE html>
 <meta charset="UTF-8">
 <html>
     <head>
-       <title>Update Advisor</title>
+       <title>Edit Appointment</title>
 		<link rel="icon" type="image/png" href="http://sites.umbc.edu/wp-content/themes/umbc/assets/images/icon.png">
 		<link href="https://fonts.googleapis.com/css?family=Catamaran:300" rel="stylesheet">
 		<link href="../main.css" rel="stylesheet" type="text/css">
@@ -24,7 +41,7 @@ session_start();
 			<header>
 				<div id="Top-Header">
 					<div id="Page-Title">
-						<a class="Title">update advisor</a>
+						<a class="Title">edit appointment</a>
 					</div>
 					<a href="http://umbc.edu"><img src="../umbc50.png" title="UMBC: An Honors University in Maryland" class="umbc-logo"></a>
 				</div>
@@ -38,14 +55,26 @@ session_start();
 			<div class="BackDiv">
 				<form action="../AdvisorManager/advisorHome.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
 			</div>
-
 			<div class="Main-Form">
-				<form action='updateAdvisorInfo.php' method='post' name='UpdateProfile'>
-					<input class="inputField" placeholder="First Name" type='text' size='25' maxlength='25' name='fname' required>
-					<input class="inputField" placeholder="Last Name" type='text' size='25' maxlength='25' name='lname' required>
-					<input class="inputField" placeholder="Password" type='password' size='25' maxlength='50' name='pass' required>
-					<input class="inputField" placeholder="Confirm password" type='password' size='25' maxlength='50' name='confirmPass' required>
-					<input class="inputField" placeholder="E-mail address" type='email' size='25' maxlength='50' name='email' required>
+				<form action='processEditAppointments.php' method='post' name='EditMeeting'>
+					<a class="Descriptor">where is the meeting?</a>
+					<input class="inputField" placeholder="Location" type='text' size='25' maxlength='25' name='location'  value="<?php if(isset($_POST['max_students'])) echo($_POST['max_students']);?>"><br/>
+					<a class="Descriptor">how many students is it for?</a>
+					<input class="inputField" type="number" name="max_students" <?php if(isset($_POST['max_students'])) echo(" value=".$_POST['max_students']); ?> placeholder="1-40" min="1" max="40" required>
+					<div>
+						<input id="closeReg" type='checkbox' name='close' value='yes'> <label for="closeReg" class="radialDescriptor">close registration</label>
+					</div>
+					<?php 
+					//creates a checkbox for every students in the appointment
+					if (!empty($students)){
+						echo "Remove Specific Students:";
+						foreach($students as $studentid){
+						echo "<input type='checkbox' id='id.".$studentid."' name='students[]' value='".$studentid."'><label for='id.".$studentid."' class='radialDescriptor'>".$studentid."</label>";
+						}
+					}
+					?>
+					
+					<input type='hidden' name='id' value='<?php echo "$appt"; ?>'>
 					<div>
 						<button name="submit" id="Create" class="submit"><span>update</span></button>
 					</div>
@@ -86,3 +115,5 @@ session_start();
 		</div>	
 	</body>
 </html>
+
+

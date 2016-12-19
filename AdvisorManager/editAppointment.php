@@ -12,7 +12,8 @@ $debug = false;
 include('../CommonMethods.php');
 
 $COMMON = new Common($debug);
-$appt = $_POST['id'];
+//$appt = $_POST['id'];
+$appt = 19;
 $sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = '$appt'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 
@@ -22,8 +23,15 @@ $max_students = $fields['max_students'];
 
 $sql = "SELECT `username` FROM `students_academic_info` WHERE `appointmentID` = '$appt'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-$students = mysql_fetch_row($rs);
 
+$check = true;
+if(mysql_num_rows($rs) == 0){
+  $check = false;
+}
+
+$sql = "SELECT `status` FROM `appointments` WHERE `appointment_ID` = '$appt'";
+$rs2 = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+$status = mysql_fetch_row($rs2);
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +67,7 @@ $students = mysql_fetch_row($rs);
 					<a class="Descriptor">where is the meeting?</a>
 					<input class="inputField" placeholder="Location" type='text' size='25' maxlength='25' name='location'  value="<?php if(isset($_POST['max_students'])) echo($_POST['max_students']);?>"><br/>
 					<a class="Descriptor">how many students is it for?</a>
-					<input class="inputField" type="number" name="max_students" <?php if(isset($_POST['max_students'])) echo(" value=".$_POST['max_students']); ?> placeholder="1-40" min="1" max="40" required>
+					<input class="inputField" type="number" name="max_students" <?php if(isset($_POST['max_students'])) echo(" value=".$_POST['max_students']); ?> placeholder="1-40" min="1" max="40">
 					<div>
 						<input id="closeReg" type='checkbox' name='close' value='yes'> <label for="closeReg" class="CheckboxDescriptor">close registration</label>
 					</div>
@@ -83,6 +91,7 @@ $students = mysql_fetch_row($rs);
 						}
 						echo "</table>";
 					}
+
 					?>
 					
 					<input type='hidden' name='id' value='<?php echo "$appt"; ?>'>

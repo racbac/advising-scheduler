@@ -5,6 +5,7 @@ students can sign up for available appointments, which signs them out of their c
 
 advisors can edit appointment information
 -->
+<?php ob_start(); session_start(); include('../Utilities/phpFuns.php');  ?>
 
 <!DOCTYPE html>
 <meta charset="UTF-8">
@@ -15,6 +16,7 @@ advisors can edit appointment information
         <link href="https://fonts.googleapis.com/css?family=Catamaran:300" rel="stylesheet">
         <link href="../main.css" rel="stylesheet" type="text/css">
     </head>
+
     <body>
 
         <div id="wrapper">
@@ -83,6 +85,7 @@ advisors can edit appointment information
                         <option value="11" <?php stickySelect("endMonth", 11, date("m")) ?> >November</option>
                         <option value="12" <?php stickySelect("endMonth", 12, date("m")) ?> >December</option>
                     </select>
+<<<<<<< HEAD
                     <input name="endDay" class="DateTime" type="number" min="1" max="31" <?php sticky("endDay", 31) ?> >
                     <input name="endYear" class="DateTime" type="number" <?php sticky("startYear", date("Y")) ?> >
                 </div>
@@ -171,55 +174,132 @@ advisors can edit appointment information
                 $COMMON = new Common(false);
                 //session_start();
                 
+=======
+                    <input name="endDay" type="number" min="1" max="31" <?php sticky("endDay", 31) ?> >
+                    <input name="endYear" type="number" <?php sticky("startYear", date("Y")) ?> >
+                </li>
+                <li> Start Time:
+                    <input name="startHour" pattern="(1[012]|0?[1-9])" <?php sticky("startHour", "08") ?> > :
+                    <input name="startMin"  pattern="[0-5][0-9]" <?php sticky("startMin", "00") ?> >
+                    <select name="startAmPm" >
+                        <option value="AM" <?php stickySelect("startAmPm", "AM", "AM") ?> >AM</option>
+                        <option value="PM" <?php stickySelect("startAmPm", "PM", "AM") ?> >PM</option>
+                    </select>
+                </li>
+                <li> End Time:
+                    <input name="endHour" pattern="(1[012]|0?[1-9])" <?php sticky("endHour", "09") ?> > :
+                    <input name="endMin" pattern="[0-5][0-9]" <?php sticky("endMin", "00") ?> >
+                    <select name="endAmPm" >
+                        <option value="AM" <?php stickySelect("endAmPm", "AM", "PM"); ?> >AM</option>
+                        <option value="PM" <?php stickySelect("endAmPm", "PM", "PM"); ?> >PM</option>
+                    </select>
+                </li>
+                <li> 
+                    Advisors:
+                    <label><input type="checkbox" name="sessionLeader[]" value="cnms" checked>CNMS advisors</label>
+                    <label><input type="checkbox" name="sessionLeader[]" value="mbulger" checked>Ms. Michelle Bulger</label>
+                    <label><input type="checkbox" name="sessionLeader[]" value="julie11" checked>Mrs. Julie Crosby</label>
+                    <label><input type="checkbox" name="sessionLeader[]" value="cpowers1" checked>Ms. Christine Powers</label>
+                </li>
+                <li> 
+                        <button type="submit" class="Submit" name="search" ><span>Search appointments</span></button>
+                </li>
+            </ul>
 
-                // get set filters in array
+        </form>
+
+        <?php
+>>>>>>> rachel
+
+            include('../CommonMethods.php');
+            $COMMON = new Common(false);
+
+
+            if (isset($_POST['switchAppt'])) { // switch appointment
+                dropAppt($_SESSION['username'], $COMMON);
+                joinAppt($_SESSION['username'], $_POST['switchAppt']);
+                echo("<div class='SuccessDiv'>
+                    <div class='InnerSuccessDiv'>
+                        <a class='SuccessBackground'>success</a>
+                        <a class='Success'>Appointment joined. Refreshing...</a>
+                    </div>
+                    </div>");
+                    header("Refresh;3 url=./allAppointments.php");
+            }
+
+
+            if (isset($_POST['join'])) { // join appointment
+                $success = joinAppt($_SESSION['username'], $_POST['join']);
+                if ($success) { // successfully joined
+                    echo("<div class='SuccessDiv'>
+                        <div class='InnerSuccessDiv'>
+                            <a class='SuccessBackground'>success</a>
+                            <a class='Success'>Appointment joined. Refreshing...</a>
+                        </div>
+                        </div>");
+                        header("Refresh;3 url=./allAppointments.php");
+                } else { // already has appointment
+                    echo("Are you sure you want to switch appointments?");
+                    echo("<form action='allAppointments.php' method='POST'><button type='submit' name='switchAppt' value='".$_POST['join']."' >Yes, switch appointments</button></form>");        
+                }
+            }
+            
+            
+
+            else if (isset($_POST['search'])) { // search appointments
+                // get filters in array
                 $filters = array();
                 foreach ($_POST as $key => $field) {
                     if (isset($field)) {
                         $filters[$key] = $field;
                     }
                 }
+                // parse times
                 $filters["startDate"] = date("Y-m-d", strtotime($_POST['startYear']."-".$_POST['startMonth']."-".$_POST['startDay']));
                 $filters["endDate"] = date("Y-m-d", strtotime($_POST['endYear']."-".$_POST['endMonth']."-".$_POST['endDay']));
                 $advisors = $filters['sessionLeader'];
                 $filters['startTime'] = date("H:i", strtotime($_POST['startHour'].":".$_POST['startMin']." ".$_POST['startAmPm']));
                 $filters['endTime'] = date("H:i", strtotime($_POST['endHour'].":".$_POST['endMin']." ".$_POST['endAmPm']));
 
-                // validate
+                // validate filters
                 $errors = 0;
                 if ($filters['endDate'] < $filters['startDate'] and $filters['endDate'] and $filters['startDate']) {
                     $errors++;
-                    echo("End date must precede start date. ");
+                    echo("<div class='ErrorDiv'>
+							<div class='InnerErrorDiv'>
+							  <a class='ErrorBackground'>error</a>
+							  <a class='Error'>Start date must precede end date.</a>
+							</div>
+						  </div>");
                 }
+                
                 if ($filters['endTime'] < $filters['startTime'] and $filters['endTime'] and $filters['startTime']) {
                     $errors++;
-                    echo("End time must precede start time. ");
+                    echo("<div class='ErrorDiv'>
+							<div class='InnerErrorDiv'>
+							  <a class='ErrorBackground'>error</a>
+							  <a class='Error'>Start time must precede end time.</a>
+							</div>
+						  </div>");
                 }
 
                 // build query
                 $sql = "SELECT * FROM `appointments` WHERE 1";
                 if ($filters['startDate']) {
-                    if ($filters['endDate']) {
-                        $sql .= " AND `date` BETWEEN '$filters[startDate]' and '$filters[endDate]'";
-                    }
-                    $sql .= " AND `date` >= '$filters[startDate]'";
+                    if ($filters['endDate']) 
+                       { $sql .= " AND `date` BETWEEN '$filters[startDate]' and '$filters[endDate]'"; }
+                   { $sql .= " AND `date` >= '$filters[startDate]'"; }
                 }
-                if ($filters['endDate']) {
-                    $sql .= " AND `date` <= '$filters[endDate]'";
-                }
-                if ($filters['startTime']) {
-                    $sql .= " AND `start_time` >= '$filters[startTime]'";
-                }
-                if ($filters['endTime']) {
-                    $sql .= " AND `end_time` <= '$filters[endTime]'";
-                }
-                if ($advisors) {
-                    
-                    $sql .= " AND `advisor_ID` IN ('".implode("', '", $advisors)."')";
-                }
+                if ($filters['endDate']) 
+                    {$sql .= " AND `date` <= '$filters[endDate]'";}
+                if ($filters['startTime']) 
+                    {$sql .= " AND `start_time` >= '$filters[startTime]'";}
+                if ($filters['endTime']) 
+                    {$sql .= " AND `end_time` <= '$filters[endTime]'";}
+                if ($advisors)
+                    { $sql .= " AND `advisor_ID` IN ('".implode("', '", $advisors)."')"; }
+
                 $sql .= " ORDER BY `date`, `start_time` ASC";
-
-
                 $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
 
 
@@ -233,7 +313,6 @@ advisors can edit appointment information
                     echo("<td>");
                     
                     // Get advisor firstName and lastName
-                    
                     $sql1 = "SELECT `firstName`, `lastName` FROM `users` WHERE `username` ='$row[advisor_ID]'";
                     $rs1 = $COMMON->executeQuery($sql1, $_SERVER["SCRIPT_NAME"]);
                     $row1 = mysql_fetch_assoc($rs1);
@@ -257,12 +336,18 @@ advisors can edit appointment information
                     if($_SESSION['userRole'] == "advisor" )
                         {
                         // Print out button to edit appointment
+<<<<<<< HEAD
                         echo("<form action='../AdvisorManager/editAppointment.php' method='POST'>");
                         echo("<button type='submit' name='id' value='$id'>Edit Appointment</button></form>");
+=======
+                        echo("<form action='editAppointment.php' method='POST'>");
+                        echo("<button type='submit' name='submit' value='$id'>Edit Appointment</button></form>");
+>>>>>>> rachel
 
                         // Print out button to print appointment info
                         echo("<form action='downloadMeeting.php' method='POST'>");
                         echo("<input type='checkbox' name='extra'>Extra Info");
+<<<<<<< HEAD
                         echo("<button type='submit' name='id' value='$id'>Download Appointment Info</button></form>");
                         }
                     else
@@ -270,12 +355,23 @@ advisors can edit appointment information
                         // Print out button to sign up
                         echo("<form action='joinAppointment.php' method='POST'>");
                         echo("<button class='signup' type='submit' name='id' value='$id'><span id='signUp'>sign up</span></button></form>");
+=======
+                        echo("<button type='submit' name='submit' value='$id'>Download Appointment Info</button></form>");
+                        }
+
+                    else // student
+                    {
+                        // Print out button to sign up
+                        /*echo("<form action='joinAppointment.php' method='POST'>");
+                        echo("<button type='submit' name='submit' value='$id'>Sign Up</button></form>");*/
+                        echo("<form action='allAppointments.php' method='POST'>\n<button type='submit' name='join' value='$id'>Sign Up</button></form>");
+
+>>>>>>> rachel
                     }
                     echo("</td>");
                    
                     $i++;
-                    if($i == 2)
-                    {
+                    if($i == 2) {
                         //end box row and start new
                         echo("</tr>");
                         echo("<tr>");
@@ -285,6 +381,7 @@ advisors can edit appointment information
                 echo("</table>");
             }
 
+<<<<<<< HEAD
             function sticky($name, $default) {
                 if(isset($_POST[$name])) 
                     echo(" value=".$_POST[$name]); 
@@ -301,6 +398,8 @@ advisors can edit appointment information
                     echo(" selected");
                 }
             }
+=======
+>>>>>>> rachel
         ?>
 
             <div id="Inner-Footer">
