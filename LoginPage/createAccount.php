@@ -90,11 +90,6 @@ Users enter new account information using this sticky form.
 
 			?>
 			
-			<div class="Group-Appointment Main-Form">
-				<a class="Descriptor">are you a <label class="RadialDescriptor formSelect" for="student_rb" >student</label> or <label class="RadialDescriptor formSelect" for="advisor_rb" >advisor</label>?</a>
-			</div>
-			<input type="radio" name="userRole" class="formSelect" id="advisor_rb" value="advisor" <?php stickyRadio("userRole", "advisor", "student"); ?> >
-			<input type="radio" name="userRole" class="formSelect" id="student_rb" value="student" <?php stickyRadio("userRole", "student", "student"); ?> >
 			<form class="Main-Form" id="studentForm" action='createAccount.php' method='post'>
 				<div>Student</div>
 				<input value="student" name="userRole" class="formSelect" >
@@ -129,20 +124,6 @@ Users enter new account information using this sticky form.
 					<textarea class="inputField" name="questions" rows="6" placeholder="Do you have any questions or concerns that you would like to discuss during your advising session? For example: Withdrawing from a course, adding a second major, etc. Note that certain questions and concerns may require more time for discussion than a student’s Registration Advising appointment will allow. If your question or concern is complex, or is sensitive in nature, you may be asked to schedule a follow-up appointment with an advisor to address it fully." ></textarea>
 				</div>
 
-				<div>
-					<button class="submit" id="Register" type='submit' name='submit'><span>register</span></button>
-				</div>
-			</form>
-
-			<form class="Main-Form" id="advisorForm" action='createAccount.php' method='post'>
-				<div>Advisor</div>
-				<input value="advisor" name="userRole" class="formSelect" >
-				<input placeholder="First Name" class="inputField" type='varchar' size='10' maxlength='40' name='firstName' value="<?php if(isset($_POST['firstName'])) echo($_POST['firstName']); ?>" required>
-				<input placeholder="Last Name" class="inputField" type='varchar' size='10' maxlength='40' name='lastName' value="<?php if(isset($_POST['lastName'])) echo($_POST['lastName']); ?>" required>
-				<input placeholder="E-mail Address" class="inputField" type='email' name='email' size='15' placeholder="Ex: jDoe1@umbc.edu" value="<?php if(isset($_POST['email'])) echo($_POST['email']); ?>" required>
-
-				<input placeholder="Password" class="inputField" type='password' name='password' size='10' maxlength='40' required>
-				<input placeholder="Confirm Password" class="inputField" type='password' name='confirmPass' size='10' maxlength='40' required>
 				<div>
 					<button class="submit" id="Register" type='submit' name='submit'><span>register</span></button>
 				</div>

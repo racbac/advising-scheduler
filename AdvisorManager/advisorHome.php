@@ -52,13 +52,18 @@ $check = mysql_fetch_row($rs)[0];
 			
 			<div class="Main-Form">
 				<a class="Subtitle">Welcome, </a><a class="Title"><?php echo($row[0]);?></a>
-			
-				<div>
-					<form action="../AppointmentManager/createAppt.php"><button name="submit" id="CreateAppt" class="submit"><span>create appointment</span></button></form>
+                                <div>
+                               
+                     			<form action="../AppointmentManager/createAppt.php"><button name="submit" id="SearchAppt" class="submit"><span>create appointment</span></button></form>
 				</div>
 				<div>
 					<form action="../AppointmentManager/allAppointments.php"><button name="submit" id="SearchAppt" class="submit"><span>search appointments</span></button></form>
 				</div>
+
+                                  <div>
+                                        <form action="createAdvisor.php"><button name="submit" id="SearchAppt" class="submit"><span>create advisor</span></button></form>
+                                  </div>
+
                                 <?php
                                 if ($check == 0){
 				  ?>
