@@ -57,7 +57,7 @@ foreach($students as $student){
   $array = array($date, $start, $student['campusID'], $names[0], $names[1], $student['major']);
   
   //adds the extra info fields into the spreadsheet if asked for by advisor
-  if ($extraInfo == 0){	   
+  if (isset($extraInfo)){	   
     $sql = "SELECT `futurePlans`, `advisingQuestions` FROM `students_academic_info` WHERE `username` = '$username'";
     $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
     $extra = mysql_fetch_array($rs);

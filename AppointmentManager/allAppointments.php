@@ -117,7 +117,7 @@ advisors can edit appointment information
                         <option value="12" <?php stickySelect("endMonth", 12, date("m")) ?> >December</option>
                     </select>
                     <input name="endDay" class="DateTime" type="number" min="1" max="31" <?php sticky("endDay", 31) ?> >
-                    <input name="endYear" class="DateTime" type="number" <?php sticky("startYear", date("Y")) ?> >
+                    <input name="endYear" class="DateTime" type="number" <?php sticky("endYear", date("Y")) ?> >
                 </div>
 
                 <div id="dateDescriptor">
@@ -150,7 +150,7 @@ advisors can edit appointment information
                 <a class="Descriptor">who do you want to meet with?</a>
                 <table class="AdvisorTable">
                     <tr>
-                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="mbulger" checked>Ms. Michelle Bulger</label></td>
+			<td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="mbulger" checked>Ms. Michelle Bulger</label></td>
                         <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="julie11" checked>Mrs. Julie Crosby</label></td>
                     </tr>
                     <tr>    
@@ -202,6 +202,9 @@ advisors can edit appointment information
 
                 // build query
                 $sql = "SELECT * FROM `appointments` WHERE 1";
+		if($_SESSION['userRole'] == "student"){
+		  $sql .= " AND `status` = 0";
+		} 
                 if ($filters['startDate']) {
                     if ($filters['endDate']) 
                        { $sql .= " AND `date` BETWEEN '$filters[startDate]' and '$filters[endDate]'"; }

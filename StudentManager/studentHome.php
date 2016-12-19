@@ -45,6 +45,7 @@
 					$COMMON = new Common(false);
 
 					// get basic info
+                                        $_SESSION['userRole'] = "student";
 					$curr_user = $_SESSION['username'];
 					$sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = '".$curr_user."'";
 					$rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);

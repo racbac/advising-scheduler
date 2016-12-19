@@ -12,8 +12,7 @@ $debug = false;
 include('../CommonMethods.php');
 
 $COMMON = new Common($debug);
-//$appt = $_POST['id'];
-$appt = 19;
+$appt = $_POST['id'];
 $sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = '$appt'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 
@@ -69,19 +68,26 @@ $status = mysql_fetch_row($rs2);
 					<a class="Descriptor">how many students is it for?</a>
 					<input class="inputField" type="number" name="max_students" <?php if(isset($_POST['max_students'])) echo(" value=".$_POST['max_students']); ?> placeholder="1-40" min="1" max="40">
 					<div>
-						<input id="closeReg" type='checkbox' name='close' value='yes'> <label for="closeReg" class="CheckboxDescriptor">close registration</label>
+					<?php
+                                        if($status[0] == 0){
+					  echo "<input id='closeReg' type='checkbox' name='close' value='yes'> <label for='closeReg' class='radialDescriptor'>Close Registration</label>";
+					}
+					else{
+					  echo "<input id='closeReg' type='checkbox' name='close' value='yes'> <label for='closeReg' class='radialDescriptor'>Open Registration</label>";
+					}
+                                        ?>
 					</div>
 					<?php 
 					//creates a checkbox for every students in the appointment
-					if (!empty($students)){
-						echo "<a class='Descriptor'>do you want to remove specific students?</a><table class='AdvisorTable'>";
+					if ($check == true){
+						echo "<a class='Descriptor'>Do you want to remove specific students?</a><table class='AdvisorTable'>";
 						$i = 0;
-						foreach($students as $studentid){
+						while($students = mysql_fetch_row($rs)){
 							if (!($i % 2)) {
 								echo "<tr>";
 							}
 
-							echo "<td><input type='checkbox' id='id.".$studentid."' name='students[]' value='".$studentid."'><label for='id.".$studentid."' class='CheckboxDescriptor'>".$studentid."</label></td>";
+							echo "<td><input type='checkbox' id='id.".$students[0]."' name='students[]' value='".$students[0]."'><label for='id.".$students[0]."' class='CheckboxDescriptor'>".$students[0]."</label></td>";
 							
 							$i += 1;
 

@@ -25,7 +25,7 @@ for($x = 0; $x < 2; $x++){
   }
 }
 
-//sets the meeting to closed if the advisor clicks the appropriate checkbox
+//sets the meeting to open or closed if the advisor clicks the appropriate checkbox
 if (isSet($_POST['close'])){
   $sql = "SELECT `status` FROM `appointments` WHERE `appointment_ID` = '$appt'";
   $rs = $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
