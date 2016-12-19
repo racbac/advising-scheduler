@@ -164,10 +164,10 @@ advisors can edit appointment information
 
 
             <?php
+            $sql = "SELECT * FROM `appointments` WHERE 1";
             if (isset($_POST['search']) or isset($_POST['all'])) {
-                $sql .= "SELECT * FROM `appointments` WHERE 1";
+                
                 if (isset($_POST['all'])) { // view all appointments
-                    $sql .= "SELECT * FROM `appointments`";
                     if($_SESSION['userRole'] == "student"){
                         $sql .= " AND `status` = 0";
                     }
