@@ -36,7 +36,7 @@ session_start();
 				<div class='ErrorDiv'>
 					<div class='InnerErrorDiv'>
 						<a class='ErrorBackground'>error</a>
-						<a class='Error'>Advising sign-ups are currently closed. Please check back later</a>
+						<a class='Error'>Advising sign-ups are currently closed. Please check back later.</a>
 					</div>
 				</div>
 			</div>	
