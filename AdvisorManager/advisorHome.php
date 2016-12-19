@@ -6,7 +6,7 @@
 -->
 <?php
 session_start();
-//if(!$_SESSION['userToken']) { header('Location: ../error.html'); }
+if(!$_SESSION['userToken']) { header('Location: ../error.html'); }
 $debug = false;
 include('../CommonMethods.php');
 
@@ -16,6 +16,11 @@ $_SESSION['userRole'] = "advisor";
 $sql = "SELECT * FROM `users` WHERE `username` = '$user'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 $row = mysql_fetch_row($rs);
+
+//check if student advising is set to off because it is the offseason
+$awayCheck = fopen("../closed.txt", "r");
+$check = fgetc($awayCheck);
+fclose($awayCheck);
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +58,23 @@ $row = mysql_fetch_row($rs);
 				<div>
 					<form action="../AppointmentManager/allAppointments.php"><button name="submit" id="SearchAppt" class="submit"><span>search appointments</span></button></form>
 				</div>
-				
+                                <?php
+                                if ($check == "f"){
+				  ?>
+                                  <div>
+                                          <form action="../Utilities/close.php"><button name="submit" id="CloseReg" class="submit"><span>close student registration</span></button></form>
+                                  </div>
+                                <?php
+				}	
+				else{
+				  ?>
+				  <div>
+                                          <form action="../Utilities/close.php"><button name="submit" id="CloseReg" class="submit"><span>open student registration</span></button></form>
+                                  </div>
+				<?php
+				}
+                                ?>
+
 			</div>
 			<div id="Inner-Footer">
 				<div class="main-inner-footer-field">College of Natural and Mathematical Sciences</div>

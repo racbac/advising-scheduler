@@ -6,7 +6,8 @@ Project: CMSC331 Project 02, Fall 2016
 -->
 
 <?php
-//if(!$_SESSION['userToken']) { header('Location: ../error.html'); }
+session_start();
+if(!$_SESSION['userToken']) { header('Location: ../error.html'); }
 $debug = false;
 include('../CommonMethods.php');
 

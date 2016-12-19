@@ -36,7 +36,14 @@
 			<div class="Main-Form">
 				<?php
 					session_start();
-					// verify user is logged in            
+                                        //check if the ability to sign up for advising is close for the season
+                                        $awayCheck = fopen("../closed.txt", "r"); 
+                                        $check = fgetc($awayCheck);
+                                        if ($check == "t"){
+					  header("Location: ../LoginPage/awayPage.php");
+					}
+                                        fclose($awayCheck);
+                                        //verify user is logged in
 					if (!isset($_SESSION['username'])) {
 						header('Location: ../homescreen.php');
 						exit();
