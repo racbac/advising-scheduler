@@ -32,6 +32,9 @@ session_start();
 				</div>
 			</header>
 
+			<div class="BackDiv">
+				<form action="../LoginPage/login.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
+			</div>
 			<div class="Main-Form">
 				<div class='ErrorDiv'>
 					<div class='InnerErrorDiv'>
