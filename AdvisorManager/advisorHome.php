@@ -17,10 +17,11 @@ $sql = "SELECT * FROM `users` WHERE `username` = '$user'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 $row = mysql_fetch_row($rs);
 
-//check if student advising is set to off because it is the offseason
-$awayCheck = fopen("../closed.txt", "r");
-$check = fgetc($awayCheck);
-fclose($awayCheck);
+//check if it is the student registration is set to off or not
+$sql = "SELECT `closed` FROM `offseason` WHERE `i` = 1";
+$rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
+$check = mysql_fetch_row($rs)[0];
+
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +60,7 @@ fclose($awayCheck);
 					<form action="../AppointmentManager/allAppointments.php"><button name="submit" id="SearchAppt" class="submit"><span>search appointments</span></button></form>
 				</div>
                                 <?php
-                                if ($check == "f"){
+                                if ($check == 0){
 				  ?>
                                   <div>
                                           <form action="../Utilities/close.php"><button name="submit" id="CloseReg" class="submit"><span>close student registration</span></button></form>
