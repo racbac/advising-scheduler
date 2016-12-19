@@ -93,8 +93,8 @@ Users enter new account information using this sticky form.
 			<div class="Group-Appointment Main-Form">
 				<a class="Descriptor">are you a <label class="RadialDescriptor formSelect" for="student_rb" >student</label> or <label class="RadialDescriptor formSelect" for="advisor_rb" >advisor</label>?</a>
 			</div>
-			<input type="radio" name="userRole" class="formSelect" id="advisor_rb" value="advisor" <?php stickyCheck("userRole", "advisor", "student"); ?> >
-			<input type="radio" name="userRole" class="formSelect" id="student_rb" value="student" <?php stickyCheck("userRole", "student", "student"); ?> >
+			<input type="radio" name="userRole" class="formSelect" id="advisor_rb" value="advisor" <?php stickyRadio("userRole", "advisor", "student"); ?> >
+			<input type="radio" name="userRole" class="formSelect" id="student_rb" value="student" <?php stickyRadio("userRole", "student", "student"); ?> >
 			<form class="Main-Form" id="studentForm" action='createAccount.php' method='post'>
 				<div>Student</div>
 				<input value="student" name="userRole" class="formSelect" >

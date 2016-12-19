@@ -5,7 +5,7 @@ students can sign up for available appointments, which signs them out of their c
 
 advisors can edit appointment information
 -->
-<?php ob_start(); session_start(); include('../Utilities/phpFuns.php');                 include('../CommonMethods.php'); $COMMON = new Common(false); ?>
+<?php ob_start(); session_start(); include('../Utilities/phpFuns.php'); include('../CommonMethods.php'); $COMMON = new Common(false); ?>
 
 <!DOCTYPE html>
 <meta charset="UTF-8">
@@ -150,12 +150,12 @@ advisors can edit appointment information
                 <a class="Descriptor">who do you want to meet with?</a>
                 <table class="AdvisorTable">
                     <tr>
-			<td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="mbulger" checked>Ms. Michelle Bulger</label></td>
-                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="julie11" checked>Mrs. Julie Crosby</label></td>
+            <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="mbulger" <?php stickyCheck("sessionLeader", "mbulger", array("mbulger","julie11","cpowers1","cnms")); ?> >Ms. Michelle Bulger</label></td>
+                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="julie11" <?php stickyCheck("sessionLeader", "julie11", array("mbulger","julie11","cpowers1","cnms")); ?>>Mrs. Julie Crosby</label></td>
                     </tr>
                     <tr>    
-                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="cpowers1" checked>Ms. Christine Powers</label></td>
-                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="cnms" checked>CNMS advisors</label></td>
+                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="cpowers1" <?php stickyCheck("sessionLeader", "cpowers1", array("mbulger","julie11","cpowers1","cnms")); ?>>Ms. Christine Powers</label></td>
+                        <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="cnms" <?php stickyCheck("sessionLeader", "cnms", array("mbulger","julie11","cpowers1","cnms")); ?>>CNMS advisors</label></td>
                     </tr>
                 </table>
                 <button type="submit" id="SearchAppt" class="submit" name="search"><span>search appointments</span></button>
