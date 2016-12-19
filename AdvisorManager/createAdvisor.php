@@ -34,6 +34,7 @@ Users enter new account information using this sticky form.
 				include_once("../Utilities/phpFuns.php");
                                 session_start();
                                 if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); }
+                                if($_SESSION['userRole'] != "advisor") {header('Location: ../LoginPage/processLogout.php');}
 				if(isset($_POST['submit'])) {
 					// verify that passwords match
 					if($_POST['confirmPass'] != $_POST['password']) {

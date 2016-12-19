@@ -7,12 +7,12 @@
 <?php
 session_start();
 if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); }
+if($_SESSION['userRole'] != "advisor") {header('Location: ../LoginPage/processLogout.php');}
 $debug = false;
 include('../CommonMethods.php');
 
 $COMMON = new Common($debug);
 $user = $_SESSION['username'];
-$_SESSION['userRole'] = "advisor";
 $sql = "SELECT * FROM `users` WHERE `username` = '$user'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 $row = mysql_fetch_row($rs);

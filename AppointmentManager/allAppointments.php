@@ -169,7 +169,7 @@ advisors can edit appointment information
                 
                 if (isset($_POST['all'])) { // view all appointments
                     if($_SESSION['userRole'] == "student"){
-                        $sql .= " AND `status` = 0";
+                        $sql .= " AND `status` = 0 AND `curr_students` < `max_students`";
                     }
                 }
                 if (isset($_POST['search'])) { // search appointments
@@ -210,7 +210,7 @@ advisors can edit appointment information
 
                     // build query
                     if($_SESSION['userRole'] == "student"){
-                        $sql .= " AND `status` = 0";
+                        $sql .= " AND `status` = 0  AND `curr_students` < `max_students`";
                     } 
                     if (isset($filters['startDate'])) {
                         if (isset($filters['endDate']) )

@@ -8,6 +8,7 @@ Project: CMSC331 Project 02, Fall 2016
 <?php
 session_start();
 if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); }
+if($_SESSION['userRole'] != "advisor") {header('Location: ../LoginPage/processLogout.php');}
 $debug = false;
 include('../CommonMethods.php');
 
