@@ -165,7 +165,7 @@ advisors can edit appointment information
 
             <?php
             if (isset($_POST['search']) or isset($_POST['all'])) {
-                $sql = "";
+                $sql .= "SELECT * FROM `appointments` WHERE 1";
                 if (isset($_POST['all'])) { // view all appointments
                     $sql .= "SELECT * FROM `appointments`";
                     if($_SESSION['userRole'] == "student"){
@@ -209,7 +209,6 @@ advisors can edit appointment information
                     }
 
                     // build query
-                    $sql .= "SELECT * FROM `appointments` WHERE 1";
                     if($_SESSION['userRole'] == "student"){
                         $sql .= " AND `status` = 0";
                     } 
@@ -227,11 +226,10 @@ advisors can edit appointment information
                     if (isset($filters['sessionLeader']))
                         { $sql .= " AND `advisor_ID` IN ('".implode("', '", $filters['sessionLeader'])."')"; }
 
-                    $sql .= " ORDER BY `date`, `start_time` ASC";
-                    
+                     
                 }
-                
                 // print appointments
+                $sql .= " ORDER BY `date`, `start_time` ASC";
                 $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
                 echo("<table class='AdvisorTable'><tr>");
                 $i = 0;
