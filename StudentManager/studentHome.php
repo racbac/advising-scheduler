@@ -36,13 +36,6 @@
 			<div class="Main-Form">
 				<?php
 					session_start();
-                                        //check if the ability to sign up for advising is close for the season
-                                        $awayCheck = fopen("../closed.txt", "r"); 
-                                        $check = fgetc($awayCheck);
-                                        if ($check == "t"){
-					  header("Location: ../LoginPage/awayPage.php");
-					}
-                                        fclose($awayCheck);
                                         //verify user is logged in
 					if (!isset($_SESSION['username'])) {
 						header('Location: ../homescreen.php');
@@ -50,7 +43,13 @@
 					}
 					include("../CommonMethods.php");
 					$COMMON = new Common(false);
-
+                                        //check if the page is in the offseason
+                                        $sql = "SELECT `closed` FROM `offseason` WHERE `i` = 1";
+                                        $rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
+                                        $check = mysql_fetch_row($rs)[0];
+                                        if ($check == 1){
+					  header("Location: ../LoginPage/awayPage.php");
+					}
 					// get basic info
                                         $_SESSION['userRole'] = "student";
 					$curr_user = $_SESSION['username'];
