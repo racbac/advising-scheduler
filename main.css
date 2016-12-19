@@ -234,6 +234,9 @@ header {
 	color: rgba(40,40,40,1.00);
 }
 
+.smallButton {
+	background-color: rgba(170, 170, 170, 1) !important;
+}
 
 .button {
 	background-color: rgba(170, 170, 170, 1);

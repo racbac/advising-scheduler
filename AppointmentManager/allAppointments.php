@@ -5,7 +5,7 @@ students can sign up for available appointments, which signs them out of their c
 
 advisors can edit appointment information
 -->
-<?php ob_start(); session_start(); include('../Utilities/phpFuns.php');  ?>
+<?php ob_start(); session_start(); include('../Utilities/phpFuns.php');                 include('../CommonMethods.php'); $COMMON = new Common(false); ?>
 
 <!DOCTYPE html>
 <meta charset="UTF-8">
@@ -35,10 +35,41 @@ advisors can edit appointment information
                 <button type="submit" class="Logout"><span>logout</span></button>
             </form>
             <div class="BackDiv">
-                <form action=<?php session_start(); if($_SESSION['userRole'] == "advisor" ) echo('../AdvisorManager/advisorHome.php'); else echo('../StudentManager/studentHome.php'); ?> method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
+                <form action=<?php if($_SESSION['userRole'] == "advisor" ) echo('../AdvisorManager/advisorHome.php'); else echo('../StudentManager/studentHome.php'); ?> method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
             </div>
             
             <form action="allAppointments.php" method="post" class="Main-Form">
+            
+            <?php
+            if (isset($_POST['switchAppt'])) { // switch appointment
+                dropAppt($_SESSION['username'], $COMMON);
+                joinAppt($_SESSION['username'], $_POST['switchAppt']);
+                echo("<div class='SuccessDiv'>
+                    <div class='InnerSuccessDiv'>
+                        <a class='SuccessBackground'>success</a>
+                        <a class='Success'>Appointment joined. Refreshing...</a>
+                    </div>
+                    </div>");
+                    header("Refresh:3 url=./allAppointments.php");
+            }
+
+
+            else if (isset($_POST['join'])) { // join appointment
+                $success = joinAppt($_SESSION['username'], $_POST['join']);
+                if ($success) { // successfully joined
+                    echo("<div class='SuccessDiv'>
+                        <div class='InnerSuccessDiv'>
+                            <a class='SuccessBackground'>success</a>
+                            <a class='Success'>Appointment joined. Refreshing...</a>
+                        </div>
+                        </div>");
+                        header("Refresh:3 url=./allAppointments.php");
+                } else { // already has appointment
+                    echo("<a class='Descriptor'> Are you sure you want to switch appointments?</a>");
+                    echo("<div><button type='submit' name='switchAppt' class='submit' value='".$_POST['join']."' >Yes, switch appointments</button></div>");        
+                }
+            }
+            ?>
                 <a class="Descriptor">I want to find an appointment starting between...</a>
                 <div id="dateDescriptor">
                     <a class="DateDescriptor Month">month:</a>
@@ -85,7 +116,6 @@ advisors can edit appointment information
                         <option value="11" <?php stickySelect("endMonth", 11, date("m")) ?> >November</option>
                         <option value="12" <?php stickySelect("endMonth", 12, date("m")) ?> >December</option>
                     </select>
-<<<<<<< HEAD
                     <input name="endDay" class="DateTime" type="number" min="1" max="31" <?php sticky("endDay", 31) ?> >
                     <input name="endYear" class="DateTime" type="number" <?php sticky("startYear", date("Y")) ?> >
                 </div>
@@ -96,29 +126,11 @@ advisors can edit appointment information
                 </div>
                     <a class="Descriptor">I want the appointment to start on or after...</a>
                 <div class="timeSelector" id="ending">
-                    <select name="startHour" class="DateTime" id="picker" required>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                    </select>
-                    <select name="startMin" class="DateTime" id="picker" required>
-                        <option value="00">00</option>
-                        <option value="15">15</option>
-                        <option value="30">30</option>
-                        <option value="45">45</option>
-                    </select>
-                    <select name="startAmPm" class="DateTime" id="picker" required>
-                        <option value="AM">AM</option>
-                        <option value="PM">PM</option>
+                    <input name="startHour" class="DateTime" id="picker" pattern="(1[012]|0?[1-9])" <?php sticky("startHour", "08") ?> > :
+                    <input name="startMin" class="DateTime" id="picker" pattern="[0-5][0-9]" <?php sticky("startMin", "00") ?> >
+                    <select name="startAmPm" class="DateTime" id="picker" >
+                        <option value="AM" <?php stickySelect("startAmPm", "AM", "AM") ?> >AM</option>
+                        <option value="PM" <?php stickySelect("startAmPm", "PM", "AM") ?> >PM</option>
                     </select>
                 </div>
 
@@ -128,29 +140,11 @@ advisors can edit appointment information
                 </div>
                 <a class="Descriptor">...and end before</a>
                 <div class="timeSelector" id="ending">
-                    <select name="endHour" class="DateTime" id="picker" required>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                    </select>
-                    <select name="endMin" class="DateTime" id="picker" required>
-                        <option value="00">00</option>
-                        <option value="15">15</option>
-                        <option value="30">30</option>
-                        <option value="45">45</option>
-                    </select>
-                    <select name="endAmPm" class="DateTime" id="picker" required>
-                        <option value="AM">AM</option>
-                        <option value="PM">PM</option>
+                    <input name="endHour" class="DateTime" id="picker" pattern="(1[012]|0?[1-9])" <?php sticky("endHour", "09") ?> > :
+                    <input name="endMin" class="DateTime" id="picker" pattern="[0-5][0-9]" <?php sticky("endMin", "00") ?> >
+                    <select name="endAmPm" class="DateTime" id="picker" >
+                        <option value="AM" <?php stickySelect("endAmPm", "AM", "PM"); ?> >AM</option>
+                        <option value="PM" <?php stickySelect("endAmPm", "PM", "PM"); ?> >PM</option>
                     </select>
                 </div>
                 <a class="Descriptor">who do you want to meet with?</a>
@@ -164,89 +158,12 @@ advisors can edit appointment information
                         <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="cnms" checked>CNMS advisors</label></td>
                     </tr>
                 </table>
-                <button type="submit" id="SearchAppt" class="submit" name="submit"><span>search appointments</span></button>
+                <button type="submit" id="SearchAppt" class="submit" name="search"><span>search appointments</span></button>
             </form>
 
 
             <?php
-            if (isset($_POST['submit'])) {
-                include('../CommonMethods.php');
-                $COMMON = new Common(false);
-                //session_start();
-                
-=======
-                    <input name="endDay" type="number" min="1" max="31" <?php sticky("endDay", 31) ?> >
-                    <input name="endYear" type="number" <?php sticky("startYear", date("Y")) ?> >
-                </li>
-                <li> Start Time:
-                    <input name="startHour" pattern="(1[012]|0?[1-9])" <?php sticky("startHour", "08") ?> > :
-                    <input name="startMin"  pattern="[0-5][0-9]" <?php sticky("startMin", "00") ?> >
-                    <select name="startAmPm" >
-                        <option value="AM" <?php stickySelect("startAmPm", "AM", "AM") ?> >AM</option>
-                        <option value="PM" <?php stickySelect("startAmPm", "PM", "AM") ?> >PM</option>
-                    </select>
-                </li>
-                <li> End Time:
-                    <input name="endHour" pattern="(1[012]|0?[1-9])" <?php sticky("endHour", "09") ?> > :
-                    <input name="endMin" pattern="[0-5][0-9]" <?php sticky("endMin", "00") ?> >
-                    <select name="endAmPm" >
-                        <option value="AM" <?php stickySelect("endAmPm", "AM", "PM"); ?> >AM</option>
-                        <option value="PM" <?php stickySelect("endAmPm", "PM", "PM"); ?> >PM</option>
-                    </select>
-                </li>
-                <li> 
-                    Advisors:
-                    <label><input type="checkbox" name="sessionLeader[]" value="cnms" checked>CNMS advisors</label>
-                    <label><input type="checkbox" name="sessionLeader[]" value="mbulger" checked>Ms. Michelle Bulger</label>
-                    <label><input type="checkbox" name="sessionLeader[]" value="julie11" checked>Mrs. Julie Crosby</label>
-                    <label><input type="checkbox" name="sessionLeader[]" value="cpowers1" checked>Ms. Christine Powers</label>
-                </li>
-                <li> 
-                        <button type="submit" class="Submit" name="search" ><span>Search appointments</span></button>
-                </li>
-            </ul>
-
-        </form>
-
-        <?php
->>>>>>> rachel
-
-            include('../CommonMethods.php');
-            $COMMON = new Common(false);
-
-
-            if (isset($_POST['switchAppt'])) { // switch appointment
-                dropAppt($_SESSION['username'], $COMMON);
-                joinAppt($_SESSION['username'], $_POST['switchAppt']);
-                echo("<div class='SuccessDiv'>
-                    <div class='InnerSuccessDiv'>
-                        <a class='SuccessBackground'>success</a>
-                        <a class='Success'>Appointment joined. Refreshing...</a>
-                    </div>
-                    </div>");
-                    header("Refresh;3 url=./allAppointments.php");
-            }
-
-
-            if (isset($_POST['join'])) { // join appointment
-                $success = joinAppt($_SESSION['username'], $_POST['join']);
-                if ($success) { // successfully joined
-                    echo("<div class='SuccessDiv'>
-                        <div class='InnerSuccessDiv'>
-                            <a class='SuccessBackground'>success</a>
-                            <a class='Success'>Appointment joined. Refreshing...</a>
-                        </div>
-                        </div>");
-                        header("Refresh;3 url=./allAppointments.php");
-                } else { // already has appointment
-                    echo("Are you sure you want to switch appointments?");
-                    echo("<form action='allAppointments.php' method='POST'><button type='submit' name='switchAppt' value='".$_POST['join']."' >Yes, switch appointments</button></form>");        
-                }
-            }
-            
-            
-
-            else if (isset($_POST['search'])) { // search appointments
+            if (isset($_POST['search'])) { // search appointments
                 // get filters in array
                 $filters = array();
                 foreach ($_POST as $key => $field) {
@@ -336,37 +253,20 @@ advisors can edit appointment information
                     if($_SESSION['userRole'] == "advisor" )
                         {
                         // Print out button to edit appointment
-<<<<<<< HEAD
                         echo("<form action='../AdvisorManager/editAppointment.php' method='POST'>");
-                        echo("<button type='submit' name='id' value='$id'>Edit Appointment</button></form>");
-=======
-                        echo("<form action='editAppointment.php' method='POST'>");
-                        echo("<button type='submit' name='submit' value='$id'>Edit Appointment</button></form>");
->>>>>>> rachel
+                        echo("<button type='submit' name='id' class='signup smallButton' value='$id'><span>Edit Appointment</span></button></form>");
 
                         // Print out button to print appointment info
                         echo("<form action='downloadMeeting.php' method='POST'>");
                         echo("<input type='checkbox' name='extra'>Extra Info");
-<<<<<<< HEAD
-                        echo("<button type='submit' name='id' value='$id'>Download Appointment Info</button></form>");
+                        echo("<button type='submit' name='id' value='$id' class='signup smallButton'><span>Download Appointment Info</span></button></form>");
                         }
                     else
                     {
                         // Print out button to sign up
-                        echo("<form action='joinAppointment.php' method='POST'>");
-                        echo("<button class='signup' type='submit' name='id' value='$id'><span id='signUp'>sign up</span></button></form>");
-=======
-                        echo("<button type='submit' name='submit' value='$id'>Download Appointment Info</button></form>");
-                        }
+                        echo("<form action='allAppointments.php' method='POST'>");
+                        echo("<button class='signup' type='submit' name='join' value='$id'><span id='signUp'>sign up</span></button></form>");
 
-                    else // student
-                    {
-                        // Print out button to sign up
-                        /*echo("<form action='joinAppointment.php' method='POST'>");
-                        echo("<button type='submit' name='submit' value='$id'>Sign Up</button></form>");*/
-                        echo("<form action='allAppointments.php' method='POST'>\n<button type='submit' name='join' value='$id'>Sign Up</button></form>");
-
->>>>>>> rachel
                     }
                     echo("</td>");
                    
@@ -380,26 +280,6 @@ advisors can edit appointment information
                 }
                 echo("</table>");
             }
-
-<<<<<<< HEAD
-            function sticky($name, $default) {
-                if(isset($_POST[$name])) 
-                    echo(" value=".$_POST[$name]); 
-                else 
-                    echo(" value=".$default);
-            }
-            function stickySelect($name, $value, $default) {
-                if(isset($_POST[$name])) {
-                    if ($_POST[$name] == $value) { 
-                        echo(" selected"); 
-                    }
-                }
-                else if ($value == $default) {
-                    echo(" selected");
-                }
-            }
-=======
->>>>>>> rachel
         ?>
 
             <div id="Inner-Footer">
@@ -437,4 +317,3 @@ advisors can edit appointment information
         </div>  
     </body>
 </html>
-
