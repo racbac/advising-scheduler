@@ -40,8 +40,7 @@ session_start();
 					</div>
 				</div>
 			</div>	
-		</div>
-		<div id="Inner-Footer">
+			<div id="Inner-Footer">
 				<div class="main-inner-footer-field">College of Natural and Mathematical Sciences</div>
 				<div class="inner-footer-field">University Center Room 116</div>
 				<div class="inner-footer-field">(410) 455-5827</div>
