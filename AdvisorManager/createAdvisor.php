@@ -32,6 +32,8 @@ Users enter new account information using this sticky form.
 			</div>
 			<?php
 				include_once("../Utilities/phpFuns.php");
+                                session_start();
+                                if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); }
 				if(isset($_POST['submit'])) {
 					// verify that passwords match
 					if($_POST['confirmPass'] != $_POST['password']) {
@@ -70,7 +72,6 @@ Users enter new account information using this sticky form.
 						$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 						
 						// set user in session and redirect to appropriate user homepage
-						session_start();
 				  
 						header('Location: ../AdvisorManager/advisorHome.php');
 					}

@@ -37,10 +37,7 @@
 				<?php
 					session_start();
                                         //verify user is logged in
-					if (!isset($_SESSION['username'])) {
-						header('Location: ../homescreen.php');
-						exit();
-					}
+                                        if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); }
 					include("../CommonMethods.php");
 					$COMMON = new Common(false);
                                         //check if the page is in the offseason

@@ -6,7 +6,7 @@
 -->
 <?php
 session_start();
-if(!$_SESSION['userToken']) { header('Location: ../error.html'); }
+if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); }
 $debug = false;
 include('../CommonMethods.php');
 
