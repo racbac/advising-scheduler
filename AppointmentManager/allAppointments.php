@@ -78,21 +78,21 @@ advisors can edit appointment information
                 </div>
                 <div class="dateSelector">
                     <select name="startMonth" class="DateTime">
-                        <option value="1" <?php stickySelect("startMonth", 1, date("m")) ?> >January</option>
-                        <option value="2" <?php stickySelect("startMonth", 2, date("m")) ?> >February</option>
-                        <option value="3" <?php stickySelect("startMonth", 3, date("m")) ?> >March</option>
-                        <option value="4" <?php stickySelect("startMonth", 4, date("m")) ?> >April</option>
-                        <option value="5" <?php stickySelect("startMonth", 5, date("m")) ?> >May</option>
-                        <option value="6" <?php stickySelect("startMonth", 6, date("m")) ?> >June</option>
-                        <option value="7" <?php stickySelect("startMonth", 7, date("m")) ?> >July</option>
-                        <option value="8" <?php stickySelect("startMonth", 8, date("m")) ?> >August</option>
-                        <option value="9" <?php stickySelect("startMonth", 9, date("m")) ?> >September</option>
-                        <option value="10" <?php stickySelect("startMonth", 10, date("m")) ?> >October</option>
-                        <option value="11" <?php stickySelect("startMonth", 11, date("m")) ?> >November</option>
-                        <option value="12" <?php stickySelect("startMonth", 12, date("m")) ?> >December</option>
+                        <option value="1" required <?php stickySelect("startMonth", 1, date("m")) ?> >January</option>
+                        <option value="2" required <?php stickySelect("startMonth", 2, date("m")) ?> >February</option>
+                        <option value="3" required <?php stickySelect("startMonth", 3, date("m")) ?> >March</option>
+                        <option value="4" required <?php stickySelect("startMonth", 4, date("m")) ?> >April</option>
+                        <option value="5" required <?php stickySelect("startMonth", 5, date("m")) ?> >May</option>
+                        <option value="6" required <?php stickySelect("startMonth", 6, date("m")) ?> >June</option>
+                        <option value="7" required <?php stickySelect("startMonth", 7, date("m")) ?> >July</option>
+                        <option value="8" required <?php stickySelect("startMonth", 8, date("m")) ?> >August</option>
+                        <option value="9" required <?php stickySelect("startMonth", 9, date("m")) ?> >September</option>
+                        <option value="10" required <?php stickySelect("startMonth", 10, date("m")) ?> >October</option>
+                        <option value="11" required <?php stickySelect("startMonth", 11, date("m")) ?> >November</option>
+                        <option value="12" required <?php stickySelect("startMonth", 12, date("m")) ?> >December</option>
                     </select>
-                <input name="startDay" class="DateTime" type="number" min="1" max="31" <?php sticky("startDay", 1) ?> >
-                <input name="startYear" class="DateTime" type="number" <?php sticky("startYear", date("Y")) ?> >
+                <input name="startDay" required class="DateTime" type="number" min="1" max="31" <?php sticky("startDay", 1) ?> >
+                <input name="startYear" required class="DateTime" type="number" <?php sticky("startYear", date("Y")) ?> >
                 </div>
 
                 <a class="Descriptor">...and</a>
@@ -103,21 +103,21 @@ advisors can edit appointment information
                 </div>
                 <div class="dateSelector">
                     <select name="endMonth" class="DateTime">
-                        <option value="1" <?php stickySelect("endMonth", 1, date("m")) ?> >January</option>
-                        <option value="2" <?php stickySelect("endMonth", 2, date("m")) ?> >February</option>
-                        <option value="3" <?php stickySelect("endMonth", 3, date("m")) ?> >March</option>
-                        <option value="4" <?php stickySelect("endMonth", 4, date("m")) ?> >April</option>
-                        <option value="5" <?php stickySelect("endMonth", 5, date("m")) ?> >May</option>
-                        <option value="6" <?php stickySelect("endMonth", 6, date("m")) ?> >June</option>
-                        <option value="7" <?php stickySelect("endMonth", 7, date("m")) ?> >July</option>
-                        <option value="8" <?php stickySelect("endMonth", 8, date("m")) ?> >August</option>
-                        <option value="9" <?php stickySelect("endMonth", 9, date("m")) ?> >September</option>
-                        <option value="10" <?php stickySelect("endMonth", 10, date("m")) ?> >October</option>
-                        <option value="11" <?php stickySelect("endMonth", 11, date("m")) ?> >November</option>
-                        <option value="12" <?php stickySelect("endMonth", 12, date("m")) ?> >December</option>
+                        <option value="1" required <?php stickySelect("endMonth", 1, date("m")) ?> >January</option>
+                        <option value="2" required <?php stickySelect("endMonth", 2, date("m")) ?> >February</option>
+                        <option value="3" required <?php stickySelect("endMonth", 3, date("m")) ?> >March</option>
+                        <option value="4" required <?php stickySelect("endMonth", 4, date("m")) ?> >April</option>
+                        <option value="5" required <?php stickySelect("endMonth", 5, date("m")) ?> >May</option>
+                        <option value="6" required <?php stickySelect("endMonth", 6, date("m")) ?> >June</option>
+                        <option value="7" required <?php stickySelect("endMonth", 7, date("m")) ?> >July</option>
+                        <option value="8" required <?php stickySelect("endMonth", 8, date("m")) ?> >August</option>
+                        <option value="9" required <?php stickySelect("endMonth", 9, date("m")) ?> >September</option>
+                        <option value="10" required <?php stickySelect("endMonth", 10, date("m")) ?> >October</option>
+                        <option value="11" required <?php stickySelect("endMonth", 11, date("m")) ?> >November</option>
+                        <option value="12" required <?php stickySelect("endMonth", 12, date("m")) ?> >December</option>
                     </select>
-                    <input name="endDay" class="DateTime" type="number" min="1" max="31" <?php sticky("endDay", 31) ?> >
-                    <input name="endYear" class="DateTime" type="number" <?php sticky("endYear", date("Y")) ?> >
+                    <input name="endDay" required class="DateTime" type="number" min="1" max="31" <?php sticky("endDay", 31) ?> >
+                    <input name="endYear" required class="DateTime" type="number" <?php sticky("endYear", date("Y")) ?> >
                 </div>
 
                 <div id="dateDescriptor">
@@ -126,9 +126,9 @@ advisors can edit appointment information
                 </div>
                     <a class="Descriptor">I want the appointment to start on or after...</a>
                 <div class="timeSelector" id="ending">
-                    <input name="startHour" class="DateTime" id="picker" pattern="(1[012]|0?[1-9])" <?php sticky("startHour", "08") ?> > :
-                    <input name="startMin" class="DateTime" id="picker" pattern="[0-5][0-9]" <?php sticky("startMin", "00") ?> >
-                    <select name="startAmPm" class="DateTime" id="picker" >
+                    <input name="startHour" required class="DateTime" id="picker" pattern="(1[012]|0?[1-9])" <?php sticky("startHour", "08") ?> > :
+                    <input name="startMin" required class="DateTime" id="picker" pattern="[0-5][0-9]" <?php sticky("startMin", "00") ?> >
+                    <select name="startAmPm" required class="DateTime" id="picker" >n>
                         <option value="AM" <?php stickySelect("startAmPm", "AM", "AM") ?> >AM</option>
                         <option value="PM" <?php stickySelect("startAmPm", "PM", "AM") ?> >PM</option>
                     </select>
@@ -140,9 +140,9 @@ advisors can edit appointment information
                 </div>
                 <a class="Descriptor">...and end before</a>
                 <div class="timeSelector" id="ending">
-                    <input name="endHour" class="DateTime" id="picker" pattern="(1[012]|0?[1-9])" <?php sticky("endHour", "09") ?> > :
-                    <input name="endMin" class="DateTime" id="picker" pattern="[0-5][0-9]" <?php sticky("endMin", "00") ?> >
-                    <select name="endAmPm" class="DateTime" id="picker" >
+                    <input name="endHour" required class="DateTime" id="picker" pattern="(1[012]|0?[1-9])" <?php sticky("endHour", "09") ?> > :
+                    <input name="endMin" required class="DateTime" id="picker" pattern="[0-5][0-9]" <?php sticky("endMin", "00") ?> >
+                    <select name="endAmPm" required class="DateTime" id="picker" >
                         <option value="AM" <?php stickySelect("endAmPm", "AM", "PM"); ?> >AM</option>
                         <option value="PM" <?php stickySelect("endAmPm", "PM", "PM"); ?> >PM</option>
                     </select>
@@ -150,7 +150,7 @@ advisors can edit appointment information
                 <a class="Descriptor">who do you want to meet with?</a>
                 <table class="AdvisorTable">
                     <tr>
-            <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="mbulger" <?php stickyCheck("sessionLeader", "mbulger", array("mbulger","julie11","cpowers1","cnms")); ?> >Ms. Michelle Bulger</label></td>
+            <td><label class="CheckboxDescriptor"><input required type="checkbox" name="sessionLeader[]" value="mbulger" <?php stickyCheck("sessionLeader", "mbulger", array("mbulger","julie11","cpowers1","cnms")); ?> >Ms. Michelle Bulger</label></td>
                         <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="julie11" <?php stickyCheck("sessionLeader", "julie11", array("mbulger","julie11","cpowers1","cnms")); ?>>Mrs. Julie Crosby</label></td>
                     </tr>
                     <tr>    
@@ -159,72 +159,80 @@ advisors can edit appointment information
                     </tr>
                 </table>
                 <button type="submit" id="SearchAppt" class="submit" name="search"><span>search appointments</span></button>
+                <button type="submit" id="SearchAppt" class="submit" name="all"><span>view all</span></button>
             </form>
 
 
             <?php
-            if (isset($_POST['search'])) { // search appointments
-                // get filters in array
-                $filters = array();
-                foreach ($_POST as $key => $field) {
-                    if (isset($field)) {
-                        $filters[$key] = $field;
+            if (isset($_POST['search']) or isset($_POST['all'])) {
+                $sql = "";
+                if (isset($_POST['all'])) { // view all appointments
+                    $sql .= "SELECT * FROM `appointments`";
+                    if($_SESSION['userRole'] == "student"){
+                        $sql .= " AND `status` = 0";
                     }
                 }
-                // parse times
-                $filters["startDate"] = date("Y-m-d", strtotime($_POST['startYear']."-".$_POST['startMonth']."-".$_POST['startDay']));
-                $filters["endDate"] = date("Y-m-d", strtotime($_POST['endYear']."-".$_POST['endMonth']."-".$_POST['endDay']));
-                $filters['startTime'] = date("H:i", strtotime($_POST['startHour'].":".$_POST['startMin']." ".$_POST['startAmPm']));
-                $filters['endTime'] = date("H:i", strtotime($_POST['endHour'].":".$_POST['endMin']." ".$_POST['endAmPm']));
-                
-               
+                if (isset($_POST['search'])) { // search appointments
+                    // get filters in array
+                    $filters = array();
+                    foreach ($_POST as $key => $field) {
+                        if (isset($field)) {
+                            $filters[$key] = $field;
+                        }
+                    }
 
-                // validate filters
-                $errors = 0;
-                if ($filters['endDate'] < $filters['startDate'] and $filters['endDate'] and $filters['startDate']) {
-                    $errors++;
-                    echo("<div class='ErrorDiv'>
-							<div class='InnerErrorDiv'>
-							  <a class='ErrorBackground'>error</a>
-							  <a class='Error'>Start date must precede end date.</a>
-							</div>
-						  </div>");
-                }
-                
-                if ($filters['endTime'] < $filters['startTime'] and $filters['endTime'] and $filters['startTime']) {
-                    $errors++;
-                    echo("<div class='ErrorDiv'>
-							<div class='InnerErrorDiv'>
-							  <a class='ErrorBackground'>error</a>
-							  <a class='Error'>Start time must precede end time.</a>
-							</div>
-						  </div>");
-                }
+                    $filters["startDate"] = date("Y-m-d", strtotime($_POST['startYear']."-".$_POST['startMonth']."-".$_POST['startDay']));
+                    $filters["endDate"] = date("Y-m-d", strtotime($_POST['endYear']."-".$_POST['endMonth']."-".$_POST['endDay']));
+                    $filters['startTime'] = date("H:i", strtotime($_POST['startHour'].":".$_POST['startMin']." ".$_POST['startAmPm']));
+                    $filters['endTime'] = date("H:i", strtotime($_POST['endHour'].":".$_POST['endMin']." ".$_POST['endAmPm']));
 
-                // build query
-                $sql = "SELECT * FROM `appointments` WHERE 1";
-                if($_SESSION['userRole'] == "student"){
-                    $sql .= " AND `status` = 0";
-                } 
-                if (isset($filters['startDate'])) {
+                    // validate filters
+                    $errors = 0;
+                    if ( $filters['endDate'] < $filters['startDate'] and $filters['endDate'] and $filters['startDate']) {
+                        $errors++;
+                        echo("<div class='ErrorDiv'>
+                                <div class='InnerErrorDiv'>
+                                <a class='ErrorBackground'>error</a>
+                                <a class='Error'>Start date must precede end date.</a>
+                                </div>
+                            </div>");
+                    }
+                    
+                    if ($filters['endTime'] < $filters['startTime'] and $filters['endTime'] and $filters['startTime']) {
+                        $errors++;
+                        echo("<div class='ErrorDiv'>
+                                <div class='InnerErrorDiv'>
+                                <a class='ErrorBackground'>error</a>
+                                <a class='Error'>Start time must precede end time.</a>
+                                </div>
+                            </div>");
+                    }
+
+                    // build query
+                    $sql .= "SELECT * FROM `appointments` WHERE 1";
+                    if($_SESSION['userRole'] == "student"){
+                        $sql .= " AND `status` = 0";
+                    } 
+                    if (isset($filters['startDate'])) {
+                        if (isset($filters['endDate']) )
+                        { $sql .= " AND `date` BETWEEN '$filters[startDate]' and '$filters[endDate]'"; }
+                    { $sql .= " AND `date` >= '$filters[startDate]'"; }
+                    }
                     if (isset($filters['endDate']) )
-                       { $sql .= " AND `date` BETWEEN '$filters[startDate]' and '$filters[endDate]'"; }
-                   { $sql .= " AND `date` >= '$filters[startDate]'"; }
+                        {$sql .= " AND `date` <= '$filters[endDate]'";}
+                    if (isset($filters['startTime']) )
+                        {$sql .= " AND `start_time` >= '$filters[startTime]'";}
+                    if (isset($filters['endTime']) )
+                        {$sql .= " AND `end_time` <= '$filters[endTime]'";}
+                    if (isset($filters['sessionLeader']))
+                        { $sql .= " AND `advisor_ID` IN ('".implode("', '", $filters['sessionLeader'])."')"; }
+
+                    $sql .= " ORDER BY `date`, `start_time` ASC";
+                    
                 }
-                if (isset($filters['endDate']) )
-                    {$sql .= " AND `date` <= '$filters[endDate]'";}
-                if (isset($filters['startTime']) )
-                    {$sql .= " AND `start_time` >= '$filters[startTime]'";}
-                if (isset($filters['endTime']) )
-                    {$sql .= " AND `end_time` <= '$filters[endTime]'";}
-                if (isset($filters['sessionLeader']))
-                    { $sql .= " AND `advisor_ID` IN ('".implode("', '", $filters['sessionLeader'])."')"; }
-
-                $sql .= " ORDER BY `date`, `start_time` ASC";
-                $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
-
-
+                
                 // print appointments
+                $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
                 echo("<table class='AdvisorTable'><tr>");
                 $i = 0;
                 while($row = mysql_fetch_assoc($rs))
@@ -273,7 +281,7 @@ advisors can edit appointment information
 
                     }
                     echo("</td>");
-                   
+                
                     $i++;
                     if($i == 2) {
                         //end box row and start new
@@ -283,6 +291,7 @@ advisors can edit appointment information
                     }
                 }
                 echo("</table>");
+            
             }
         ?>
 
