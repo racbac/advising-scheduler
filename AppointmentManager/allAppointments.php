@@ -254,12 +254,12 @@ advisors can edit appointment information
                         {
                         // Print out button to edit appointment
                         echo("<form action='../AdvisorManager/editAppointment.php' method='POST'>");
-                        echo("<button type='submit' name='id' class='signup smallButton' value='$id'><span>Edit Appointment</span></button></form>");
+                        echo("<button type='submit' name='id' class='edit' value='$id'><span>edit appointment</span></button></form>");
 
                         // Print out button to print appointment info
                         echo("<form action='downloadMeeting.php' method='POST'>");
-                        echo("<input type='checkbox' name='extra'>Extra Info");
-                        echo("<button type='submit' name='id' value='$id' class='signup smallButton'><span>Download Appointment Info</span></button></form>");
+                        echo("<label class='CheckboxDescriptor'><input type='checkbox' name='extra'>extra info</label>");
+                        echo("<button type='submit' name='id' value='$id' class='edit'><span>download appointment info</span></button></form>");
                         }
                     else
                     {
