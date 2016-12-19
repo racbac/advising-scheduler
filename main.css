@@ -145,6 +145,7 @@ header {
 	background-color: rgba(100, 180, 100, 1);
 	border: none;
 	margin: auto;
+	width: 200px;
 	padding: 4px 7px 4px 7px;
 	text-decoration: none;
 	cursor: pointer;
@@ -185,6 +186,55 @@ header {
 
 .signup:hover {
 	background-color: rgba(110, 190, 110, 1);
+	color: rgba(40,40,40,1.00);
+}
+
+
+.edit {
+	background-color: rgba(170, 170, 170, 1);
+	border: none;
+	width: 200px;
+	margin: auto;
+	padding: 4px 7px 4px 7px;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 12px;
+	color: rgba(70,70,70,1.00);
+	display: inline-block;
+	border-radius: 1px;
+
+	
+	transition: all 600ms cubic-bezier(0.19,1,0.22,1);
+	-webkit-transition: background-color 600ms cubic-bezier(0.19,1,0.22,1);
+}
+
+.edit span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 600ms;	
+}
+
+.edit span:after {
+	content: ' »';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -8px;
+	transition: 600ms;
+}
+
+.edit:hover span {
+	padding-right: 25px;
+}
+
+.edit:hover span:after {
+	opacity: 1;
+	right: 5px;
+}
+
+.edit:hover {
+	background-color: rgba(200, 200, 200, 1);
 	color: rgba(40,40,40,1.00);
 }
 
@@ -232,10 +282,6 @@ header {
 .submit:hover {
 	background-color: rgba(110, 190, 110, 1);
 	color: rgba(40,40,40,1.00);
-}
-
-.smallButton {
-	background-color: rgba(170, 170, 170, 1) !important;
 }
 
 .button {
