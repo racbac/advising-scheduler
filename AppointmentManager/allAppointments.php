@@ -150,7 +150,7 @@ advisors can edit appointment information
                 <a class="Descriptor">who do you want to meet with?</a>
                 <table class="AdvisorTable">
                     <tr>
-            <td><label class="CheckboxDescriptor"><input required type="checkbox" name="sessionLeader[]" value="mbulger" <?php stickyCheck("sessionLeader", "mbulger", array("mbulger","julie11","cpowers1","cnms")); ?> >Ms. Michelle Bulger</label></td>
+            <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="mbulger" <?php stickyCheck("sessionLeader", "mbulger", array("mbulger","julie11","cpowers1","cnms")); ?> >Ms. Michelle Bulger</label></td>
                         <td><label class="CheckboxDescriptor"><input type="checkbox" name="sessionLeader[]" value="julie11" <?php stickyCheck("sessionLeader", "julie11", array("mbulger","julie11","cpowers1","cnms")); ?>>Mrs. Julie Crosby</label></td>
                     </tr>
                     <tr>    

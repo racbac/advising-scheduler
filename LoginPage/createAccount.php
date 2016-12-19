@@ -61,9 +61,11 @@ Users enter new account information using this sticky form.
 					}
 					// make students are CMNS majors
 					if ($_POST['userRole'] == "student" && $_POST['major'] == "Other") {
-						echo("You have indicated that you plan to pursue a major other than one of the following, beginning next semester: Biological Sciences B.A., Biological Sciences B.S., Biochemistry & Molecular Biology B.S., Bioinformatics & Computational Biology B.S., Biology Education B.A., Chemistry B.A., Chemistry B.S., or Chemistry Education B.A.. In order to obtain the BEST advice about course selection, degree progress, and academic policy, please meet with a representative of the department that administers your NEW major.</br>
-						You can find advising contact information for your new major on the Office for Academic and Pre-Professional Advising Office’s Departmental Advising page. That contact person/office will be able to give you instructions on how to schedule an advising appointment with someone in that area. </br>
-						Good luck with your new major!");
+						
+						echo("<div class='ErrorDiv'>
+                                <div class='InnerErrorDiv' id='OtherMajor'>
+                                <a class='ErrorBackground'>error</a>
+                                <a class='Error'>You have indicated that you plan to pursue a major other than one of the following, beginning next semester:<ul><li>Biological Sciences B.A.</li><li>Biological Sciences B.S.</li><li>Biochemistry & Molecular Biology B.S.</li><li>Bioinformatics & Computational Biology B.S.</li><li>Biology Education B.A.</li><li>Chemistry B.A.</li><li>Chemistry B.S.</li><li>Chemistry Education B.A.</li></ul> In order to obtain the BEST advice about course selection, degree progress, and academic policy, please meet with a representative of the department that administers your NEW major.</br>You can find advising contact information for your new major on the Office for Academic and Pre-Professional Advising Office’s Departmental Advising page. That contact person/office will be able to give you instructions on how to schedule an advising appointment with someone in that area.</a></div></div>");
 						exit();
 					}
 				
