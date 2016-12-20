@@ -1,0 +1,45 @@
+CSS/Styling Q&A
+(not meant for the advisors' and Lupoli's eyes because Travis said so)
+
+-- What was changed from the given code?
+	Everything
+	Everything
+	Everything
+	
+	advisor.css (the ONLY .css file) had 3 lines and 40 characters, and we
+		ended up deleting it. There weren't even any style tags in the html
+		files (which I'm thankful for, because it would've made the job harder)
+	
+	Everything was built from the ground up (emphasis on ground up) and was the
+		result of my own work (ours, for the purposes of the presentation, if
+		you guys think it sounds better). Please DO emphasize to the instructors
+		that it was obviously made to look like the actual CNMS website, but
+		emphasize even MORE that ~~none~~ of the work was copied from it (other,
+		obviously, than the images, which weren't reproduced for practicality
+		reasons). There's a good chance that parts of the page will be very
+		very similar or equal to what's available on cnms.umbc.edu, so make
+		sure to address any concerns they might have before they even come up
+		(something something academic integrity).
+	
+-- What did you do?
+	On the client-side (i.e., the browser), all that is displayed is HTML and CSS.
+		The website makes extensive use of HTML5 and CSS3, so some of the features
+		will very likely be broken on older browsers, though the skeleton of it is
+		fairly simple - so it shouldn't be completely disfigured in any case
+		(unless you're running Netscape, in which case you shouldn't be allowed
+		to use a computer anyway).
+		
+	This project uses NO external libraries of any kind and does not include
+		javascript code.
+	
+-- Where is the styling?
+	main.css is where all of the attributes are; the file is located in the
+		project's root directory, along with the images.
+		
+-- Is there anything of note?
+	The project uses Google webfonts, so as not to rely on the client OS having
+		a font family installed. Doing so would result in inconsistent design
+		(inconsistent design = bad ux) and potentially very, very visually
+		broken pages. No issues should arise from this, legal or technical; I
+		strongly recommend against bringing this up in front of Lupoli or the
+		advisors.
