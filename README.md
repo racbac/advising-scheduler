@@ -150,6 +150,6 @@ Please see [Google Drive](https://docs.google.com/document/d/1W0aIoW7XkdZYBNf-CQ
  
 ### 9. Support Videos and Other Documentation
  
-A link will be provided. 
+A link will be provided [here](https://www.youtube.com/watch?v=cmw2qyPZXAs&). 
  
 The provided documentation from the original developers is deprecated, however a link is provided [here](https://swe.umbc.edu/~cganley1/cs331-proj2/Documentation/original_documentation.txt).  
