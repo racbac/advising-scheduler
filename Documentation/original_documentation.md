@@ -1,7 +1,7 @@
 # Project 1 Documentation
 Main Idea: Build an advising website (broken down into an advisor interface and a student interface) that has a feature which replaces the paper documents that advisors currently have students fill out by hand.
 
-## Database:
+## Database
 ### Advisor Tables  
 - advisors_majors: columns are the id, and each of the eight majors, which store     Boolean values depending on if the advisor can advise that major or not 
 - advisor_appts: columns are the id, date, each of the eighteen time blocks (saved as  Boolean values), and the corresponding location each of the eighteen time blocks (saved as text values)	  
@@ -11,7 +11,7 @@ Main Idea: Build an advising website (broken down into an advisor interface and 
 - students_advising_info: columns are `id`, `bio_ba`, `bio_bs`, `biochem_bs`, `bioinfo_bs`, `bioedu_ba`, `chem_ba`, `chem_bs`, `chemedu_ba`, `minor1`, `minor2`, `minor3`,   `minor4`, `futureplans`, `resources`, `experience`, `current_course1`, `current_course2`, `current_course3`, `current_course4`, `current_course5`, `current_course6`, `current_course7`, `current_course8`, `current_course9`, `current_course10`, `next_course1`, `next_course2`, `next_course3`, `next_course4`, `next_course5`, `next_course6`, `next_course7`, `next_course8`, `next_course9`, `next_course10`, `reason_course1`, `reason_course2`, `reason_course3`, `reason_course4`, `reason_course5`, `reason_course6`, `reason_course7`, `reason_course8`, `reason_course9`, `reason_course10`, `credits_course1`, `credits_course2`, `credits_course3`, `credits_course4`, `credits_course5`, `credits_course6`, `credits_course7`, `credits_course8`, `credits_course9`, `credits_course10`, `credits_earned`, `gpa`, `upper_credits`, `writing_intensive`, `phys_ed`, `english`, `arts_hum`, `soc_sci`, `math`, `science`, `culture`, `req_201_lang`, `assessment`, `resource1`, `resource2`, `resource3`, `resoucre4`, `resource5`,  `resource6`, `resource7`, `resource8`, `time_commitments`, `commitment_hours`, `commute`, `new_commute`, `new_work`, `fam_responsibilities`, `new_extracurr`, `new_commutehours`, `new_workhours`, `new_familyhours`, `new_extracurrhours`, `comments`
 - student_appts: columns are `id`, `advisor_ID`, `date`, `time`
 
-## Web Pages:
+## Web Pages
 ### Advisor Website
 - Login
   - username, password
