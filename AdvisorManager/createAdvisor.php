@@ -13,7 +13,15 @@ Users enter new account information using this sticky form.
 		<link rel="icon" type="image/png" href="http://sites.umbc.edu/wp-content/themes/umbc/assets/images/icon.png">
 		<link href="https://fonts.googleapis.com/css?family=Catamaran:300" rel="stylesheet">
 		<link href="../main.css" rel="stylesheet" type="text/css">
-    </head>
+    	<!-- Global site tag (gtag.js) - Google Analytics -->
+ 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-129353070-1"></script>
+ 		<script>
+ 			window.dataLayer = window.dataLayer || [];
+ 			function gtag(){dataLayer.push(arguments);}
+ 			gtag('js', new Date());
+ 			gtag('config', 'UA-129353070-1');
+ 		</script>
+ 	</head>
 	<body>
 		<div id="wrapper">
 			<header>
