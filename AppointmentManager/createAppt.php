@@ -10,7 +10,7 @@ Users enter new account information using this sticky form.
 <html>
     <head>
        <title>Create an appointment</title>
-		<link rel="icon" type="image/png" href="http://sites.umbc.edu/wp-content/themes/umbc/assets/images/icon.png">
+		<link rel="icon" type="image/png" href="https://sites.umbc.edu/wp-content/themes/umbc/assets/images/icon.png">
 		<link href="https://fonts.googleapis.com/css?family=Catamaran:300" rel="stylesheet">
 		<link href="../main.css" rel="stylesheet" type="text/css">
     	<!-- Global site tag (gtag.js) - Google Analytics -->
