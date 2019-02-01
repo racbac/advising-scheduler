@@ -241,7 +241,7 @@ advisors can edit appointment information
                 $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
                 echo("<table class='AdvisorTable'><tr>");
                 $i = 0;
-                while($row = mysql_fetch_assoc($rs))
+                while($row = mysqli_fetch_assoc($rs))
                 {
                     $spaces =  $row['max_students']-$row['curr_students'];
                     $id = $row['appointment_ID'];
@@ -250,7 +250,7 @@ advisors can edit appointment information
                     // Get advisor firstName and lastName
                     $sql1 = "SELECT `firstName`, `lastName` FROM `users` WHERE `username` ='$row[advisor_ID]'";
                     $rs1 = $COMMON->executeQuery($sql1, $_SERVER["SCRIPT_NAME"]);
-                    $row1 = mysql_fetch_assoc($rs1);
+                    $row1 = mysqli_fetch_assoc($rs1);
                     echo("<a id=\"appointmentDate\">".$row['date']." </a>");
                     echo("<a id=\"appointmentTime\">".$row['start_time']."</a>");
                     echo("<div><a id=\"advisorName\">".$row1['firstName']." ".$row1['lastName']."</a>");

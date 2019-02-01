@@ -75,7 +75,7 @@ Users enter new account information using this sticky form.
 					  // appointment mustn't already exist
 					  $sql = "SELECT * FROM `appointments` WHERE `advisor_ID` = '$posted[sessionLeader]' and `date` = '$posted[date]' and ((`start_time` BETWEEN '$posted[startTime]' and '$posted[endTime]') or (`end_time` BETWEEN '$posted[startTime]' and '$posted[endTime]'))";
 					  $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
-					  if (mysql_num_rows($rs) != 0) {
+					  if (mysqli_num_rows($rs) != 0) {
 						$errors++;
 							echo("<div class='ErrorDiv'>
 									<div class='InnerErrorDiv'>

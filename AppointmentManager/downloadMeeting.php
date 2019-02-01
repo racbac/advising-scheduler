@@ -19,7 +19,7 @@ $appt = $_POST['id'];
 //get the date and time info from the appointment database
 $sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = '$appt'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-$info = mysql_fetch_assoc($rs);
+$info = mysqli_fetch_assoc($rs);
 $date = $info['date'];
 $start = $info['start_time'];
 
@@ -44,7 +44,7 @@ $sql = "SELECT * FROM `students_academic_info` WHERE `appointmentID` = '$appt'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 $students = array();
 $index = 0;
-while($current = mysql_fetch_assoc($rs)){
+while($current = mysqli_fetch_assoc($rs)){
   $students[$index] = $current;
   $index++;
 }
@@ -54,14 +54,14 @@ foreach($students as $student){
   $username = $student['username'];
   $sql = "SELECT * FROM `users` WHERE `username` = '$username'";
   $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-  $names = mysql_fetch_row($rs);
+  $names = mysqli_fetch_row($rs);
   $array = array($date, $start, $student['campusID'], $names[0], $names[1], $student['major']);
   
   //adds the extra info fields into the spreadsheet if asked for by advisor
   if (isset($extraInfo)){	   
     $sql = "SELECT `futurePlans`, `advisingQuestions` FROM `students_academic_info` WHERE `username` = '$username'";
     $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-    $extra = mysql_fetch_array($rs);
+    $extra = mysqli_fetch_array($rs);
     if($extra[0] != NULL){
       array_push($array, $extra[0]);
     }

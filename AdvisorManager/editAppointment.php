@@ -17,7 +17,7 @@ $appt = $_POST['id'];
 $sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = '$appt'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 
-$fields = mysql_fetch_assoc($rs);
+$fields = mysqli_fetch_assoc($rs);
 $location = $fields['location'];
 $max_students = $fields['max_students'];
 
@@ -25,13 +25,13 @@ $sql = "SELECT `username` FROM `students_academic_info` WHERE `appointmentID` = 
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
 
 $check = true;
-if(mysql_num_rows($rs) == 0){
+if(mysqli_num_rows($rs) == 0){
   $check = false;
 }
 
 $sql = "SELECT `status` FROM `appointments` WHERE `appointment_ID` = '$appt'";
 $rs2 = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-$status = mysql_fetch_row($rs2);
+$status = mysqli_fetch_row($rs2);
 ?>
 
 <!DOCTYPE html>
@@ -91,7 +91,7 @@ $status = mysql_fetch_row($rs2);
 					if ($check == true){
 						echo "<a class='Descriptor'>Do you want to remove specific students?</a><table class='AdvisorTable'>";
 						$i = 0;
-						while($students = mysql_fetch_row($rs)){
+						while($students = mysqli_fetch_row($rs)){
 							if (!($i % 2)) {
 								echo "<tr>";
 							}

@@ -1,0 +1,4 @@
+[01-Feb-2019 18:27:48 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_fetch_row() in /home/rachelba/public_html/advising-scheduler/StudentManager/studentHome.php:55
+Stack trace:
+#0 {main}
+  thrown in /home/rachelba/public_html/advising-scheduler/StudentManager/studentHome.php on line 55

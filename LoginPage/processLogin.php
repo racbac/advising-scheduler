@@ -8,7 +8,7 @@
 <?php
   include('../CommonMethods.php');
   session_start();
-  $debug = false;
+  $debug = true;
   $COMMON = new Common($debug);
 
   //sets session vars
@@ -22,7 +22,7 @@
   //gets user from user db
   $sql = "SELECT * FROM `users` WHERE `username` = '$username' AND `password` = '$password'";
   $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-  $row = mysql_fetch_assoc($rs);
+  $row = mysqli_fetch_assoc($rs);
 
 //if user is in db
 if($row) {

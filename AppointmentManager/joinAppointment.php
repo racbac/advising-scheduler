@@ -31,7 +31,7 @@ $id = $_POST['submit'];
 // Get info from userInfo db
 $sql = "SELECT * FROM `students_academic_info` WHERE `username` ='$username'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-$row = mysql_fetch_row($rs);
+$row = mysqli_fetch_row($rs);
 
 if ($row['6'] == NULL)
   {
@@ -44,7 +44,7 @@ if ($row['6'] == NULL)
     // Increase numStudents in appointments for id = $id
     $sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = $id";
     $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-    $row = mysql_fetch_row($rs);
+    $row = mysqli_fetch_row($rs);
 
     // Inc numStudents by 1
     $newNum = $row['7'];

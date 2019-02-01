@@ -15,12 +15,12 @@ $COMMON = new Common($debug);
 $user = $_SESSION['username'];
 $sql = "SELECT * FROM `users` WHERE `username` = '$user'";
 $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-$row = mysql_fetch_row($rs);
+$row = mysqli_fetch_row($rs);
 
 //check if it is the student registration is set to off or not
 $sql = "SELECT `closed` FROM `offseason` WHERE `i` = 1";
 $rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
-$check = mysql_fetch_row($rs)[0];
+$check = mysqli_fetch_row($rs)[0];
 
 ?>
 

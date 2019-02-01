@@ -60,7 +60,7 @@ Users enter new account information using this sticky form.
 					$username = substr($_POST['email'], 0, strpos($_POST['email'], "@"));
 					$sql = "SELECT * FROM `users` WHERE `username` = '$username'";
 					$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-					$row = mysql_fetch_row($rs);
+					$row = mysqli_fetch_row($rs);
 					if($row) {
 						echo("<div class='ErrorDiv'>
 							<div class='InnerErrorDiv'>

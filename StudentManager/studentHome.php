@@ -52,7 +52,7 @@
                                         //check if the page is in the offseason
                                         $sql = "SELECT `closed` FROM `offseason` WHERE `i` = 1";
                                         $rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
-                                        $check = mysql_fetch_row($rs)[0];
+                                        $check = mysqli_fetch_row($rs)[0];
                                         if ($check == 1){
 					  header("Location: ../LoginPage/awayPage.php");
 					}
@@ -61,12 +61,12 @@
 					$curr_user = $_SESSION['username'];
 					$sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = '".$curr_user."'";
 					$rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
-					$user_data = mysql_fetch_assoc($rs);
+					$user_data = mysqli_fetch_assoc($rs);
 
 					// get academic info
 					$sql = "SELECT `major`,`appointmentID` FROM students_academic_info WHERE `username` = '".$curr_user."'";
 					$rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
-					$academic_data = mysql_fetch_assoc($rs);
+					$academic_data = mysqli_fetch_assoc($rs);
                 
 					// display
 					echo("<div class='Restraint'><div class='LHeavy'><a class='Subtitle'>welcome, </a><a class='Title'>".$user_data['firstName']." ".$user_data['lastName']."</a></div>");
@@ -79,7 +79,7 @@
 					// get appt info
 					$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = '".$academic_data['appointmentID']."'";
 					$rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
-					$appt_data = mysql_fetch_assoc($rs);
+					$appt_data = mysqli_fetch_assoc($rs);
 					// display appointment or lack thereof
 					if (!$appt_data) {
 						echo("<a class='CenteredDescriptor'>you are not scheduled for a meeting.</a>");
@@ -88,7 +88,7 @@
 						// get advisor name
 						$sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = '".$appt_data['advisor_ID']."'";
 						$rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
-						$appt_data = array_merge($appt_data, mysql_fetch_assoc($rs));
+						$appt_data = array_merge($appt_data, mysqli_fetch_assoc($rs));
                    	
 						echo("<a class='Descriptor'>your appointment</a>\n<div>\n<ul>");
 

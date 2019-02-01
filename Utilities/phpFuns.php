@@ -7,7 +7,7 @@
         // Get info from userInfo db
         $sql = "SELECT * FROM `students_academic_info` WHERE `username` ='$student'";
         $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-        $row = mysql_fetch_row($rs);
+        $row = mysqli_fetch_row($rs);
 
         if ($row['6'] == NULL) {
             // Update appointmentID in usersInfo for userName from NULL to $id
@@ -33,7 +33,7 @@
         // get curr appointment id
         $sql = "SELECT `appointmentID` FROM `students_academic_info` WHERE `username` = '$student'";
         $rs = $connect->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
-        $apptID = mysql_fetch_assoc($rs)['appointmentID'];
+        $apptID = mysqli_fetch_assoc($rs)['appointmentID'];
         if ($apptID != NULL) {
             // decrease number of students attending in appointments
             $sql = "UPDATE `appointments` SET `curr_students` = `curr_students` - 1 WHERE `appointment_ID` = '$apptID'";

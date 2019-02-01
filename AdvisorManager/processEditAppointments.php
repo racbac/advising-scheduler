@@ -30,7 +30,7 @@ for($x = 0; $x < 2; $x++){
 if (isSet($_POST['close'])){
   $sql = "SELECT `status` FROM `appointments` WHERE `appointment_ID` = '$appt'";
   $rs = $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-  $status = mysql_fetch_row($rs)[0];
+  $status = mysqli_fetch_row($rs)[0];
   if ($status[0] == 0){
     $sql = "UPDATE `appointments` SET `status` = 1 WHERE `appointment_ID` = '$appt'";
     $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);

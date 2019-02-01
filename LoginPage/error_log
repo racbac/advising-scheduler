@@ -1,0 +1,85 @@
+[25-Dec-2018 15:28:41 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; Common has a deprecated constructor in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 9
+[25-Dec-2018 15:28:41 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/rachelba/public_html/advising-scheduler/CommonMethods.php:22
+Stack trace:
+#0 /home/rachelba/public_html/advising-scheduler/CommonMethods.php(16): Common->connect('rachelba_advisi...')
+#1 /home/rachelba/public_html/advising-scheduler/LoginPage/processLogin.php(12): Common->Common(true)
+#2 {main}
+  thrown in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 22
+[01-Jan-2019 00:44:29 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; Common has a deprecated constructor in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 9
+[01-Jan-2019 00:44:29 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/rachelba/public_html/advising-scheduler/CommonMethods.php:22
+Stack trace:
+#0 /home/rachelba/public_html/advising-scheduler/CommonMethods.php(16): Common->connect('rachelba_advisi...')
+#1 /home/rachelba/public_html/advising-scheduler/LoginPage/processLogin.php(12): Common->Common(true)
+#2 {main}
+  thrown in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 22
+[01-Jan-2019 00:44:50 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/rachelba/public_html/advising-scheduler/CommonMethods.php:22
+Stack trace:
+#0 /home/rachelba/public_html/advising-scheduler/CommonMethods.php(16): Common->connect('rachelba_advisi...')
+#1 /home/rachelba/public_html/advising-scheduler/LoginPage/processLogin.php(12): Common->Common(true)
+#2 {main}
+  thrown in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 22
+[01-Jan-2019 00:45:11 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/rachelba/public_html/advising-scheduler/CommonMethods.php:22
+Stack trace:
+#0 /home/rachelba/public_html/advising-scheduler/CommonMethods.php(16): Common->connect('rachelba_advisi...')
+#1 /home/rachelba/public_html/advising-scheduler/LoginPage/processLogin.php(12): Common->Common(true)
+#2 {main}
+  thrown in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 22
+[01-Jan-2019 00:46:07 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; Common has a deprecated constructor in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 9
+[01-Jan-2019 00:46:07 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/rachelba/public_html/advising-scheduler/CommonMethods.php:22
+Stack trace:
+#0 /home/rachelba/public_html/advising-scheduler/CommonMethods.php(16): Common->connect('rachelba_advisi...')
+#1 /home/rachelba/public_html/advising-scheduler/LoginPage/processLogin.php(12): Common->Common(true)
+#2 {main}
+  thrown in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 22
+[31-Jan-2019 23:25:29 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; Common has a deprecated constructor in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 9
+[31-Jan-2019 23:25:29 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/rachelba/public_html/advising-scheduler/CommonMethods.php:22
+Stack trace:
+#0 /home/rachelba/public_html/advising-scheduler/CommonMethods.php(16): Common->connect('rachelba_advisi...')
+#1 /home/rachelba/public_html/advising-scheduler/LoginPage/processLogin.php(12): Common->Common(true)
+#2 {main}
+  thrown in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 22
+[31-Jan-2019 23:25:35 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/rachelba/public_html/advising-scheduler/CommonMethods.php:22
+Stack trace:
+#0 /home/rachelba/public_html/advising-scheduler/CommonMethods.php(16): Common->connect('rachelba_advisi...')
+#1 /home/rachelba/public_html/advising-scheduler/LoginPage/processLogin.php(12): Common->Common(true)
+#2 {main}
+  thrown in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 22
+[31-Jan-2019 23:25:39 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/rachelba/public_html/advising-scheduler/CommonMethods.php:22
+Stack trace:
+#0 /home/rachelba/public_html/advising-scheduler/CommonMethods.php(16): Common->connect('rachelba_advisi...')
+#1 /home/rachelba/public_html/advising-scheduler/LoginPage/processLogin.php(12): Common->Common(true)
+#2 {main}
+  thrown in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 22
+[31-Jan-2019 23:25:52 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/rachelba/public_html/advising-scheduler/CommonMethods.php:22
+Stack trace:
+#0 /home/rachelba/public_html/advising-scheduler/CommonMethods.php(16): Common->connect('rachelba_advisi...')
+#1 /home/rachelba/public_html/advising-scheduler/LoginPage/processLogin.php(12): Common->Common(true)
+#2 {main}
+  thrown in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 22
+[01-Feb-2019 17:33:49 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; Common has a deprecated constructor in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 9
+[01-Feb-2019 17:34:21 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; Common has a deprecated constructor in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 9
+[01-Feb-2019 17:34:21 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/rachelba/public_html/advising-scheduler/CommonMethods.php:22
+Stack trace:
+#0 /home/rachelba/public_html/advising-scheduler/CommonMethods.php(16): Common->connect('rachelba_advisi...')
+#1 /home/rachelba/public_html/advising-scheduler/LoginPage/processLogin.php(12): Common->Common(true)
+#2 {main}
+  thrown in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 22
+[01-Feb-2019 17:39:03 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; Common has a deprecated constructor in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 9
+[01-Feb-2019 17:39:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/rachelba/public_html/advising-scheduler/CommonMethods.php:22
+Stack trace:
+#0 /home/rachelba/public_html/advising-scheduler/CommonMethods.php(16): Common->connect('rachelba_advisi...')
+#1 /home/rachelba/public_html/advising-scheduler/LoginPage/processLogin.php(12): Common->Common(true)
+#2 {main}
+  thrown in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 22
+[01-Feb-2019 17:48:07 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; Common has a deprecated constructor in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 9
+[01-Feb-2019 17:48:07 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_connect() in /home/rachelba/public_html/advising-scheduler/CommonMethods.php:22
+Stack trace:
+#0 /home/rachelba/public_html/advising-scheduler/CommonMethods.php(16): Common->connect('rachelba_advisi...')
+#1 /home/rachelba/public_html/advising-scheduler/LoginPage/processLogin.php(12): Common->Common(true)
+#2 {main}
+  thrown in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 22
+[01-Feb-2019 18:26:12 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mysqli_fetch_assoc() in /home/rachelba/public_html/advising-scheduler/LoginPage/processLogin.php:25
+Stack trace:
+#0 {main}
+  thrown in /home/rachelba/public_html/advising-scheduler/LoginPage/processLogin.php on line 25
+[01-Feb-2019 18:27:48 UTC] PHP Deprecated:  Methods with the same name as their class will not be constructors in a future version of PHP; Common has a deprecated constructor in /home/rachelba/public_html/advising-scheduler/CommonMethods.php on line 9
