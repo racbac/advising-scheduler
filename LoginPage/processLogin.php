@@ -43,8 +43,8 @@ if($row) {
 }
 
 //else returns to login page
-/* else {
+else {
     session_unset();
     header('Location: login.php');
-} */
+}
 ?>

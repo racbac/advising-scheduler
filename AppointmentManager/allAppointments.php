@@ -223,7 +223,7 @@ advisors can edit appointment information
                     } 
                     if (isset($filters['startDate'])) {
                         if (isset($filters['endDate']) ) {
-                            $sql .= " AND `date` BETWEEN :startDate' and :endDate";
+                            $sql .= " AND `date` BETWEEN :startDate and :endDate";
                             $filterVals[':startDate'] = $filters['startDate'];
                             $filterVals[':endDate'] = $filters['endDate'];
                         } else { 
@@ -244,8 +244,14 @@ advisors can edit appointment information
                         $filterVals[':endTime'] = $filters['endTime'];
                     }
                     if (isset($filters['sessionLeader'])) {
-                        $sql .= " AND `advisor_ID` IN :sessionLeader";
-                        $filterVals['sessionLeader'] = "('" .implode("', '", $filters['sessionLeader']) ."')";
+                        $placeholders = array();
+                        $advisors = array();
+                        for ($i = 0;$i < count($filters['sessionLeader']);$i++) {
+                            $placeholders[] = ':advisor'.$i;
+                            $advisors[':advisor'.$i] = $filters['sessionLeader'][$i];
+			            }
+                        $sql .= " AND `advisor_ID` IN (". implode(', ',$placeholders) .")";
+                        $filterVals = array_merge($filterVals, $advisors);
                     }
 
                      
