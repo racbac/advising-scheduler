@@ -223,24 +223,24 @@ advisors can edit appointment information
                     } 
                     if (isset($filters['startDate'])) {
                         if (isset($filters['endDate']) ) {
-                            $sql .= " AND `date` BETWEEN :startDate' and ':endDate'";
+                            $sql .= " AND `date` BETWEEN :startDate' and :endDate";
                             $filterVals[':startDate'] = $filters['startDate'];
                             $filterVals[':endDate'] = $filters['endDate'];
                         } else { 
-                            $sql .= " AND `date` >= ':startDate'"; 
+                            $sql .= " AND `date` >= :startDate"; 
                             $filterVals[':startDate'] = $filters['startDate'];
                         }
                     }
                     if (isset($filters['endDate']) ) {
-                        $sql .= " AND `date` <= ':endDate'";
+                        $sql .= " AND `date` <= :endDate";
                         $filterVals[':endDate'] = $filters['endDate'];
                     }
                     if (isset($filters['startTime']) ) {
-                        $sql .= " AND `start_time` >= ':startTime'";
+                        $sql .= " AND `start_time` >= :startTime";
                         $filterVals[':startTime'] = $filters['startTime'];
                     }
                     if (isset($filters['endTime']) ) {
-                        $sql .= " AND `end_time` <= ':endTime'";
+                        $sql .= " AND `end_time` <= :endTime";
                         $filterVals[':endTime'] = $filters['endTime'];
                     }
                     if (isset($filters['sessionLeader'])) {
@@ -262,7 +262,7 @@ advisors can edit appointment information
                     echo("<td>");
                     
                     // Get advisor firstName and lastName
-                    $sql1 = "SELECT `firstName`, `lastName` FROM `users` WHERE `username` =':advisor'";
+                    $sql1 = "SELECT `firstName`, `lastName` FROM `users` WHERE `username` =:advisor";
                     $rs1 = $COMMON->executeQuery($sql1, array(':advisor' => $row['advisor_ID']), $_SERVER["SCRIPT_NAME"]);
                     $row1 = $rs1->fetch(PDO::FETCH_ASSOC);
                     echo("<a id=\"appointmentDate\">".$row['date']." </a>");

@@ -73,7 +73,7 @@ Users enter new account information using this sticky form.
 						  </div>");
 					  }
 					  // appointment mustn't already exist
-					  $sql = "SELECT * FROM `appointments` WHERE `advisor_ID` = ':sessionLeader' and `date` = ':date' and ((`start_time` BETWEEN ':startTime' and ':endTime') or (`end_time` BETWEEN ':startTime1' and ':endTime1'))";
+					  $sql = "SELECT * FROM `appointments` WHERE `advisor_ID` = :sessionLeader and `date` = :date and ((`start_time` BETWEEN :startTime and :endTime) or (`end_time` BETWEEN :startTime1 and :endTime1))";
 					  $rs = $COMMON->executeQuery($sql, array(
 							':sessionLeader' => $posted['sessionLeader'],
 							':date' => $posted['date'],
@@ -92,7 +92,7 @@ Users enter new account information using this sticky form.
 								</div>");}
 					  
 					  if ($errors == 0) {
-						$sql = "INSERT INTO `appointments` (`advisor_ID`, `date`, `start_time`, `end_time`, `location`, `max_students`, `curr_students`) VALUES (':sessionLeader', ':date', ':startTime', ':endTime', ':location', ':apptSize', 0)";
+						$sql = "INSERT INTO `appointments` (`advisor_ID`, `date`, `start_time`, `end_time`, `location`, `max_students`, `curr_students`) VALUES (:sessionLeader, :date, :startTime, :endTime, :location, :apptSize, 0)";
 						$rs = $COMMON->executeQuery($sql, array(
 							':sessionLeader' => $posted['sessionLeader'],
 							':date' => $posted['date'],

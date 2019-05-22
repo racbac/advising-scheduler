@@ -21,7 +21,7 @@ $fields = array("location", "max_students");
 //any fields that the advisor wanted to change will be updated to new value
 for($x = 0; $x < 2; $x++){
   if (!empty($posts[$x])){
-    $sql = "UPDATE `appointments` SET `:fields` = ':posts' WHERE `appointment_ID` = ':appt'";
+    $sql = "UPDATE `appointments` SET `:fields` = :posts WHERE `appointment_ID` = :appt";
     $rs = $COMMON->executeQuery($sql, array(
       ':fields' => $fields[$x],
       ':posts' => $posts[$x],
@@ -32,15 +32,15 @@ for($x = 0; $x < 2; $x++){
 
 //sets the meeting to open or closed if the advisor clicks the appropriate checkbox
 if (isSet($_POST['close'])){
-  $sql = "SELECT `status` FROM `appointments` WHERE `appointment_ID` = ':appt'";
+  $sql = "SELECT `status` FROM `appointments` WHERE `appointment_ID` = :appt";
   $rs = $rs = $COMMON->executeQuery($sql, array(':appt' => $appt), $_SERVER["SCRIPT_NAME"]);
   $status = $rs->fetch(PDO::FETCH_NUM)[0];
   if ($status[0] == 0){
-    $sql = "UPDATE `appointments` SET `status` = 1 WHERE `appointment_ID` = ':appt'";
+    $sql = "UPDATE `appointments` SET `status` = 1 WHERE `appointment_ID` = :appt";
     $rs = $COMMON->executeQuery($sql, array(':appt' => $appt), $_SERVER["SCRIPT_NAME"]);
   }
   else{
-    $sql = "UPDATE `appointments` SET `status` = 0 WHERE `appointment_ID` = ':appt'";
+    $sql = "UPDATE `appointments` SET `status` = 0 WHERE `appointment_ID` = :appt";
     $rs = $COMMON->executeQuery($sql, array(':appt' => $appt), $_SERVER["SCRIPT_NAME"]);
   }
 }
@@ -49,10 +49,10 @@ if (isSet($_POST['close'])){
 //apppointmentID will be set to NULL and the number of students in the appointment will be deincremented by 1
 if (isSet($_POST['students'])){
   foreach($_POST['students'] as $student){
-    $sql = "UPDATE `students_academic_info` SET `appointmentID` = NULL WHERE `username`  = ':student'";
+    $sql = "UPDATE `students_academic_info` SET `appointmentID` = NULL WHERE `username`  = :student";
     $rs = $COMMON->executeQuery($sql, array(':student' => $student), $_SERVER["SCRIPT_NAME"]);
     
-    $sql = "UPDATE `appointments` SET `curr_students` = `curr_students` - 1 WHERE `appointment_ID` = ':appt'";
+    $sql = "UPDATE `appointments` SET `curr_students` = `curr_students` - 1 WHERE `appointment_ID` = :appt";
     $rs = $COMMON->executeQuery($sql, array(':appt' => $appt), $_SERVER["SCRIPT_NAME"]);
 
   }

@@ -14,14 +14,14 @@ require_once('../CommonMethods.php');
 
 $COMMON = new Common($debug);
 $appt = $_POST['id'];
-$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = ':appt'";
+$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = :appt";
 $rs = $COMMON->executeQuery($sql, array(':appt' => $appt), $_SERVER["SCRIPT_NAME"]);
 
 $fields = $rs->fetch(PDO::FETCH_ASSOC);
 $location = $fields['location'];
 $max_students = $fields['max_students'];
 
-$sql = "SELECT `username` FROM `students_academic_info` WHERE `appointmentID` = ':appt'";
+$sql = "SELECT `username` FROM `students_academic_info` WHERE `appointmentID` = :appt";
 $rs = $COMMON->executeQuery($sql, array(':appt' => $appt), $_SERVER["SCRIPT_NAME"]);
 
 $check = true;
@@ -29,7 +29,7 @@ if(mysqli_num_rows($rs) == 0){
   $check = false;
 }
 
-$sql = "SELECT `status` FROM `appointments` WHERE `appointment_ID` = ':appt'";
+$sql = "SELECT `status` FROM `appointments` WHERE `appointment_ID` = :appt";
 $rs2 = $COMMON->executeQuery($sql, array(':appt' => $appt), $_SERVER["SCRIPT_NAME"]);
 $status = $rs2->fetch(PDO::FETCH_NUM);
 ?>

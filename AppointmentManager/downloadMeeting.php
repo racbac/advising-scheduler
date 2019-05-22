@@ -17,7 +17,7 @@ $extraInfo = $_POST['extra'];
 $appt = $_POST['id'];
 
 //get the date and time info from the appointment database
-$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = ':appt'";
+$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = :appt";
 $rs = $COMMON->executeQuery($sql, array(':appt' => $appt), $_SERVER["SCRIPT_NAME"]);
 $info = $rs->fetch(PDO::FETCH_ASSOC);
 $date = $info['date'];
@@ -40,7 +40,7 @@ if (isset($extraInfo)){
 fputcsv($file, $titles);
 
 //gets all of the students who are in that appointment
-$sql = "SELECT * FROM `students_academic_info` WHERE `appointmentID` = ':appt'";
+$sql = "SELECT * FROM `students_academic_info` WHERE `appointmentID` = :appt";
 $rs = $COMMON->executeQuery($sql, array(':appt' => $appt), $_SERVER["SCRIPT_NAME"]);
 $students = array();
 $index = 0;
@@ -52,14 +52,14 @@ while($current = $rs->fetch(PDO::FETCH_ASSOC)){
 //loops through the list of students and creates an array, then inputs that into the file
 foreach($students as $student){
   $username = $student['username'];
-  $sql = "SELECT * FROM `users` WHERE `username` = ':username'";
+  $sql = "SELECT * FROM `users` WHERE `username` = :username";
   $rs = $COMMON->executeQuery($sql, array(':username' => $username), $_SERVER["SCRIPT_NAME"]);
   $names = $rs->fetch(PDO::FETCH_NUM);
   $array = array($date, $start, $student['campusID'], $names[0], $names[1], $student['major']);
   
   //adds the extra info fields into the spreadsheet if asked for by advisor
   if (isset($extraInfo)){	   
-    $sql = "SELECT `futurePlans`, `advisingQuestions` FROM `students_academic_info` WHERE `username` = ':username'";
+    $sql = "SELECT `futurePlans`, `advisingQuestions` FROM `students_academic_info` WHERE `username` = :username";
     $rs = $COMMON->executeQuery($sql, array(':username' => $username), $_SERVER["SCRIPT_NAME"]);
     $extra = mysqli_fetch_array($rs);
     if($extra[0] != NULL){

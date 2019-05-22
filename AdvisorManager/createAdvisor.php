@@ -77,14 +77,14 @@ Users enter new account information using this sticky form.
 			     		// if no errors, create new account
 					if (!isset($_POST['errors'])) {
 						
-						$sql = "INSERT INTO `users` (`lastName`, `firstName`, `username`, `userRole`, `email`, `password`) VALUES (':lastName', ':firstName', ':username', ':userRole', ':email', ':password')";
+						$sql = "INSERT INTO `users` (`lastName`, `firstName`, `username`, `userRole`, `email`, `password`) VALUES (:lastName, :firstName, :username, :userRole, :email, :pwd)";
 						$rs = $COMMON->executeQuery($sql, array(
 							':lastName' => $_POST['lastName'],
 							':firstName' => $_POST['firstName'],
 							':username' => $username,
 							':userRole' => $_POST['userRole'],
 							':email' => $_POST['email'],
-							':password' => sha1($_POST['password'])
+							':pwd' => sha1($_POST['password'])
 						), $_SERVER["SCRIPT_NAME"]);
 						
 						// set user in session and redirect to appropriate user homepage

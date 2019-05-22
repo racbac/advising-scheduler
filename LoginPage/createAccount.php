@@ -55,7 +55,7 @@ Users enter new account information using this sticky form.
 					require_once("../CommonMethods.php");
 					$COMMON = new Common(false);
 					$username = substr($_POST['email'], 0, strpos($_POST['email'], "@"));
-					$sql = "SELECT * FROM `users` WHERE `username` = ':username'";
+					$sql = "SELECT * FROM `users` WHERE `username` = :username";
 					$rs = $COMMON->executeQuery($sql, array(':username' => $username), $_SERVER["SCRIPT_NAME"]);
 					$row = $rs->fetch(PDO::FETCH_NUM);
 					if($row) {
@@ -80,14 +80,14 @@ Users enter new account information using this sticky form.
 					// if no errors, create new account
 					if (!isset($_POST['errors'])) {
 						
-						$sql = "INSERT INTO `users` (`lastName`, `firstName`, `username`, `userRole`, `email`, `password`) VALUES (':lastName', ':firstName', ':username', ':userRole', ':email', ':password')";
+						$sql = "INSERT INTO `users` (`lastName`, `firstName`, `username`, `userRole`, `email`, `password`) VALUES (:lastName, :firstName, :username, :userRole, :email, :pwd)";
 						$rs = $COMMON->executeQuery($sql, array(
 							':lastName' => $_POST['lastName'],
 							':firstName' => $_POST['firstName'],
 							':userName' => $username,
 							':userRole' => $_POST['userRole'],
 							':email' => $_POST['email'],
-							':password' => sha1($_POST['password'])
+							':pwd' => sha1($_POST['password'])
 						), $_SERVER["SCRIPT_NAME"]);
 						
 						// set user in session and redirect to appropriate user homepage
@@ -95,7 +95,7 @@ Users enter new account information using this sticky form.
 						$_SESSION['username'] = $username;
 						if ($_POST['userRole'] == "student") {
 							// extra student information
-							$sql = "INSERT INTO `students_academic_info` (`username`, `major`,`campusID`,`preferredName`,`futurePlans`, `advisingQuestions`) VALUES (':username', ':major', ':campusID', 'preferredName', 'futurePlans', 'questions')";
+							$sql = "INSERT INTO `students_academic_info` (`username`, `major`,`campusID`,`preferredName`,`futurePlans`, `advisingQuestions`) VALUES (:username, :major, :campusID, 'preferredName', 'futurePlans', 'questions')";
 							$rs = $COMMON->executeQuery($sql, array(
 								':username' => $username,
 								':major' => $_POST['major'],

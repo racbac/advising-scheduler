@@ -59,12 +59,12 @@
 					// get basic info
           $_SESSION['userRole'] = "student";
 					$curr_user = $_SESSION['username'];
-					$sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = ':currUser'";
+					$sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = :currUser";
 					$rs = $COMMON->executeQuery($sql, array(':currUser' => $curr_user), $_SERVER['SCRIPT_NAME']);
 					$user_data = $rs->fetch(PDO::FETCH_ASSOC);
 
 					// get academic info
-					$sql = "SELECT `major`,`appointmentID` FROM students_academic_info WHERE `username` = ':currUser'";
+					$sql = "SELECT `major`,`appointmentID` FROM students_academic_info WHERE `username` = :currUser";
 					$rs = $COMMON->executeQuery($sql, array(':currUser' => $curr_user), $_SERVER['SCRIPT_NAME']);
 					$academic_data = $rs->fetch(PDO::FETCH_ASSOC);
                 
@@ -77,7 +77,7 @@
 
 
 					// get appt info
-					$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = ':academicData'";
+					$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = :academicData";
 					$rs = $COMMON->executeQuery($sql, array(':academicData' => $academic_data['appointmentID']), $_SERVER['SCRIPT_NAME']);
 					$appt_data = $rs->fetch(PDO::FETCH_ASSOC);
 					// display appointment or lack thereof
@@ -86,7 +86,7 @@
 					}
 					else {
 						// get advisor name
-						$sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = ':apptData'";
+						$sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = :apptData";
 						$rs = $COMMON->executeQuery($sql, array(':apptData' => $appt_data['advisor_ID']), $_SERVER['SCRIPT_NAME']);
 						$appt_data = array_merge($appt_data, $rs->fetch(PDO::FETCH_ASSOC));
                    	
