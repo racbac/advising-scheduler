@@ -43,30 +43,30 @@
 			</form>
 
 			<div class="Main-Form">
-				<?php
+				<?php 
 					session_start();
-                                        //verify user is logged in
-                                        if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); }
-					include("../CommonMethods.php");
+					//verify user is logged in
+					if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); }
+					require_once("../CommonMethods.php");
 					$COMMON = new Common(false);
-                                        //check if the page is in the offseason
-                                        $sql = "SELECT `closed` FROM `offseason` WHERE `i` = 1";
-                                        $rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
-                                        $check = mysqli_fetch_row($rs)[0];
-                                        if ($check == 1){
+					//check if the page is in the offseason
+					$sql = "SELECT `closed` FROM `offseason` WHERE `i` = 1";
+					$rs = $COMMON->executeQuery($sql, array(), $_SERVER['SCRIPT_NAME']);
+					$check = $rs->fetch(PDO::FETCH_NUM)[0];
+					if ($check == 1){
 					  header("Location: ../LoginPage/awayPage.php");
 					}
 					// get basic info
-                                        $_SESSION['userRole'] = "student";
+          $_SESSION['userRole'] = "student";
 					$curr_user = $_SESSION['username'];
-					$sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = '".$curr_user."'";
-					$rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
-					$user_data = mysqli_fetch_assoc($rs);
+					$sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = ':currUser'";
+					$rs = $COMMON->executeQuery($sql, array(':currUser' => $curr_user), $_SERVER['SCRIPT_NAME']);
+					$user_data = $rs->fetch(PDO::FETCH_ASSOC);
 
 					// get academic info
-					$sql = "SELECT `major`,`appointmentID` FROM students_academic_info WHERE `username` = '".$curr_user."'";
-					$rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
-					$academic_data = mysqli_fetch_assoc($rs);
+					$sql = "SELECT `major`,`appointmentID` FROM students_academic_info WHERE `username` = ':currUser'";
+					$rs = $COMMON->executeQuery($sql, array(':currUser' => $curr_user), $_SERVER['SCRIPT_NAME']);
+					$academic_data = $rs->fetch(PDO::FETCH_ASSOC);
                 
 					// display
 					echo("<div class='Restraint'><div class='LHeavy'><a class='Subtitle'>welcome, </a><a class='Title'>".$user_data['firstName']." ".$user_data['lastName']."</a></div>");
@@ -77,18 +77,18 @@
 
 
 					// get appt info
-					$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = '".$academic_data['appointmentID']."'";
-					$rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
-					$appt_data = mysqli_fetch_assoc($rs);
+					$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = ':academicData'";
+					$rs = $COMMON->executeQuery($sql, array(':academicData' => $academic_data['appointmentID']), $_SERVER['SCRIPT_NAME']);
+					$appt_data = $rs->fetch(PDO::FETCH_ASSOC);
 					// display appointment or lack thereof
 					if (!$appt_data) {
 						echo("<a class='CenteredDescriptor'>you are not scheduled for a meeting.</a>");
 					}
 					else {
 						// get advisor name
-						$sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = '".$appt_data['advisor_ID']."'";
-						$rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
-						$appt_data = array_merge($appt_data, mysqli_fetch_assoc($rs));
+						$sql = "SELECT `firstName`,`lastName` FROM `users` WHERE `username` = ':apptData'";
+						$rs = $COMMON->executeQuery($sql, array(':apptData' => $appt_data['advisor_ID']), $_SERVER['SCRIPT_NAME']);
+						$appt_data = array_merge($appt_data, $rs->fetch(PDO::FETCH_ASSOC));
                    	
 						echo("<a class='Descriptor'>your appointment</a>\n<div>\n<ul>");
 

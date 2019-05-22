@@ -22,37 +22,37 @@
 <?php
 $debug = false; session_start();
 if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); }
-include('../CommonMethods.php');
+require_once('../CommonMethods.php');
 $COMMON = new Common($debug); // common methods
 
 $username = $_SESSION['username'];
 $id = $_POST['submit'];
 
 // Get info from userInfo db
-$sql = "SELECT * FROM `students_academic_info` WHERE `username` ='$username'";
-$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-$row = mysqli_fetch_row($rs);
+$sql = "SELECT * FROM `students_academic_info` WHERE `username` =':username'";
+$rs = $COMMON->executeQuery($sql, array(':username' => $username), $_SERVER["SCRIPT_NAME"]);
+$row = $rs->fetch(PDO::FETCH_NUM);
 
 if ($row['6'] == NULL)
   {
     echo("You have been signed up for this meeting!");
 
     // Update appointmentID in usersInfo for userName from NULL to $id
-    $sql = "UPDATE `students_academic_info` SET `appointmentID`='$id' WHERE `username`='$username'";
-    $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+    $sql = "UPDATE `students_academic_info` SET `appointmentID`=':apptID' WHERE `username`=':username'";
+    $rs = $COMMON->executeQuery($sql, array(':apptID' => $id, ':username' => $username), $_SERVER["SCRIPT_NAME"]);
 
     // Increase numStudents in appointments for id = $id
-    $sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = $id";
-    $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-    $row = mysqli_fetch_row($rs);
+    $sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = :apptID";
+    $rs = $COMMON->executeQuery($sql, array(':apptID' => $id), $_SERVER["SCRIPT_NAME"]);
+    $row = $rs->fetch(PDO::FETCH_NUM);
 
     // Inc numStudents by 1
     $newNum = $row['7'];
     $newNum++;
 
     // Update numStudents in appointments for id from current value to $newNum
-     $sql = "UPDATE `appointments` SET `curr_students`='$newNum' WHERE `appointment_ID`='$id'";
-     $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+     $sql = "UPDATE `appointments` SET `curr_students`='$newNum' WHERE `appointment_ID`=':id'";
+     $rs = $COMMON->executeQuery($sql, array(':id' => $id), $_SERVER["SCRIPT_NAME"]);
   }
 else
   {

@@ -9,18 +9,18 @@ session_start();
 if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); }
 if($_SESSION['userRole'] != "advisor") {header('Location: ../LoginPage/processLogout.php');}
 $debug = false;
-include('../CommonMethods.php');
+require_once('../CommonMethods.php');
 
 $COMMON = new Common($debug);
 $user = $_SESSION['username'];
-$sql = "SELECT * FROM `users` WHERE `username` = '$user'";
-$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-$row = mysqli_fetch_row($rs);
+$sql = "SELECT * FROM `users` WHERE `username` = :user";
+$rs = $COMMON->executeQuery($sql, array(':user' => $user), $_SERVER["SCRIPT_NAME"]);
+$row = $rs->fetch(PDO::FETCH_NUM);
 
 //check if it is the student registration is set to off or not
 $sql = "SELECT `closed` FROM `offseason` WHERE `i` = 1";
-$rs = $COMMON->executeQuery($sql,$_SERVER['SCRIPT_NAME']);
-$check = mysqli_fetch_row($rs)[0];
+$rs = $COMMON->executeQuery($sql, array(), $_SERVER['SCRIPT_NAME']);
+$check = $rs->fetch(PDO::FETCH_NUM)[0];
 
 ?>
 

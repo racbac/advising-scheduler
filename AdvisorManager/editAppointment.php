@@ -10,28 +10,28 @@ Project: CMSC331 Project 02, Fall 2016
 if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); }
 if($_SESSION['userRole'] != "advisor") {header('Location: ../LoginPage/processLogout.php');}
 $debug = false;
-include('../CommonMethods.php');
+require_once('../CommonMethods.php');
 
 $COMMON = new Common($debug);
 $appt = $_POST['id'];
-$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = '$appt'";
-$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = ':appt'";
+$rs = $COMMON->executeQuery($sql, array(':appt' => $appt), $_SERVER["SCRIPT_NAME"]);
 
-$fields = mysqli_fetch_assoc($rs);
+$fields = $rs->fetch(PDO::FETCH_ASSOC);
 $location = $fields['location'];
 $max_students = $fields['max_students'];
 
-$sql = "SELECT `username` FROM `students_academic_info` WHERE `appointmentID` = '$appt'";
-$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+$sql = "SELECT `username` FROM `students_academic_info` WHERE `appointmentID` = ':appt'";
+$rs = $COMMON->executeQuery($sql, array(':appt' => $appt), $_SERVER["SCRIPT_NAME"]);
 
 $check = true;
 if(mysqli_num_rows($rs) == 0){
   $check = false;
 }
 
-$sql = "SELECT `status` FROM `appointments` WHERE `appointment_ID` = '$appt'";
-$rs2 = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-$status = mysqli_fetch_row($rs2);
+$sql = "SELECT `status` FROM `appointments` WHERE `appointment_ID` = ':appt'";
+$rs2 = $COMMON->executeQuery($sql, array(':appt' => $appt), $_SERVER["SCRIPT_NAME"]);
+$status = $rs2->fetch(PDO::FETCH_NUM);
 ?>
 
 <!DOCTYPE html>
@@ -91,7 +91,7 @@ $status = mysqli_fetch_row($rs2);
 					if ($check == true){
 						echo "<a class='Descriptor'>Do you want to remove specific students?</a><table class='AdvisorTable'>";
 						$i = 0;
-						while($students = mysqli_fetch_row($rs)){
+						while($students = $rs->fetch(PDO::FETCH_NUM)){
 							if (!($i % 2)) {
 								echo "<tr>";
 							}

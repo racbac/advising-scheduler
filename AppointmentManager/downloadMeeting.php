@@ -9,7 +9,7 @@ Project: CMSC331 Project 02, Fall 2016
 session_start();
 if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); }
 $debug = false;
-include('../CommonMethods.php');
+require_once('../CommonMethods.php');
 
 $COMMON = new Common($debug);
 
@@ -17,9 +17,9 @@ $extraInfo = $_POST['extra'];
 $appt = $_POST['id'];
 
 //get the date and time info from the appointment database
-$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = '$appt'";
-$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-$info = mysqli_fetch_assoc($rs);
+$sql = "SELECT * FROM `appointments` WHERE `appointment_ID` = ':appt'";
+$rs = $COMMON->executeQuery($sql, array(':appt' => $appt), $_SERVER["SCRIPT_NAME"]);
+$info = $rs->fetch(PDO::FETCH_ASSOC);
 $date = $info['date'];
 $start = $info['start_time'];
 
@@ -40,11 +40,11 @@ if (isset($extraInfo)){
 fputcsv($file, $titles);
 
 //gets all of the students who are in that appointment
-$sql = "SELECT * FROM `students_academic_info` WHERE `appointmentID` = '$appt'";
-$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+$sql = "SELECT * FROM `students_academic_info` WHERE `appointmentID` = ':appt'";
+$rs = $COMMON->executeQuery($sql, array(':appt' => $appt), $_SERVER["SCRIPT_NAME"]);
 $students = array();
 $index = 0;
-while($current = mysqli_fetch_assoc($rs)){
+while($current = $rs->fetch(PDO::FETCH_ASSOC)){
   $students[$index] = $current;
   $index++;
 }
@@ -52,15 +52,15 @@ while($current = mysqli_fetch_assoc($rs)){
 //loops through the list of students and creates an array, then inputs that into the file
 foreach($students as $student){
   $username = $student['username'];
-  $sql = "SELECT * FROM `users` WHERE `username` = '$username'";
-  $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-  $names = mysqli_fetch_row($rs);
+  $sql = "SELECT * FROM `users` WHERE `username` = ':username'";
+  $rs = $COMMON->executeQuery($sql, array(':username' => $username), $_SERVER["SCRIPT_NAME"]);
+  $names = $rs->fetch(PDO::FETCH_NUM);
   $array = array($date, $start, $student['campusID'], $names[0], $names[1], $student['major']);
   
   //adds the extra info fields into the spreadsheet if asked for by advisor
   if (isset($extraInfo)){	   
-    $sql = "SELECT `futurePlans`, `advisingQuestions` FROM `students_academic_info` WHERE `username` = '$username'";
-    $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+    $sql = "SELECT `futurePlans`, `advisingQuestions` FROM `students_academic_info` WHERE `username` = ':username'";
+    $rs = $COMMON->executeQuery($sql, array(':username' => $username), $_SERVER["SCRIPT_NAME"]);
     $extra = mysqli_fetch_array($rs);
     if($extra[0] != NULL){
       array_push($array, $extra[0]);

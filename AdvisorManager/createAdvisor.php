@@ -39,7 +39,7 @@ Users enter new account information using this sticky form.
 				<form action="advisorHome.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
 			</div>
 			<?php
-				include_once("../Utilities/phpFuns.php");
+				require_once("../Utilities/phpFuns.php");
                                 session_start();
                                 if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); }
                                 if($_SESSION['userRole'] != "advisor") {header('Location: ../LoginPage/processLogout.php');}
@@ -55,12 +55,12 @@ Users enter new account information using this sticky form.
 						$_POST['errors'] = 1; 
 					}
 					// verify account doesn't exist
-					include("../CommonMethods.php");
+					require_once("../CommonMethods.php");
 					$COMMON = new Common(false);
 					$username = substr($_POST['email'], 0, strpos($_POST['email'], "@"));
-					$sql = "SELECT * FROM `users` WHERE `username` = '$username'";
-					$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-					$row = mysqli_fetch_row($rs);
+					$sql = "SELECT * FROM `users` WHERE `username` = :username";
+					$rs = $COMMON->executeQuery($sql, array(':username' => $username), $_SERVER["SCRIPT_NAME"]);
+					$row = $rs->fetch(PDO::FETCH_NUM);
 					if($row) {
 						echo("<div class='ErrorDiv'>
 							<div class='InnerErrorDiv'>
@@ -77,8 +77,15 @@ Users enter new account information using this sticky form.
 			     		// if no errors, create new account
 					if (!isset($_POST['errors'])) {
 						
-						$sql = "INSERT INTO `users` (`lastName`, `firstName`, `username`, `userRole`, `email`, `password`) VALUES ('".$_POST['lastName']."', '".$_POST['firstName']."', '".$username."', '".$_POST['userRole']."', '".$_POST['email']."', '".sha1($_POST['password'])."')";
-						$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+						$sql = "INSERT INTO `users` (`lastName`, `firstName`, `username`, `userRole`, `email`, `password`) VALUES (':lastName', ':firstName', ':username', ':userRole', ':email', ':password')";
+						$rs = $COMMON->executeQuery($sql, array(
+							':lastName' => $_POST['lastName'],
+							':firstName' => $_POST['firstName'],
+							':username' => $username,
+							':userRole' => $_POST['userRole'],
+							':email' => $_POST['email'],
+							':password' => sha1($_POST['password'])
+						), $_SERVER["SCRIPT_NAME"]);
 						
 						// set user in session and redirect to appropriate user homepage
 				  

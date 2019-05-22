@@ -6,7 +6,7 @@
 -->
 
 <?php
-  include('../CommonMethods.php');
+  require_once('../CommonMethods.php');
   session_start();
   $debug = true;
   $COMMON = new Common($debug);
@@ -20,9 +20,13 @@
   $password = sha1($_POST['password']);
 
   //gets user from user db
-  $sql = "SELECT * FROM `users` WHERE `username` = '$username' AND `password` = '$password'";
-  $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-  $row = mysqli_fetch_assoc($rs);
+  $sql = "SELECT * FROM `users` WHERE `username` = :username AND `password` = :pwd";
+  $rs = $COMMON->executeQuery($sql, array(
+      ':username' => $username,
+      ':pwd' => $password
+  ), $_SERVER["SCRIPT_NAME"]);
+  $row = $rs->fetch(PDO::FETCH_ASSOC);
+  var_dump($username, $password, $row);
 
 //if user is in db
 if($row) {
@@ -39,8 +43,8 @@ if($row) {
 }
 
 //else returns to login page
-else {
+/* else {
     session_unset();
     header('Location: login.php');
-}
+} */
 ?>

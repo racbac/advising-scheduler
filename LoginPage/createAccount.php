@@ -39,7 +39,7 @@ Users enter new account information using this sticky form.
 				<form action="login.php" method="post"><button type="submit" class="BackButton"><span>back</span></button></form>
 			</div>
 			<?php
-				include_once("../Utilities/phpFuns.php");
+				require_once("../Utilities/phpFuns.php");
 				if(isset($_POST['submit'])) {
 					// verify that passwords match
 					if($_POST['confirmPass'] != $_POST['password']) {
@@ -52,12 +52,12 @@ Users enter new account information using this sticky form.
 						$_POST['errors'] = 1; 
 					}
 					// verify account doesn't exist
-					include("../CommonMethods.php");
+					require_once("../CommonMethods.php");
 					$COMMON = new Common(false);
 					$username = substr($_POST['email'], 0, strpos($_POST['email'], "@"));
-					$sql = "SELECT * FROM `users` WHERE `username` = '$username'";
-					$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-					$row = mysqli_fetch_row($rs);
+					$sql = "SELECT * FROM `users` WHERE `username` = ':username'";
+					$rs = $COMMON->executeQuery($sql, array(':username' => $username), $_SERVER["SCRIPT_NAME"]);
+					$row = $rs->fetch(PDO::FETCH_NUM);
 					if($row) {
 						echo("<div class='ErrorDiv'>
 							<div class='InnerErrorDiv'>
@@ -80,16 +80,30 @@ Users enter new account information using this sticky form.
 					// if no errors, create new account
 					if (!isset($_POST['errors'])) {
 						
-						$sql = "INSERT INTO `users` (`lastName`, `firstName`, `username`, `userRole`, `email`, `password`) VALUES ('".$_POST['lastName']."', '".$_POST['firstName']."', '".$username."', '".$_POST['userRole']."', '".$_POST['email']."', '".sha1($_POST['password'])."')";
-						$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+						$sql = "INSERT INTO `users` (`lastName`, `firstName`, `username`, `userRole`, `email`, `password`) VALUES (':lastName', ':firstName', ':username', ':userRole', ':email', ':password')";
+						$rs = $COMMON->executeQuery($sql, array(
+							':lastName' => $_POST['lastName'],
+							':firstName' => $_POST['firstName'],
+							':userName' => $username,
+							':userRole' => $_POST['userRole'],
+							':email' => $_POST['email'],
+							':password' => sha1($_POST['password'])
+						), $_SERVER["SCRIPT_NAME"]);
 						
 						// set user in session and redirect to appropriate user homepage
 						session_start();
 						$_SESSION['username'] = $username;
 						if ($_POST['userRole'] == "student") {
 							// extra student information
-							$sql = "INSERT INTO `students_academic_info` (`username`, `major`,`campusID`,`preferredName`,`futurePlans`, `advisingQuestions`) VALUES ('".$username."', '".$_POST['major']."', '".$_POST['campusID']."', '".$_POST['preferredName']."', '".$_POST['futurePlans']."', '".$_POST['questions']."')";
-							$rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+							$sql = "INSERT INTO `students_academic_info` (`username`, `major`,`campusID`,`preferredName`,`futurePlans`, `advisingQuestions`) VALUES (':username', ':major', ':campusID', 'preferredName', 'futurePlans', 'questions')";
+							$rs = $COMMON->executeQuery($sql, array(
+								':username' => $username,
+								':major' => $_POST['major'],
+								':campusID' => $_POST['campusID'],
+								':preferredName' => $_POST['preferredName'],
+								':futurePlans' => $_POST['futurePlans'],
+								':questions' => $_POST['questions']
+							), $_SERVER["SCRIPT_NAME"]);
 							
 							header('Location: ../StudentManager/studentHome.php');
 						} else {

@@ -1,22 +1,25 @@
 <?php
 
     function joinAppt($student, $apptID) {
-        include_once('../CommonMethods.php');
+        require_once('../CommonMethods.php');
         $COMMON = new Common(false); // common methods
 
         // Get info from userInfo db
-        $sql = "SELECT * FROM `students_academic_info` WHERE `username` ='$student'";
-        $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
-        $row = mysqli_fetch_row($rs);
+        $sql = "SELECT * FROM `students_academic_info` WHERE `username` =':student'";
+        $rs = $COMMON->executeQuery($sql, array(':student' => $student), $_SERVER["SCRIPT_NAME"]);
+        $row = $rs->fetch(PDO::FETCH_NUM);
 
         if ($row['6'] == NULL) {
             // Update appointmentID in usersInfo for userName from NULL to $id
-            $sql = "UPDATE `students_academic_info` SET `appointmentID`='$apptID' WHERE `username`='$student'";
-            $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+            $sql = "UPDATE `students_academic_info` SET `appointmentID`=':apptID' WHERE `username`=':student'";
+            $rs = $COMMON->executeQuery($sql, array(
+                ':apptID' => $apptID,
+                ':student' => $student
+            ), $_SERVER["SCRIPT_NAME"]);
 
             // Update numStudents in appointments for id from current value to $newNum
-            $sql = "UPDATE `appointments` SET `curr_students`= `curr_students` + 1 WHERE `appointment_ID`='$apptID'";
-            $rs = $COMMON->executeQuery($sql, $_SERVER["SCRIPT_NAME"]);
+            $sql = "UPDATE `appointments` SET `curr_students`= `curr_students` + 1 WHERE `appointment_ID`=':apptID'";
+            $rs = $COMMON->executeQuery($sql, array(':apptID' => $apptID), $_SERVER["SCRIPT_NAME"]);
             unset($COMMON);
             return true;
         }
@@ -27,20 +30,20 @@
 
     function dropAppt($student, $connect = false) {
         if ($connect == false) {
-            include('../CommonMethods.php');
+            require_once('../CommonMethods.php');
             $connect = new Common(false);
         }
         // get curr appointment id
-        $sql = "SELECT `appointmentID` FROM `students_academic_info` WHERE `username` = '$student'";
-        $rs = $connect->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
-        $apptID = mysqli_fetch_assoc($rs)['appointmentID'];
+        $sql = "SELECT `appointmentID` FROM `students_academic_info` WHERE `username` = ':student'";
+        $rs = $connect->executeQuery($sql, array(':student' => $student), $_SERVER['SCRIPT_NAME']);
+        $apptID = $rs->fetch(PDO::FETCH_ASSOC)['appointmentID'];
         if ($apptID != NULL) {
             // decrease number of students attending in appointments
-            $sql = "UPDATE `appointments` SET `curr_students` = `curr_students` - 1 WHERE `appointment_ID` = '$apptID'";
-            $rs = $connect->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
+            $sql = "UPDATE `appointments` SET `curr_students` = `curr_students` - 1 WHERE `appointment_ID` = ':apptID'";
+            $rs = $connect->executeQuery($sql, array(':apptID' => $apptID), $_SERVER['SCRIPT_NAME']);
             // set student's appointment to NULL
-            $sql = "UPDATE `students_academic_info` SET `appointmentID` = NULL WHERE `username` = '$student'";
-            $rs = $connect->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
+            $sql = "UPDATE `students_academic_info` SET `appointmentID` = NULL WHERE `username` = ':student'";
+            $rs = $connect->executeQuery($sql, array(':student' => $student), $_SERVER['SCRIPT_NAME']);
         }
         unset($connect);
     }

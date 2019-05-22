@@ -5,7 +5,7 @@ students can sign up for available appointments, which signs them out of their c
 
 advisors can edit appointment information
 -->
-   <?php ob_start(); session_start(); if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); } include('../Utilities/phpFuns.php'); include('../CommonMethods.php'); $COMMON = new Common(false); ?>
+   <?php ob_start(); session_start(); if(!$_SESSION['userToken']) { header('Location: ../LoginPage/login.php'); } require_once('../Utilities/phpFuns.php'); require_once('../CommonMethods.php'); $COMMON = new Common(false); ?>
 
 <!DOCTYPE html>
 <meta charset="UTF-8">
@@ -173,6 +173,7 @@ advisors can edit appointment information
 
             <?php
             $sql = "SELECT * FROM `appointments` WHERE 1";
+            $filterVals = array();
             if (isset($_POST['search']) or isset($_POST['all'])) {
                 
                 if (isset($_POST['all'])) { // view all appointments
@@ -221,36 +222,49 @@ advisors can edit appointment information
                         $sql .= " AND `status` = 0  AND `curr_students` < `max_students`";
                     } 
                     if (isset($filters['startDate'])) {
-                        if (isset($filters['endDate']) )
-                        { $sql .= " AND `date` BETWEEN '$filters[startDate]' and '$filters[endDate]'"; }
-                    { $sql .= " AND `date` >= '$filters[startDate]'"; }
+                        if (isset($filters['endDate']) ) {
+                            $sql .= " AND `date` BETWEEN :startDate' and ':endDate'";
+                            $filterVals[':startDate'] = $filters['startDate'];
+                            $filterVals[':endDate'] = $filters['endDate'];
+                        } else { 
+                            $sql .= " AND `date` >= ':startDate'"; 
+                            $filterVals[':startDate'] = $filters['startDate'];
+                        }
                     }
-                    if (isset($filters['endDate']) )
-                        {$sql .= " AND `date` <= '$filters[endDate]'";}
-                    if (isset($filters['startTime']) )
-                        {$sql .= " AND `start_time` >= '$filters[startTime]'";}
-                    if (isset($filters['endTime']) )
-                        {$sql .= " AND `end_time` <= '$filters[endTime]'";}
-                    if (isset($filters['sessionLeader']))
-                        { $sql .= " AND `advisor_ID` IN ('".implode("', '", $filters['sessionLeader'])."')"; }
+                    if (isset($filters['endDate']) ) {
+                        $sql .= " AND `date` <= ':endDate'";
+                        $filterVals[':endDate'] = $filters['endDate'];
+                    }
+                    if (isset($filters['startTime']) ) {
+                        $sql .= " AND `start_time` >= ':startTime'";
+                        $filterVals[':startTime'] = $filters['startTime'];
+                    }
+                    if (isset($filters['endTime']) ) {
+                        $sql .= " AND `end_time` <= ':endTime'";
+                        $filterVals[':endTime'] = $filters['endTime'];
+                    }
+                    if (isset($filters['sessionLeader'])) {
+                        $sql .= " AND `advisor_ID` IN :sessionLeader";
+                        $filterVals['sessionLeader'] = "('" .implode("', '", $filters['sessionLeader']) ."')";
+                    }
 
                      
                 }
                 // print appointments
                 $sql .= " ORDER BY `date`, `start_time` ASC";
-                $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
+                $rs = $COMMON->executeQuery($sql, $filterVals, $_SERVER['SCRIPT_NAME']);
                 echo("<table class='AdvisorTable'><tr>");
                 $i = 0;
-                while($row = mysqli_fetch_assoc($rs))
+                while($row = $rs->fetch(PDO::FETCH_ASSOC))
                 {
                     $spaces =  $row['max_students']-$row['curr_students'];
                     $id = $row['appointment_ID'];
                     echo("<td>");
                     
                     // Get advisor firstName and lastName
-                    $sql1 = "SELECT `firstName`, `lastName` FROM `users` WHERE `username` ='$row[advisor_ID]'";
-                    $rs1 = $COMMON->executeQuery($sql1, $_SERVER["SCRIPT_NAME"]);
-                    $row1 = mysqli_fetch_assoc($rs1);
+                    $sql1 = "SELECT `firstName`, `lastName` FROM `users` WHERE `username` =':advisor'";
+                    $rs1 = $COMMON->executeQuery($sql1, array(':advisor' => $row['advisor_ID']), $_SERVER["SCRIPT_NAME"]);
+                    $row1 = $rs1->fetch(PDO::FETCH_ASSOC);
                     echo("<a id=\"appointmentDate\">".$row['date']." </a>");
                     echo("<a id=\"appointmentTime\">".$row['start_time']."</a>");
                     echo("<div><a id=\"advisorName\">".$row1['firstName']." ".$row1['lastName']."</a>");

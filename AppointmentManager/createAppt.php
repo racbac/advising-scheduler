@@ -47,7 +47,7 @@ Users enter new account information using this sticky form.
                                         if(!$_SESSION['userToken']) {header('Location: ../LoginPage/login.php');}
 					if (isset($_POST['submit'])) {
 					$updated = true;
-					include('../CommonMethods.php');
+					require_once('../CommonMethods.php');
 					$COMMON = new Common(false);
 					$posted = array("sessionLeader" => $_POST['sessionLeader'], "date" => date("Y-m-d", strtotime($_POST['year']."-".$_POST['month']."-".$_POST['day'])), "startTime" => date("H:i", strtotime($_POST['startHour'].":".$_POST['startMin']." ".$_POST['startAmPm'])) , "endTime" => date("H:i", strtotime($_POST['endHour'].":".$_POST['endMin']." ".$_POST['endAmPm'])), "location" => $_POST['location'], "apptSize" => $_POST['apptSize']);
 					// validate input; note that input elements validate the date, appointment size, advisor, and location
@@ -73,8 +73,15 @@ Users enter new account information using this sticky form.
 						  </div>");
 					  }
 					  // appointment mustn't already exist
-					  $sql = "SELECT * FROM `appointments` WHERE `advisor_ID` = '$posted[sessionLeader]' and `date` = '$posted[date]' and ((`start_time` BETWEEN '$posted[startTime]' and '$posted[endTime]') or (`end_time` BETWEEN '$posted[startTime]' and '$posted[endTime]'))";
-					  $rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
+					  $sql = "SELECT * FROM `appointments` WHERE `advisor_ID` = ':sessionLeader' and `date` = ':date' and ((`start_time` BETWEEN ':startTime' and ':endTime') or (`end_time` BETWEEN ':startTime1' and ':endTime1'))";
+					  $rs = $COMMON->executeQuery($sql, array(
+							':sessionLeader' => $posted['sessionLeader'],
+							':date' => $posted['date'],
+							':startTime' => $posted['startTime'],
+							':endTime' => $posted['endTime'],
+							':startTime1' => $posted['startTime'],
+							':endTime1' => $posted['endTime']
+						), $_SERVER['SCRIPT_NAME']);
 					  if (mysqli_num_rows($rs) != 0) {
 						$errors++;
 							echo("<div class='ErrorDiv'>
@@ -85,8 +92,15 @@ Users enter new account information using this sticky form.
 								</div>");}
 					  
 					  if ($errors == 0) {
-						$sql = "INSERT INTO `appointments` (`advisor_ID`, `date`, `start_time`, `end_time`, `location`, `max_students`, `curr_students`) VALUES ('$posted[sessionLeader]', '$posted[date]', '$posted[startTime]', '$posted[endTime]', '$posted[location]', '$posted[apptSize]', 0)";
-						$rs = $COMMON->executeQuery($sql, $_SERVER['SCRIPT_NAME']);
+						$sql = "INSERT INTO `appointments` (`advisor_ID`, `date`, `start_time`, `end_time`, `location`, `max_students`, `curr_students`) VALUES (':sessionLeader', ':date', ':startTime', ':endTime', ':location', ':apptSize', 0)";
+						$rs = $COMMON->executeQuery($sql, array(
+							':sessionLeader' => $posted['sessionLeader'],
+							':date' => $posted['date'],
+							':startTime' => $posted['startTime'],
+							':endTime' => $posted['endTime'],
+							':location' => $posted['location'],
+							':apptSize' => $posted['apptSize']
+						), $_SERVER['SCRIPT_NAME']);
 
 						echo("<div class='SuccessDiv'>
 							<div class='InnerSuccessDiv'>
